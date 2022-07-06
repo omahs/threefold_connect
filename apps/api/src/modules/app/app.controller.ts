@@ -39,4 +39,9 @@ export class AppController {
     async getMinimumVersion() {
         return await this.flagService.getMinimumVersions();
     }
+
+    @Get('env')
+    async getEnvironmentVariables() {
+        return await this.flagService.getEnvironmentVariables();
+    }
 }

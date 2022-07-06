@@ -25,4 +25,8 @@ export class FlagsmithService {
     async getMinimumVersions() {
         return await this.getFeature('minimum-version');
     }
+
+    async getEnvironmentVariables() {
+        return await flagsmith.getFlags();
+    }
 }

@@ -14,16 +14,15 @@ import PhoneModule from '@/modules/Phone';
 import SignModule from '@/modules/Sign';
 import sodium from 'libsodium-wrappers';
 import socketIo from '@/plugins/SocketIo';
-import { Config } from '@/modules/Core/configs/config';
 import { registerGlobalComponent } from '@/components/global';
-import { initFlags } from '@/modules/Core/services/flag.service';
+import { initializeConfiguration} from '@/modules/Core/services/flag.service';
 
 const initApplication = async () => {
     await sodium.ready;
 
     const app = createApp(App);
     app.use(socketIo, {
-        connection: Config.API_BACKEND_URL,
+        connection: 'http://localhost:3001',
         options: {
             allowEI03: true,
             reconnection: true,
@@ -40,7 +39,7 @@ const initApplication = async () => {
 
     registerGlobalComponent(app);
 
-    await initFlags();
+    await initializeConfiguration();
 
     app.mount('#app');
 };

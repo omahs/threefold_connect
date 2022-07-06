@@ -1,18 +1,21 @@
-import flagsmith from 'flagsmith';
+import axios from "axios";
+import {Config} from "@/modules/Core/configs/config";
 
-export const initFlags = async () => {
-    const isDev: boolean = process.env.NODE_ENV === 'development';
-    const override = 'VGR7Kmd6qWqnYaZxXU7Gyw';
+export const initializeConfiguration = async () => {
+    let t;
 
-    const environmentID = override;
-    console.log({ flagsmithEnv: environmentID });
+    try {
+        t = (await axios.get('/api/env')).data;
 
-    await flagsmith.init({
-        environmentID,
-        api: 'https://flagsmith.jimber.io/api/v1/',
-    });
+        Config.DEBOUNCE_NAME_SOCKET = t['debounce-name-socket'].value
+        Config.SUPPORT_URL = t['support-url'].value
+        Config.API_KYC_URL = t['openkyc-url'].value
 
-    await flagsmith.getFlags();
+    } catch (e) {
+        console.error(e)
+        console.log('Could not get flagsmith configs of backend')
+    }
 
-    console.table({ flags: flagsmith.getAllFlags() });
+    console.table(t)
+
 };

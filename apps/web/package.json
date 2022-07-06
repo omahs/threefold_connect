@@ -18,7 +18,6 @@
         "@tailwindcss/typography": "^0.5.2",
         "@vueuse/core": "^7.6.2",
         "axios": "^0.27.2",
-        "flagsmith": "2.0.9",
         "libsodium-wrappers": "^0.7.9",
         "nanoid": "^3.3.4",
         "socket.io-client": "4.5.1",
