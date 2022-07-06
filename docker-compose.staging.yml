@@ -1,12 +1,12 @@
 version: '3'
 services:
-    project-staging-db:
+    tfconnectv2-staging-db:
         image: mariadb:latest
-        container_name: project-staging-db
+        container_name: tfconnectv2-staging-db
         restart: always
         environment:
             - MARIADB_ROOT_PASSWORD
-            - MARIADB_DATABASE=project
+            - MARIADB_DATABASE=tfconnectv2
         volumes:
             - db_data_staging:/var/lib/mysql
         healthcheck:
@@ -14,16 +14,16 @@ services:
             timeout: 10s
             retries: 10
         networks:
-            - project-staging-network
+            - tfconnectv2-staging-network
 
-    project-staging-frontend:
+    tfconnectv2-staging-frontend:
         image: ${FRONTEND_IMAGE}
         depends_on:
-            - project-staging-backend
-        container_name: project-staging-frontend
+            - tfconnectv2-staging-backend
+        container_name: tfconnectv2-staging-frontend
         restart: always
         networks:
-            - project-staging-network
+            - tfconnectv2-staging-network
             - proxy
         environment:
             - ENVIRONMENT=staging
@@ -31,27 +31,27 @@ services:
             - FLAGSMITH_API_KEY
             - BACKEND_URL
 
-    project-staging-backend:
+    tfconnectv2-staging-backend:
         depends_on:
-            - project-staging-db
+            - tfconnectv2-staging-db
         environment:
             - ENVIRONMENT=staging
             - FLAGSMITH_URL
             - FLAGSMITH_API_KEY
-            - DATABASE_URL=mysql://root:${MARIADB_ROOT_PASSWORD}@project-staging-db:3306/project?schema=public
-            - DATABASE_HOST=project-staging-db
+            - DATABASE_URL=mysql://root:${MARIADB_ROOT_PASSWORD}@tfconnectv2-staging-db:3306/tfconnectv2?schema=public
+            - DATABASE_HOST=tfconnectv2-staging-db
             - DATABASE_PORT=3306
         image: ${BACKEND_IMAGE}
-        container_name: project-staging-backend
+        container_name: tfconnectv2-staging-backend
         restart: always
         networks:
-            - project-staging-network
+            - tfconnectv2-staging-network
             - proxy
 
 volumes:
-    db_data_staging:
+    tfconnectv2_db_data_staging:
 
 networks:
-    project-staging-network:
+    tfconnectv2-staging-network:
     proxy:
         external: true

@@ -15,7 +15,7 @@ jobs:
             packages: write
         env:
             REGISTRY: ghcr.io
-            IMAGE_NAME: ghcr.io/repository/project/frontend
+            IMAGE_NAME: ghcr.io/repository/tfconnectv2/frontend
         steps:
             - name: Checkout
               uses: actions/checkout@v2
@@ -55,7 +55,7 @@ jobs:
             packages: write
         env:
             REGISTRY: ghcr.io
-            IMAGE_NAME: ghcr.io/repository/project/backend
+            IMAGE_NAME: ghcr.io/repository/tfconnectv2/backend
         steps:
             - name: Checkout
               uses: actions/checkout@v2
@@ -92,8 +92,8 @@ jobs:
             - build_frontend
             - build_backend
         env:
-            FRONTEND_IMAGE: ghcr.io/repository/project/frontend:${{ github.ref_name}}
-            BACKEND_IMAGE: ghcr.io/repository/project/backend:${{ github.ref_name}}
+            FRONTEND_IMAGE: ghcr.io/repository/tfconnectv2/frontend:${{ github.ref_name}}
+            BACKEND_IMAGE: ghcr.io/repository/tfconnectv2/backend:${{ github.ref_name}}
             FLAGSMITH_URL: ${{ secrets.FLAGSMITH_URL }}
             FLAGSMITH_API_KEY: ${{ secrets.STAGING_FLAGSMITH_API_KEY }}
             BACKEND_URL: /
