@@ -87,7 +87,7 @@ jobs:
                   labels: ${{ steps.meta.outputs.labels }}
 
     deploy:
-        runs-on: jimbertools-action-runner
+        runs-on: jimber-staging-server
         needs:
             - build_frontend
             - build_backend
