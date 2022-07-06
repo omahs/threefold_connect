@@ -8,7 +8,7 @@ services:
             - MARIADB_ROOT_PASSWORD
             - MARIADB_DATABASE=tfconnectv2
         volumes:
-            - db_data_staging:/var/lib/mysql
+            - tfconnectv2_db_data_staging:/var/lib/mysql
         healthcheck:
             test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
             timeout: 10s
