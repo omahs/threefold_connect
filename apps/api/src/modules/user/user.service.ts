@@ -3,9 +3,9 @@ import { PrismaService } from 'nestjs-prisma';
 import { Prisma } from '@prisma/client';
 import { AuthorizationHeaders, ChangeEmailDto } from './dtos/user.dto';
 import { BadRequestException, ExpectationFailedException, NotFoundException } from '../../exceptions';
-import { verifySignature } from 'custom-crypto';
 import { decodeBase64 } from 'tweetnacl-util';
 import { findUserByUsernameQuery, updateEmailOfUserQuery } from './queries/user.queries';
+import {verifySignature} from "../../utils/crypto.util";
 
 @Injectable()
 export class UserService {

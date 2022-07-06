@@ -11,8 +11,8 @@ import {
     state,
     username,
 } from '@/modules/Initial/data';
-import { ISocketJoin, ISocketLeave, ISocketLogin } from 'custom-types/src';
-import { encrypt } from 'custom-crypto/src';
+import { ISocketJoin, ISocketLeave, ISocketLogin } from 'types';
+import {encrypt} from "@/modules/Core/utils/crypto.util";
 
 export const loginUserWeb = async () => {
     const doubleName = username.value + '.3bot';

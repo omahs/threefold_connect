@@ -1,10 +1,10 @@
-import { getPublicKeyOfUsername } from '@/modules/Login/services/external.service';
-import { selectedImageId } from '@/modules/Initial/data';
-import { redirectToOriginalLocation, redirectWithCancel } from '@/modules/Login/services/redirection.service';
-import { encodeBase64 } from 'tweetnacl-util';
-import { isMobile } from '@/modules/Core/utils/mobile.util';
-import { ISocketLoginResult, ISocketSignedAttempt } from 'custom-types/src';
-import { verifySignature } from 'custom-crypto/src';
+import {getPublicKeyOfUsername} from '@/modules/Login/services/external.service';
+import {selectedImageId} from '@/modules/Initial/data';
+import {redirectToOriginalLocation, redirectWithCancel} from '@/modules/Login/services/redirection.service';
+import {encodeBase64} from 'tweetnacl-util';
+import {isMobile} from '@/modules/Core/utils/mobile.util';
+import {ISocketLoginResult, ISocketSignedAttempt} from 'types';
+import {verifySignature} from "@/modules/Core/utils/crypto.util";
 
 export const socketCallbackLogin = async (data: ISocketLoginResult) => {
     if (!data.doubleName || !data.signedAttempt) return;

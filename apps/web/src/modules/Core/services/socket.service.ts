@@ -11,7 +11,7 @@ import {
     ISocketLoginResult,
     ISocketSign,
     SocketTypes,
-} from 'custom-types/src';
+} from 'types/index';
 
 const state = reactive<State>({
     socket: '',

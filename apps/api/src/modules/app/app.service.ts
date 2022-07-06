@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { BadRequestException, ExpectationFailedException, NotFoundException } from '../../exceptions';
-import { verifySignature } from 'custom-crypto';
 import { decodeBase64 } from 'tweetnacl-util';
 import { UserGateway } from '../user/user.gateway';
 import { CreateUserDto } from './app.controller';
 import { PrismaService } from 'nestjs-prisma';
+import {verifySignature} from "../../utils/crypto.util";
 
 export interface SignedLoginAttemptDto {
     doubleName: string;

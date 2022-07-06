@@ -2,7 +2,7 @@ import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from
 import { Server, Socket } from 'socket.io';
 
 // @ts-ignore
-import { ISocketCheckName, ISocketJoin, ISocketLeave, ISocketLogin, SocketEvents, SocketTypes } from 'custom-types';
+import { ISocketCheckName, ISocketJoin, ISocketLeave, ISocketLogin, SocketEvents, SocketTypes } from 'types';
 import { UserService } from './user.service';
 import { SignedLoginAttemptDto, SignedSignAttemptDto } from '../app/app.service';
 

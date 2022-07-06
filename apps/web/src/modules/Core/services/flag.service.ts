@@ -1,5 +1,4 @@
 import flagsmith from 'flagsmith';
-import axios from 'axios';
 
 export const initFlags = async () => {
     const isDev: boolean = process.env.NODE_ENV === 'development';

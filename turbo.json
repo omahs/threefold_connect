@@ -1,13 +1,8 @@
 {
-    "$schema": "https://turborepo.org/schema.json",
-    "baseBranch": "origin/main",
     "pipeline": {
-        "migrate": {},
         "build": {
-            "outputs": ["dist/**", "build/**"]
-        },
-        "test": {
-            "outputs": []
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"]
         },
         "lint": {
             "outputs": []

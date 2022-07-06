@@ -56,7 +56,7 @@
     import { generateRandomImageId } from '@/modules/Login/utils/generate.util';
     import { loginUserWeb } from '@/modules/Login/services/login.service';
     import { validateName } from '@/modules/Initial/validators/name.validator';
-    import { ISocketCheckName } from 'custom-types/src';
+    import { ISocketCheckName } from 'types';
 
     const router = useRouter();
 

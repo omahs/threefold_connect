@@ -7,7 +7,6 @@ import {
     ExpectationFailedException,
     NotFoundException,
 } from '../../exceptions';
-import { verifySignature } from 'custom-crypto';
 import { decodeBase64 } from 'tweetnacl-util';
 import { CreateDigitalTwinDto, DigitalTwinDetailsDto, DigitalTwinDto } from './dtos/digitaltwin.dto';
 import { CreateTwinResponseEnum } from './enums/response.enum';
@@ -19,6 +18,7 @@ import {
     updateTwinYggdrasilIpQuery,
 } from './queries/digitaltwin.queries';
 import sodium from 'libsodium-wrappers';
+import {verifySignature} from "../../utils/crypto.util";
 
 @Injectable()
 export class DigitalTwinService {
