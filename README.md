@@ -1,80 +1,49 @@
-# ThreeFold Connect
+# Fullstack boilerplate BlueBlazer
 
-## Introduction
+## Monorepo
 
-Threefold Connect is a mobile app that serves as your main gateway to the Threefold Grid and various other Threefold products and services. 
+We are using turborepo to manage all the applications in the `apps` folder.  
+In the root folder you can run `yarn` and it will install all the dependencies of the sub project.  
+Then to run all the projects use `yarn dev`
 
-It contains an ultra secure 2FA authenticator for authenticating through third party applications.
+## Dev environment
 
-Inside the app, you can manage your Threefold Tokens(TFT).
+There is a `docker-compose.dev.yml` which will setup a MariaDB. To run projects use `yarn dev` in the root folder.
 
-## Features
+## Github actions
 
-#### Threefold news
+In the `.github` folder you will find workflow files for production and staging.
+The workflow uses docker compose to setup the right environment.
 
-Inside the app, there is a "News" section where you can find all the latest Threefold news!
+In these files be sure to change all instances `/repository/project/` with your repository and project name.
 
-#### Wallet
+### :exclamation: Required changes :exclamation:
 
-In the Threefold Connect app, it is possible to manage your TFT and view your transaction history on the TF chain.
+Add an action runner where staging and/or prodcution can be deployed on
 
-#### Farmers
+### :exclamation: Secrets :exclamation:
 
-If you own a Threefold node, you can manage your farm here.
+The following secrets needs to be defined:
 
-#### Support
+-   FLAGSMITH_URL
+-   STAGING_DATABASE_PASSWORD
+-   STAGING_FLAGSMITH_API_KEY
+-   PRODUCTION_DATABASE_PASSWORD
+-   PRODUCTION_FLAGSMITH_API_KEY
 
-If you have Threefold related questions, we provide a support chat where we will answer your questions as soon as possible!
+## Docker-Compose
 
-#### Planetary network
+### :exclamation: Change project name :exclamation:
 
-It is possible to have a a planetary network IPv6 address. Here you can enable the planety network connection and your phone will automatically be connected to the p2p network.
+Everything is prefixed with the project name `project`, you'll need to replace `project` with your project name.
 
-#### Identity
+## Package.json
 
-When you are using the secure 2FA authentication, some third party apps require certain information (eg. phone number). In this tab you can verify your email, phone number and identity to provide this data to the third party application. This allows you total granular control over which data you choose to share or not share.
+### :exclamation: Change project name :exclamation:
 
-## Local development
+In package.json you beed to change the package name and optional the version
 
-### External repositories
+## Nginx.conf
 
-Threefold News: https://github.com/threefoldtech/threefold_connect_news
-
-Wallet v3: https://github.com/threefoldtech/wallet-next
-
-Farmer: https://github.com/threefoldtech/wallet-next
-
-Support: https://github.com/threefoldtech/tfsupport
-
-## Frontend
-
-Make sure the correct configuration is inside config.js. After that start the frontend by doing:
-
-`yarn && yarn serve`
-
-
-## Backend
-
-Go inside virtual environement:
-
-`source ./venv/bin/activate 
-`
-
-Start UWSGI backend:
-
-` uwsgi --http :5000 --gevent 1000 --http-websockets --master --wsgi-file __main__.py --callable app -s 0.0.0.0:3030
-: 1643024584:0;uwsgi --http :5000 --gevent 1000 --http-websockets --master --wsgi-file __main__.py --callable app -s 0.0.0.0:3030`
-
-
-## App
-
-Make sure you have at least Flutter 2.8.1 installed. If everything is installed properly, execute the following commands: 
-
-Copy the file in /lib/app_config_local.template into /lib/app_config_local.dart and change the configuration to your local IP's
-
-After that, use the build.sh script to set up the right environement
-
-`./build.sh --init && ./build.sh --switch --local`
-
-Connect your phone / start an emulator and everything should work properly.
-
+In the root folder you can find nginx.conf. Everything in this is prefixed with the project name `project`, you'll need to replace `project` with your project name.
+This basic nginx config can be used to add to the reverse proxy.

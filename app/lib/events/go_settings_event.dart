@@ -1,4 +1,0 @@
-class GoSettingsEvent {
-  GoSettingsEvent();
-}
-

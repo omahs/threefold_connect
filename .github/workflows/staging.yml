@@ -1,61 +1,112 @@
-name: staging
+name: Staging
 
+# Controls when the workflow will run
 on:
-  push:
-    tags:
-      - "v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
-jobs:
-  build:
-    runs-on: tfjimber-builder
-    steps:
-#       - uses: actions/checkout@v1
-#       - uses: actions/setup-java@v1
-#         with:
-#           java-version: '12.x'
-      
-#       # Setup the flutter environment.
-#       - uses: subosito/flutter-action@v1
-#         with:
-#           channel: 'stable' # 'dev', 'alpha', default to: 'stable'
-#           flutter-version: '2.10.1' # you can also specify exact version of flutter
-      
-#       # Get flutter dependencies.
-#       - run: cd app && flutter pub get
-      
-#       # Check for any formatting issues in the code.
-#       - run: flutter format --set-exit-if-changed .
-      
-#       # Statically analyze the Dart code for any errors.
-#       - run: flutter analyze .
-      
-#       # Build apk.
-#       - run: flutter build apk
-      
-#       # Upload generated apk to the artifacts.
-#       - uses: actions/upload-artifact@v1
-#         with:
-#           name: release-apk
-#           path: app/apks/app-release.apk
+    push:
+        tags: ['v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+']
 
-      - uses: actions/checkout@v2
-      - name: Login to docker hub
-        run: docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_TOKEN }}
-      - name: Set config
-        run: mv frontend/public/config.staging.js frontend/public/config.js
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag jimber/3botlogin:staging-${{ github.sha }}
-      - name: Push the Docker image
-        run: docker push jimber/3botlogin:staging-${{ github.sha }}
-        
-  deploy:
-    needs: build
-    runs-on: tfc-connect-staging
-    steps:
-      - name: Login to docker hub
-        run: docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_TOKEN }}
-      - name: kill old docker
-        run: docker rm -f 3botlogin || true
-      - name: Pull Image
-        run: docker pull jimber/3botlogin:staging-${{ github.sha }}
-      - name: Run new docker
-        run: docker run -d -it --restart=unless-stopped --name 3botlogin -v /opt/3botlogin/pythonsqlite.db:/usr/share/nginx/backend/pythonsqlite.db -v /opt/3botlogin/config.ini:/usr/share/nginx/backend/config.ini --network=proxy jimber/3botlogin:staging-${{ github.sha }}
+jobs:
+    build_frontend:
+        runs-on: ubuntu-latest
+        outputs:
+            image: ${{ steps.image.outputs.lowercase }}
+        permissions:
+            contents: read
+            packages: write
+        env:
+            REGISTRY: ghcr.io
+            IMAGE_NAME: ghcr.io/repository/project/frontend
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - id: image
+              uses: ASzc/change-string-case-action@v2
+              with:
+                  string: ${{ github.repository }}
+
+            - name: Build and push
+              uses: docker/login-action@v1
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Extract metadata for Docker
+              id: meta
+              uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+              with:
+                  images: ${{ env.IMAGE_NAME }}
+
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v2
+              with:
+                  context: .
+                  file: apps/web/Dockerfile
+                  push: true
+                  tags: ${{ env.IMAGE_NAME }}:latest,${{ env.IMAGE_NAME }}:${{ github.ref_name}},${{ env.IMAGE_NAME }}:staging-latest
+                  labels: ${{ steps.meta.outputs.labels }}
+
+    build_backend:
+        runs-on: ubuntu-latest
+        outputs:
+            image: ${{ steps.image.outputs.lowercase }}
+        permissions:
+            contents: read
+            packages: write
+        env:
+            REGISTRY: ghcr.io
+            IMAGE_NAME: ghcr.io/repository/project/backend
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - id: image
+              uses: ASzc/change-string-case-action@v2
+              with:
+                  string: ${{ github.repository }}
+
+            - name: Build and push
+              uses: docker/login-action@v1
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Extract metadata for Docker
+              id: meta
+              uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+              with:
+                  images: ${{ env.IMAGE_NAME }}
+
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v2
+              with:
+                  context: .
+                  file: apps/api/Dockerfile
+                  push: true
+                  tags: ${{ env.IMAGE_NAME }}:latest,${{ env.IMAGE_NAME }}:${{ github.ref_name}},${{ env.IMAGE_NAME }}:staging-latest
+                  labels: ${{ steps.meta.outputs.labels }}
+
+    deploy:
+        runs-on: jimbertools-action-runner
+        needs:
+            - build_frontend
+            - build_backend
+        env:
+            FRONTEND_IMAGE: ghcr.io/repository/project/frontend:${{ github.ref_name}}
+            BACKEND_IMAGE: ghcr.io/repository/project/backend:${{ github.ref_name}}
+            FLAGSMITH_URL: ${{ secrets.FLAGSMITH_URL }}
+            FLAGSMITH_API_KEY: ${{ secrets.STAGING_FLAGSMITH_API_KEY }}
+            BACKEND_URL: /
+            MARIADB_ROOT_PASSWORD: ${{ secrets.STAGING_DATABASE_PASSWORD }}
+        steps:
+            - name: Login to GHCR
+              uses: docker/login-action@v1
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+            - uses: actions/checkout@v2
+            - name: Down
+              run: docker-compose -f docker-compose.staging.yml down
+            - name: Deploy
+              run: docker-compose -f docker-compose.staging.yml up -d

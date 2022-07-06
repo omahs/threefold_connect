@@ -1,0 +1,19 @@
+{
+  "name": "custom-crypto",
+  "version": "0.0.0",
+  "main": "dist/index",
+  "types": "dist/index",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "dependencies": {
+    "libsodium-wrappers": "^0.7.9"
+  },
+  "devDependencies": {
+    "@types/libsodium-wrappers": "^0.7.9",
+    "tsconfig": "*",
+    "typescript": "^4.5.3",
+    "tweetnacl-util": "^0.15.1"
+  }
+}
