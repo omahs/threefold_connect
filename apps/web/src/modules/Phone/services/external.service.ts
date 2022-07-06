@@ -28,7 +28,7 @@ export const getSignedPhoneIdentifierSigner = async (spi: string) => {
 
 export const setPhoneVerified = async (username: string) => {
     try {
-        return await axios.post(`${Config.API_BACKEND_URL}api/users/${username}/smsverified`);
+        return await axios.post(`/api/users/${username}/smsverified`);
     } catch (err) {
         return null;
     }

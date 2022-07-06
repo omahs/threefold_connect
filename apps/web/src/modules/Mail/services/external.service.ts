@@ -28,7 +28,7 @@ export const getSignedEmailIdentifierSigner = async (sei: string) => {
 
 export const setEmailVerified = async (username: string) => {
     try {
-        return await axios.post(`${Config.API_BACKEND_URL}api/users/${username}/emailverified`);
+        return await axios.post(`/api/users/${username}/emailverified`);
     } catch (err) {
         return null;
     }
