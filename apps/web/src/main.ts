@@ -22,7 +22,7 @@ const initApplication = async () => {
 
     const app = createApp(App);
     app.use(socketIo, {
-        connection: 'http://localhost:3001',
+        connection: `${window.location.origin}`,
         options: {
             allowEI03: true,
             reconnection: true,
