@@ -1844,7 +1844,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/libsodium-wrappers@^0.7.9":
+"@types/libsodium-wrappers@0.7.10", "@types/libsodium-wrappers@^0.7.9":
   version "0.7.9"
   resolved "https://registry.yarnpkg.com/@types/libsodium-wrappers/-/libsodium-wrappers-0.7.9.tgz#89c3ad2156d5143e64bce86cfeb0045a983aeccc"
   integrity sha512-LisgKLlYQk19baQwjkBZZXdJL0KbeTpdEnrAfz5hQACbklCY0gVFnsKUyjfNWF1UQsCSjw93Sj5jSbiO8RPfdw==
@@ -4168,11 +4168,6 @@ flagsmith-nodejs@^1.1.1:
   dependencies:
     node-fetch "^2.1.2"
 
-flagsmith@2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/flagsmith/-/flagsmith-2.0.9.tgz#52eeefdeea527f50afb7de6130b44d9bfb2b04c9"
-  integrity sha512-8SdOly1Z/Fph8Wf0A3//HW06v+Uo5MZm0pItR7rSdmBUv53eIVAFvQNq9AvGX0D4W5beLdcgfISSUGdPHGIkaQ==
-
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.0.4.tgz#61b0338302b2fe9f957dcc32fc2a87f1c3048b11"
@@ -5380,7 +5375,7 @@ libphonenumber-js@^1.9.43:
   resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.7.tgz#4c010b7b57e824c571ea4cdbf7aea6f3c408878c"
   integrity sha512-jZXLCCWMe1b/HXkjiLeYt2JsytZMcqH26jLFIdzFDFF0xvSUWrYKyvPlyPG+XJzEyKUFbcZxLdWGMwQsWaHDxQ==
 
-libsodium-wrappers@^0.7.9:
+libsodium-wrappers@0.7.10, libsodium-wrappers@^0.7.9:
   version "0.7.10"
   resolved "https://registry.yarnpkg.com/libsodium-wrappers/-/libsodium-wrappers-0.7.10.tgz#13ced44cacb0fc44d6ac9ce67d725956089ce733"
   integrity sha512-pO3F1Q9NPLB/MWIhehim42b/Fwb30JNScCNh8TcQ/kIc+qGLQch8ag8wb0keK3EP5kbGakk1H8Wwo7v+36rNQg==

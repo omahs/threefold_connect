@@ -22,7 +22,7 @@ import { JsonBodyMiddleware } from '../../middleware/JsonBodyMiddleware';
         DigitalTwinModule,
     ],
     controllers: [AppController],
-    providers: [AppService, UserGateway, FlagsmithService],
+    providers: [AppService, FlagsmithService],
 })
 export class AppModule implements NestModule {
     public configure(consumer: MiddlewareConsumer): void {

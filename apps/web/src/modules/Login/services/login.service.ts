@@ -13,6 +13,7 @@ import {
 } from '@/modules/Initial/data';
 import { ISocketJoin, ISocketLeave, ISocketLogin } from 'types';
 import {encrypt} from "@/modules/Core/utils/crypto.util";
+import {encodeBase64} from "tweetnacl-util";
 
 export const loginUserWeb = async () => {
     const doubleName = username.value + '.3bot';
@@ -21,6 +22,9 @@ export const loginUserWeb = async () => {
     emitJoin(roomToJoinUser);
 
     const pk = await getPublicKeyOfUsername(doubleName);
+
+    console.log("This is the public key")
+    console.log(encodeBase64(pk))
     if (pk.length === 1) return;
 
     const randomRoom = nanoid();

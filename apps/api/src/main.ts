@@ -1,10 +1,11 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { PrismaService } from 'nestjs-prisma';
-import { AppModule } from './modules/app/app.module';
+import {ValidationPipe} from '@nestjs/common';
+import {NestFactory} from '@nestjs/core';
+import {PrismaService} from 'nestjs-prisma';
+import {AppModule} from './modules/app/app.module';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule, { bodyParser: false });
+
+    const app = await NestFactory.create(AppModule, {bodyParser: false});
 
     app.enableCors();
     app.setGlobalPrefix('api');
@@ -13,6 +14,10 @@ async function bootstrap() {
     await prismaService.enableShutdownHooks(app);
 
     app.useGlobalPipes(new ValidationPipe());
+
+    const sodium = require('libsodium-wrappers')
+    await sodium.ready
+
     await app.listen(3001);
 }
 

@@ -48,6 +48,7 @@ export class AppService {
     async handleSignedLoginAttempt(data: string) {
         const signedLoginAttempt: SignedLoginAttemptDto = JSON.parse(JSON.stringify(data));
 
+        console.log(signedLoginAttempt)
         const username = signedLoginAttempt.doubleName;
 
         const user = await this.userService.findByUsername(username);
@@ -55,8 +56,11 @@ export class AppService {
             throw new NotFoundException('User not found');
         }
 
+        console.log("This is the public key")
+        console.log(user.mainPublicKey)
         const signedData = await verifySignature(signedLoginAttempt.signedAttempt, decodeBase64(user.mainPublicKey));
         if (!signedData) {
+            console.log('coming here')
             throw new BadRequestException('Signature mismatch');
         }
 
@@ -67,6 +71,7 @@ export class AppService {
             room = username.toLowerCase();
         }
 
+        console.log('ik kom hier')
         await this.userGateway.emitSignedLoginAttempt(room, signedLoginAttempt);
     }
 

@@ -1,18 +1,19 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'nestjs-prisma';
-import { Prisma } from '@prisma/client';
-import { AuthorizationHeaders, ChangeEmailDto } from './dtos/user.dto';
-import { BadRequestException, ExpectationFailedException, NotFoundException } from '../../exceptions';
-import { decodeBase64 } from 'tweetnacl-util';
-import { findUserByUsernameQuery, updateEmailOfUserQuery } from './queries/user.queries';
+import {Injectable} from '@nestjs/common';
+import {PrismaService} from 'nestjs-prisma';
+import {Prisma} from '@prisma/client';
+import {AuthorizationHeaders, ChangeEmailDto} from './dtos/user.dto';
+import {BadRequestException, ExpectationFailedException, NotFoundException} from '../../exceptions';
+import {decodeBase64} from 'tweetnacl-util';
+import {findUserByUsernameQuery, updateEmailOfUserQuery} from './queries/user.queries';
 import {verifySignature} from "../../utils/crypto.util";
 
 @Injectable()
 export class UserService {
-    constructor(private _prisma: PrismaService) {}
+    constructor(private _prisma: PrismaService) {
+    }
 
     async create(payload: Prisma.UserCreateInput) {
-        return this._prisma.user.create({ data: payload });
+        return this._prisma.user.create({data: payload});
     }
 
     async findAll() {
@@ -20,7 +21,10 @@ export class UserService {
     }
 
     async findByUsername(username: string) {
-        return this._prisma.user.findUnique(findUserByUsernameQuery(username));
+        const user = await this._prisma.user.findUnique(findUserByUsernameQuery(username));
+        if (!user) throw new NotFoundException('Username not found');
+
+        return user;
     }
 
     async updateEmail(userId: string, email: string) {

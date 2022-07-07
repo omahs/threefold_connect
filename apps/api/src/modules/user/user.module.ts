@@ -5,7 +5,7 @@ import { UserGateway } from './user.gateway';
 
 @Module({
     providers: [UserService, UserGateway],
-    exports: [UserService],
+    exports: [UserService, UserGateway],
     controllers: [UserController],
 })
 export class UserModule {}
