@@ -27,6 +27,10 @@ export class UserService {
         return user;
     }
 
+    async doesUserExist(username: string) {
+        return await this._prisma.user.findUnique(findUserByUsernameQuery(username));
+    }
+
     async updateEmail(userId: string, email: string) {
         return this._prisma.user.update(updateEmailOfUserQuery(userId, email));
     }

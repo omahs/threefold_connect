@@ -22,7 +22,7 @@ export class UserGateway {
 
     @SubscribeMessage(SocketTypes.CHECK_NAME)
     async checkName(@MessageBody() data: ISocketCheckName) {
-        const exist = await this._userService.findByUsername(data.username);
+        const exist = await this._userService.doesUserExist(data.username);
         return this.server.emit(exist ? SocketTypes.NAME_KNOWN : SocketTypes.NAME_UNKNOWN);
     }
 
