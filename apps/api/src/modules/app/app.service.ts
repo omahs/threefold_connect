@@ -71,7 +71,6 @@ export class AppService {
             room = username.toLowerCase();
         }
 
-        console.log('ik kom hier')
         await this.userGateway.emitSignedLoginAttempt(room, signedLoginAttempt);
     }
 
