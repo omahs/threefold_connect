@@ -1,7 +1,7 @@
 // @TODO: improve typings overall projects
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 
-export type QueryOptions = {
+export type QueryOptionsLogin = {
     appid: string;
     publickey: string;
     state: string;

@@ -11,7 +11,7 @@ import LoginModule from '@/modules/Login';
 import CoreModule from '@/modules/Core';
 import MailModule from '@/modules/Mail';
 import PhoneModule from '@/modules/Phone';
-import SignModule from '@/modules/Sign';
+import InitialSignModule from '@/modules/InitialSign';
 import sodium from 'libsodium-wrappers';
 import socketIo from '@/plugins/SocketIo';
 import { registerGlobalComponent } from '@/components/global';
@@ -34,7 +34,7 @@ const initApplication = async () => {
     });
 
     const router = createVueRouter();
-    await registerModules(router, [CoreModule, InitModule, LoginModule, MailModule, PhoneModule, SignModule]);
+    await registerModules(router, [CoreModule, InitModule, LoginModule, MailModule, PhoneModule, InitialSignModule]);
     app.use(router);
 
     registerGlobalComponent(app);

@@ -23,8 +23,6 @@ export const loginUserWeb = async () => {
 
     const pk = await getPublicKeyOfUsername(doubleName);
 
-    console.log("This is the public key")
-    console.log(encodeBase64(pk))
     if (pk.length === 1) return;
 
     const randomRoom = nanoid();
