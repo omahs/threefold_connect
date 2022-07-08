@@ -115,6 +115,7 @@ export class UserGateway {
     }
 
     async emitSignedSignAttempt(room: string, data: SignedSignAttemptDto) {
+        console.log('COMING HERE')
         this.server.to(room).emit(SocketTypes.SIGN_CALLBACK, data);
     }
 

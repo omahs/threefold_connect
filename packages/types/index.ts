@@ -60,6 +60,11 @@ export interface ISocketLoginResult {
     signedAttempt: string;
 }
 
+export interface ISocketSignResult {
+    doubleName: string;
+    signedAttempt: string;
+}
+
 export interface ISocketSignedAttempt {
     signedState: string;
     data: ISocketSignedData;
