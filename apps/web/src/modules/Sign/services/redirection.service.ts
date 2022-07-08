@@ -14,7 +14,7 @@ export const redirectToOriginalLocationForSigning = (signedSignAttempt: ISocketS
     console.log('[REDIRECTING] - ENCODED SIGNED ATTEMPT: ', encodedSignedSignAttempt);
 
     const safetyUrl = createSafetyUrl();
-    const finalUrl = `${safetyUrl}signedSignAttempt=${encodedSignedSignAttempt}`;
+    const finalUrl = `${safetyUrl}signedAttempt=${encodedSignedSignAttempt}`;
 
     console.log('[REDIRECTING] - FINAL URL: ', finalUrl);
     console.log('[REDIRECTING] - REDIRECTING TO: ', finalUrl);
