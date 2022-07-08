@@ -23,7 +23,7 @@ export const signUserMobile = () => {
     const roomToJoin: ISocketJoin = {room: randomRoom};
     emitJoin(roomToJoin);
 
-    const uniLinkUrl = `threebot://login/?state=${state.value}&appId=${appId.value}&randomRoom=${randomRoom}&dataUrl=${dataUrl.value}&redirecturl=${redirectUrl.value}&dataHash=${dataHash.value}&isJson=${isJson.value}&friendlyName=${friendlyName.value}`;
+    const uniLinkUrl = `threebot://sign/?state=${state.value}&appId=${appId.value}&randomRoom=${randomRoom}&dataUrl=${dataUrl.value}&redirecturl=${redirectUrl.value}&dataHash=${dataHash.value}&isJson=${isJson.value}&friendlyName=${friendlyName.value}`;
 
     window.open(uniLinkUrl);
 }
