@@ -1,7 +1,7 @@
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
-import { ISocketCheckName, ISocketJoin, ISocketLeave, ISocketLogin, SocketEvents, SocketTypes } from 'types';
+import {ISocketCheckName, ISocketJoin, ISocketLeave, ISocketLogin, ISocketSign, SocketEvents, SocketTypes} from 'types';
 import { UserService } from './user.service';
 import { SignedLoginAttemptDto, SignedSignAttemptDto } from '../app/app.service';
 
@@ -35,6 +35,21 @@ export class UserGateway {
 
         const m: IQueueMessage = {
             event: SocketEvents.LOGIN,
+            data: data,
+        };
+
+        this._emitOrQueue(m, data.doubleName);
+    }
+
+    @SubscribeMessage(SocketTypes.SIGN)
+    async handleSgin(@MessageBody() data: ISocketSign) {
+        if (!data.encryptedSignAttempt) return;
+
+        data.type = SocketEvents.SIGN;
+        data.created = new Date().getTime();
+
+        const m: IQueueMessage = {
+            event: SocketEvents.SIGN,
             data: data,
         };
 

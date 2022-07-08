@@ -47,6 +47,8 @@ export interface ISocketLogin {
 export interface ISocketSign {
     doubleName: string;
     encryptedSignAttempt: string;
+    created?: number;
+    type?: string;
 }
 
 export interface ISocketCheckName {
