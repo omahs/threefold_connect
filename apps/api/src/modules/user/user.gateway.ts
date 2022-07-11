@@ -3,7 +3,8 @@ import { Server, Socket } from 'socket.io';
 
 import {ISocketCheckName, ISocketJoin, ISocketLeave, ISocketLogin, ISocketSign, SocketEvents, SocketTypes} from 'types';
 import { UserService } from './user.service';
-import { SignedLoginAttemptDto, SignedSignAttemptDto } from '../app/app.service';
+import {SignedLoginAttemptDto} from "../login/dtos/login.dto";
+import {SignedSignAttemptDto} from "../sign/dtos/sign.dto";
 
 export interface IQueueMessage {
     event: string;
@@ -42,7 +43,7 @@ export class UserGateway {
     }
 
     @SubscribeMessage(SocketTypes.SIGN)
-    async handleSgin(@MessageBody() data: ISocketSign) {
+    async handleSign(@MessageBody() data: ISocketSign) {
         if (!data.encryptedSignAttempt) return;
 
         data.type = SocketEvents.SIGN;
@@ -115,7 +116,6 @@ export class UserGateway {
     }
 
     async emitSignedSignAttempt(room: string, data: SignedSignAttemptDto) {
-        console.log('COMING HERE')
         this.server.to(room).emit(SocketTypes.SIGN_CALLBACK, data);
     }
 

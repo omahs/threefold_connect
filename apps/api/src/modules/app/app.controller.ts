@@ -1,7 +1,6 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
-import { AppService } from './app.service';
-import { FlagsmithService } from '../flagsmith/flagsmith.service';
-import sodium from 'libsodium-wrappers';
+import {Controller, Get} from '@nestjs/common';
+import {AppService} from './app.service';
+import {FlagsmithService} from '../flagsmith/flagsmith.service';
 
 export interface CreateUserDto {
     doubleName: string;
@@ -11,22 +10,7 @@ export interface CreateUserDto {
 
 @Controller()
 export class AppController {
-    constructor(private readonly appService: AppService, private readonly flagService: FlagsmithService) {}
-
-    @Post('signedAttempt')
-    async signedLoginAttemptHandler(@Body() data: string) {
-        return this.appService.handleSignedLoginAttempt(data);
-    }
-
-    @Post('signedSignDataAttempt')
-    async signedSignAttemptHandler(@Body() data: string) {
-        return this.appService.handleSignedSignAttempt(data);
-    }
-
-    @HttpCode(200)
-    @Post('mobileregistration')
-    async create(@Body() createUserData: string) {
-        return this.appService.create(createUserData);
+    constructor(private readonly appService: AppService, private readonly flagService: FlagsmithService) {
     }
 
     @Get('maintenance')

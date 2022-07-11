@@ -6,7 +6,6 @@ import {redirectWithCancel} from "@/modules/Login/services/redirection.service";
 import {redirectToOriginalLocationForSigning} from "@/modules/Sign/services/redirection.service";
 
 export const socketCallbackSign = async (data: ISocketSignResult) => {
-    console.log(data)
     if (!data.doubleName || !data.signedAttempt) return;
 
     const pk = await getPublicKeyOfUsername(data.doubleName);

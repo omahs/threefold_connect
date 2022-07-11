@@ -1,26 +1,17 @@
-import { Body, Controller, Get, Headers, HttpCode, Param, Post } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dtos/user.dto';
-import { User as UserModel } from '@prisma/client';
-import { UserGateway } from './user.gateway';
+import {Body, Controller, Get, Headers, Param, Post} from '@nestjs/common';
+import {UserService} from './user.service';
+import {User as UserModel} from '@prisma/client';
+import {UserGateway} from './user.gateway';
 
 @Controller('users')
 export class UserController {
-    constructor(private readonly userService: UserService, private readonly userGateway: UserGateway) {}
+    constructor(private readonly userService: UserService, private readonly userGateway: UserGateway) {
+    }
+
 
     @Post('')
-    async create(@Body() userDto: CreateUserDto): Promise<UserModel> {
-        return await this.userService.create(userDto);
-    }
-
-    @Post(':username/cancel')
-    async cancel(@Param('username') username: string) {
-        return this.userGateway.emitCancelLoginAttempt(username);
-    }
-
-    @Post(':username/cancelSign')
-    async cancelSign(@Param('username') username: string) {
-        return this.userGateway.emitCancelSignAttempt(username);
+    async create(@Body() createUserData: string) {
+        return this.userService.create(createUserData);
     }
 
     @Post(':username/emailverified')
@@ -33,7 +24,6 @@ export class UserController {
         return this.userGateway.emitSmsVerified(username);
     }
 
-    @HttpCode(200)
     @Post('change-email')
     async changeEmail(@Body() data: string, @Headers() headers) {
         return this.userService.changeEmail(data, headers);

@@ -6,14 +6,11 @@ import {BadRequestException, ExpectationFailedException, NotFoundException} from
 import {decodeBase64} from 'tweetnacl-util';
 import {findUserByUsernameQuery, updateEmailOfUserQuery} from './queries/user.queries';
 import {verifySignature} from "../../utils/crypto.util";
+import {CreateUserDto} from "../app/app.controller";
 
 @Injectable()
 export class UserService {
     constructor(private _prisma: PrismaService) {
-    }
-
-    async create(payload: Prisma.UserCreateInput) {
-        return this._prisma.user.create({data: payload});
     }
 
     async findAll() {
@@ -67,4 +64,29 @@ export class UserService {
 
         return this.updateEmail(user.userId, emailObject.email);
     }
+
+    async create(createUserData: string) {
+        const userData: CreateUserDto = JSON.parse(JSON.stringify(createUserData));
+
+        const username = userData.doubleName.toLowerCase();
+        const email = userData.email.trim();
+        const publicKey = userData['public_key'];
+
+        if (!publicKey || !username || !email) {
+            throw new ExpectationFailedException('Not all required parameters are given');
+        }
+
+        if (username.length > 55 || !username.endsWith('.3bot')) {
+            throw new ExpectationFailedException('Username is not valid');
+        }
+
+        const createObject = {
+            username: username,
+            email: email,
+            mainPublicKey: publicKey,
+        };
+
+        return this._prisma.user.create({ data: createObject });
+    }
+
 }
