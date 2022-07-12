@@ -43,18 +43,18 @@ class BackendConnection {
     socket.on('connect', (res) {
       print('[connect]');
 
-      socket.emit('join', {'room': doubleName.toLowerCase(), 'app': true});
+      socket.emit('JOIN', {'room': doubleName.toLowerCase(), 'app': true});
       print('Joined room: ' + doubleName.toLowerCase());
     });
 
-    socket.on('email_verification', (_) {
+    socket.on('EMAIL_VERIFIED', (_) {
       Events().emit(EmailEvent());
     });
-    socket.on('sms_verification', (_) {
+    socket.on('SMS_VERIFIED', (_) {
       Events().emit(PhoneEvent());
     });
 
-    socket.on('login', (dynamic data) async {
+    socket.on('LOGIN', (dynamic data) async {
       print('[login]');
       int currentTimestamp = new DateTime.now().millisecondsSinceEpoch;
 
@@ -68,7 +68,8 @@ class BackendConnection {
       Events().emit(NewLoginEvent(loginData: loginData));
     });
 
-    socket.on('sign', (dynamic data) async {
+    socket.on('SIGN', (dynamic data) async {
+      print("[SIGN]");
       Sign signData = await Sign.createAndDecryptSignObject(data);
       Events().emit(NewSignEvent(signData: signData));
     });
@@ -84,7 +85,7 @@ class BackendConnection {
     print('Closing socket connection');
 
     print('Leaving room: ' + doubleName);
-    socket.emit('leave', {'room': doubleName});
+    socket.emit('LEAVE', {'room': doubleName});
 
     socket.clearListeners();
     socket.disconnect();
@@ -94,12 +95,12 @@ class BackendConnection {
 
   void joinRoom(roomName) {
     print('Joining room: ' + roomName);
-    socket.emit('join', {'room': roomName, 'app': true});
+    socket.emit('JOIN', {'room': roomName, 'app': true});
   }
 
   void leaveRoom(roomName) {
     print('Leaving room: ' + roomName);
-    socket.emit('leave', {'room': roomName});
+    socket.emit('LEAVE', {'room': roomName});
   }
 }
 
@@ -345,7 +346,7 @@ Future identityVerification(String reference) async {
 Future openSign(BuildContext ctx, Sign signData, BackendConnection backendConnection) async {
   String? messageType = signData.type;
 
-  if (messageType == null || messageType != 'sign') {
+  if (messageType == null || messageType != 'SIGN') {
     return;
   }
 
@@ -387,7 +388,11 @@ Future openSign(BuildContext ctx, Sign signData, BackendConnection backendConnec
 Future openLogin(BuildContext ctx, Login loginData, BackendConnection backendConnection) async {
   String? messageType = loginData.type;
 
-  if (messageType == null || messageType != 'login' || loginData.isMobile == true) {
+  print('this is message type');
+  print(messageType);
+
+  if (messageType == null || messageType != 'LOGIN' || loginData.isMobile == true) {
+    print('yuw');
     return;
   }
 

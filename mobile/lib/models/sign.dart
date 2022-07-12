@@ -68,11 +68,15 @@ class Sign {
       print('Decrypted login attempt');
       print(decryptedSignAttemptMap);
 
-      decryptedSignAttemptMap['type'] = data['type'];
-      signData = Sign.fromJson(decryptedSignAttemptMap);
+      print(decryptedSignAttemptMap['isJson']);
 
-      print('This is the signData');
-      print(signData);
+      bool isJson =  decryptedSignAttemptMap['isJson'].toLowerCase() == 'true';
+
+      decryptedSignAttemptMap['isJson'] = isJson;
+      decryptedSignAttemptMap['type'] = data['type'];
+      // decryptedSignAttemptMap['isJson'] = decryptedSignAttemptMap['isJson'].toLowerCase() == 'true';
+
+      signData = Sign.fromJson(decryptedSignAttemptMap);
     } else {
       signData = Sign.fromJson(data);
     }

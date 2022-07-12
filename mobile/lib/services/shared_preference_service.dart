@@ -34,9 +34,9 @@ Future<Uint8List> getPublicKey() async {
   }
 
   var userInfo = json.decode(userInfoResponse.body);
-  var done = await prefs.setString("publickey", userInfo['publicKey']);
+  var done = await prefs.setString("publickey", userInfo['mainPublicKey']);
 
-  if (done && prefs.getString('publickey') == userInfo['publicKey']) {
+  if (done && prefs.getString('publickey') == userInfo['mainPublicKey']) {
     setPublicKeyFixed();
   }
 

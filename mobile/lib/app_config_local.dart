@@ -7,19 +7,19 @@ class AppConfigLocal extends AppConfigImpl {
   }
 
   String openKycApiUrl() {
-    return "http://192.168.0.0:5005";
+    return 'https://openkyc.staging.jimber.io';
   }
 
   String threeBotApiUrl() {
-    return "http://192.168.0.0:5000/api";
+    return "http://192.168.68.122:3001/api";
   }
 
   String threeBotFrontEndUrl() {
-    return "http://192.168.0.0:8080/";
+    return "http://192.168.68.122:3000/";
   }
 
   String threeBotSocketUrl() {
-    return "ws://192.168.0.0:5000";
+    return "http://192.168.68.122:3001";
   }
 
   String wizardUrl() {
@@ -27,7 +27,7 @@ class AppConfigLocal extends AppConfigImpl {
   }
 
   String pKidUrl() {
-      return 'http://192.168.2.174:8080/v1';
+    return 'https://pkid.staging.jimber.io/v1';
   }
 
   Map<String, String> flagSmithConfig() {

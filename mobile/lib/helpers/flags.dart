@@ -30,6 +30,7 @@ class Flags {
         return;
       }
       await client.getFeatureFlags(reload: true);
+
     } catch (e) {
       print(e);
       setFallbackConfigs();

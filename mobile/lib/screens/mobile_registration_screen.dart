@@ -159,7 +159,7 @@ class _MobileRegistrationScreenState extends State<MobileRegistrationScreen> {
     Response response = await finishRegistration(doubleNameController.text, emailController.text,
         'random', base64.encode(_registrationData.keyPair.pk));
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       saveRegistration();
 
       Navigator.pop(context); // Remove loading screen

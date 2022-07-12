@@ -15,7 +15,7 @@ Map<String, String> requestHeaders = {'Content-type': 'application/json'};
 
 Future<Response> sendSignedData(
     String state, String socketRoom, String signedDataIdentifier, String appId, String dataHash) async {
-  Uri url = Uri.parse('$threeBotApiUrl/signedSignDataAttempt');
+  Uri url = Uri.parse('$threeBotApiUrl/sign/signed-attempt');
   print('Sending call: ${url.toString()}');
 
   String timestamp = new DateTime.now().millisecondsSinceEpoch.toString();
@@ -29,8 +29,8 @@ Future<Response> sendSignedData(
           'randomRoom': socketRoom,
           'appId': appId,
           'signedData': signedDataIdentifier,
-          'doubleName' : await getDoubleName(),
-          'dataHash' : dataHash
+          'doubleName': await getDoubleName(),
+          'dataHash': dataHash
         }),
         sk),
     'doubleName': await getDoubleName()
@@ -39,9 +39,9 @@ Future<Response> sendSignedData(
   return http.post(url, body: encodedBody, headers: requestHeaders);
 }
 
-Future<Response> sendData(String state, Map<String, String>? data, selectedImageId,
-    String? randomRoom, String appId) async {
-  Uri url = Uri.parse('$threeBotApiUrl/signedAttempt');
+Future<Response> sendData(
+    String state, Map<String, String>? data, selectedImageId, String? randomRoom, String appId) async {
+  Uri url = Uri.parse('$threeBotApiUrl/login/signed-attempt');
   print('Sending call: ${url.toString()}');
 
   String encodedBody = json.encode({
@@ -62,14 +62,16 @@ Future<Response> sendData(String state, Map<String, String>? data, selectedImage
 }
 
 Future<Response> addDigitalTwinDerivedPublicKeyToBackend(name, publicKey, appId) async {
-  Uri url = Uri.parse('$threeBotApiUrl/users/digitaltwin/$name');
+  Uri url = Uri.parse('$threeBotApiUrl/digitaltwin/$name');
   print('Sending call: ${url.toString()}');
 
   Uint8List sk = await getPrivateKey();
-  String encodedData = json.encode({'name': name, 'public_key': publicKey, 'app_id': appId});
+  String encodedData = json.encode({'username': name, 'derivedPublicKey': publicKey, 'appId': appId});
   String signedData = await signData(encodedData, sk);
 
-  return http.post(url, body: signedData, headers: requestHeaders);
+  Map<String, String> data = { "data" : signedData };
+
+  return http.post(url, body: json.encode(data), headers: requestHeaders);
 }
 
 Future<Response> sendPublicKey(Map<String, Object> data) async {
@@ -82,10 +84,7 @@ Future<Response> sendPublicKey(Map<String, Object> data) async {
   Map<String, String> headers = {"timestamp": timestamp, "intention": "post-savederivedpublickey"};
   String signedHeaders = await signData(jsonEncode(headers), sk);
 
-  Map<String, String> loginRequestHeaders = {
-    'Content-type': 'application/json',
-    'Jimber-Authorization': signedHeaders
-  };
+  Map<String, String> loginRequestHeaders = {'Content-type': 'application/json', 'Jimber-Authorization': signedHeaders};
 
   return http.post(url, body: json.encode(data), headers: loginRequestHeaders);
 }
@@ -112,10 +111,8 @@ Future<bool> isAppUpToDate() async {
   int currentBuildNumber = int.parse(packageInfo.buildNumber);
   int minimumBuildNumber = 0;
 
-  String jsonResponse = (await http
-          .get(url, headers: requestHeaders)
-          .timeout(Duration(seconds: Globals().timeOutSeconds)))
-      .body;
+  String jsonResponse =
+      (await http.get(url, headers: requestHeaders).timeout(Duration(seconds: Globals().timeOutSeconds))).body;
 
   Map<String, dynamic> minimumVersion = json.decode(jsonResponse);
 
@@ -132,9 +129,7 @@ Future<bool> isAppUnderMaintenance() async {
   Uri url = Uri.parse('$threeBotApiUrl/maintenance');
   print('Sending call: ${url.toString()}');
 
-  Response response = await http
-      .get(url, headers: requestHeaders)
-      .timeout(Duration(seconds: Globals().timeOutSeconds));
+  Response response = await http.get(url, headers: requestHeaders).timeout(Duration(seconds: Globals().timeOutSeconds));
 
   if (response.statusCode != 200) {
     return false;
@@ -148,9 +143,7 @@ Future<bool> checkIfPkidIsAvailable() async {
   Uri url = Uri.parse(AppConfig().pKidUrl());
   print('Sending call: ${url.toString()}');
 
-  Response response = await http
-      .get(url, headers: requestHeaders)
-      .timeout(Duration(seconds: Globals().timeOutSeconds));
+  Response response = await http.get(url, headers: requestHeaders).timeout(Duration(seconds: Globals().timeOutSeconds));
 
   if (response.statusCode != 200) {
     return false;
@@ -159,16 +152,15 @@ Future<bool> checkIfPkidIsAvailable() async {
   return true;
 }
 
-
 Future<Response> cancelLogin(doubleName) {
-  Uri url = Uri.parse('$threeBotApiUrl/users/$doubleName/cancel');
+  Uri url = Uri.parse('$threeBotApiUrl/login/$doubleName/cancel');
   print('Sending call: ${url.toString()}');
 
   return http.post(url, body: null, headers: requestHeaders);
 }
 
 Future<Response> cancelSign(doubleName) {
-  Uri url = Uri.parse('$threeBotApiUrl/users/$doubleName/cancelSign');
+  Uri url = Uri.parse('$threeBotApiUrl/sign/$doubleName/cancel');
   print('Sending call: ${url.toString()}');
 
   return http.post(url, body: null, headers: requestHeaders);
@@ -181,58 +173,16 @@ Future<Response> getUserInfo(doubleName) {
   return http.get(url, headers: requestHeaders);
 }
 
-Future<Response> finishRegistration(
-    String doubleName, String email, String sid, String publicKey) async {
-  Uri url = Uri.parse('$threeBotApiUrl/mobileregistration');
+Future<Response> finishRegistration(String doubleName, String email, String sid, String publicKey) async {
+  Uri url = Uri.parse('$threeBotApiUrl/users');
   print('Sending call: ${url.toString()}');
 
   return http.post(url,
       body: json.encode({
-        'doubleName': doubleName + '.3bot',
+        'username': doubleName + '.3bot',
         'sid': sid,
         'email': email.toLowerCase().trim(),
         'public_key': publicKey
       }),
       headers: requestHeaders);
-}
-
-Future<Response> getReservations(String doubleName) {
-  Uri url = Uri.parse('$threeBotApiUrl/digitaltwin/reserve/$doubleName');
-  print('Sending call: ${url.toString()}');
-
-  return http.get(url, headers: requestHeaders);
-}
-
-Future<Response> getProductKeys(String doubleName) {
-  Uri url = Uri.parse('$threeBotApiUrl/digitaltwin/productkey/$doubleName');
-  print('Sending call: ${url.toString()}');
-
-  return http.get(url, headers: requestHeaders);
-}
-
-Future<Response> getReservationDetails(String doubleName) {
-  Uri url = Uri.parse('$threeBotApiUrl/digitaltwin/reservation_details/$doubleName');
-  print('Sending call: ${url.toString()}');
-
-  return http.get(url, headers: requestHeaders);
-}
-
-Future<Response> getAllProductKeys() {
-  Uri url = Uri.parse('$threeBotApiUrl/digitaltwin/productkeys');
-  print('Sending call: ${url.toString()}');
-
-  return http.get(url, headers: requestHeaders);
-}
-
-Future<Response> activateDigitalTwin(String doubleName, String productKey) async {
-  Uri url = Uri.parse('$threeBotApiUrl/digitaltwin/productkey/activate');
-  print('Sending call: ${url.toString()}');
-
-  Object jsonObject = {'doubleName': doubleName, 'productKey': productKey};
-
-  Uint8List privateKey = await getPrivateKey();
-  String signedData = await signData(jsonEncode(jsonObject), privateKey);
-
-  var body = json.encode({"doubleName": doubleName, "data": signedData});
-  return await http.post(url, body: body, headers: {'Content-type': 'application/json'});
 }

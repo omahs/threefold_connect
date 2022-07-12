@@ -91,6 +91,7 @@ class Login {
     List<dynamic> list = await getLocationIdList();
 
     loginData.showWarning = !list.contains(loginData.locationId);
+    print('returing');
     return loginData;
   }
 }

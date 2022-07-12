@@ -267,6 +267,7 @@ class _AppState extends State<MainScreen> {
         throw new Exception('The app is outdated. Please, update it to the latest version');
       }
     } catch (e) {
+      print(e);
       throw new Exception("The app is outdated. Please, update it to the latest version");
     }
   }

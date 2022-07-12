@@ -165,7 +165,16 @@ class _SignScreenState extends State<SignScreen> with BlockAndRunMixin {
       updateMessage = 'Verifying hash.. ';
       setState(() {});
 
-      newHash = hashData(widget.signData.dataUrl!);
+
+      print("Given hash");
+      print(widget.signData.hashedDataUrl);
+
+      print("GOING TO HASH");
+      print(json.encode(urlData));
+
+      newHash = hashData(json.encode(urlData));
+      print("New hash");
+      print(newHash);
 
       if (newHash != widget.signData.hashedDataUrl!) {
         // updateMessage = 'Could not verify hash ';

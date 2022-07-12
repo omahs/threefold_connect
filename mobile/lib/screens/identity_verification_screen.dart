@@ -1238,7 +1238,7 @@ class _IdentityVerificationScreenState extends State<IdentityVerificationScreen>
 
                         Response res = await updateEmailAddressOfUser();
 
-                        if (res.statusCode != 200) {
+                        if (res.statusCode != 201) {
                           throw Exception();
                         }
 
