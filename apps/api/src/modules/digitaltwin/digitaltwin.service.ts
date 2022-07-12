@@ -1,15 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'nestjs-prisma';
-import { UserService } from '../user/user.service';
-import {
-    BadRequestException,
-    ConflictException,
-    ExpectationFailedException,
-    NotFoundException,
-} from '../../exceptions';
-import { decodeBase64 } from 'tweetnacl-util';
-import { CreateDigitalTwinDto, DigitalTwinDetailsDto, DigitalTwinDto } from './dtos/digitaltwin.dto';
-import { CreateTwinResponseEnum } from './enums/response.enum';
+import {Injectable} from '@nestjs/common';
+import {PrismaService} from 'nestjs-prisma';
+import {UserService} from '../user/user.service';
+import {BadRequestException, ConflictException, ExpectationFailedException, NotFoundException,} from '../../exceptions';
+import {decodeBase64} from 'tweetnacl-util';
+import {CreateDigitalTwinDto, DigitalTwinDetailsDto, DigitalTwinDto} from './dtos/digitaltwin.dto';
+import {CreateTwinResponseEnum} from './enums/response.enum';
 import {
     deleteTwinByIdQuery,
     findAllTwinsByUsernameQuery,
@@ -25,12 +20,14 @@ export class DigitalTwinService {
     constructor(private _prisma: PrismaService, private readonly userService: UserService) {}
 
     async create(username: string, payload: string) {
+        const encodedPayload = JSON.parse(payload);
+
         const user = await this.userService.findByUsername(username);
         if (!user) {
             throw new NotFoundException(`Username ${username} doesn't exist`);
         }
 
-        const signedData = await verifySignature(payload, decodeBase64(user.mainPublicKey));
+        const signedData = await verifySignature(encodedPayload['data'], decodeBase64(user.mainPublicKey));
         if (!signedData) {
             throw new BadRequestException('Signature mismatch');
         }
@@ -54,7 +51,8 @@ export class DigitalTwinService {
             userId: user.userId,
         };
 
-        return this._prisma.digitalTwin.create({ data: twin });
+        const createdTwin = await this._prisma.digitalTwin.create({data: twin});
+        return createdTwin.id
     }
 
     async updateYggdrasilHandler(username: string, payload: string) {
@@ -80,7 +78,8 @@ export class DigitalTwinService {
 
         const verifiedIp = new TextDecoder().decode(verifiedMessage);
 
-        return await this.update(verifiedIp, twin.id);
+        const updatedTwin = await this.update(verifiedIp, twin.id);
+        return updatedTwin.id;
     }
 
     async update(yggdrasilIp: string, twinId: string) {

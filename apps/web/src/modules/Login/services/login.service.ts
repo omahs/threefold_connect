@@ -27,6 +27,8 @@ export const loginUserWeb = async () => {
 
     const randomRoom = nanoid();
 
+    console.log(locationId.value)
+
     const objectToEncrypt = JSON.stringify({
         doubleName: doubleName,
         state: state.value,

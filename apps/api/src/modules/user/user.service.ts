@@ -72,6 +72,7 @@ export class UserService {
         const email = userData.email.trim();
         const publicKey = userData['public_key'];
 
+        console.log(userData)
         if (!publicKey || !username || !email) {
             throw new ExpectationFailedException('Not all required parameters are given');
         }
