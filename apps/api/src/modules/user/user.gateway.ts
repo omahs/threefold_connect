@@ -108,7 +108,7 @@ export class UserGateway {
     }
 
     async emitSmsVerified(username: string) {
-            this.server.to(username).emit(SocketTypes.PHONE_VERIFIED, '');
+        this.server.to(username).emit(SocketTypes.PHONE_VERIFIED, '');
     }
 
     async emitSignedLoginAttempt(room: string, data: SignedLoginAttemptDto) {

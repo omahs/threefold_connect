@@ -11,7 +11,7 @@ export class SignService {
     constructor(private readonly userService: UserService, private readonly userGateway: UserGateway) {
     }
 
-    async handleSignedSignAttempt(data: string) {
+    async handleSignedSignAttempt(data: string): Promise<void>  {
         const signedSignAttempt: SignedSignAttemptDto = JSON.parse(JSON.stringify(data));
 
         const username = signedSignAttempt.doubleName;

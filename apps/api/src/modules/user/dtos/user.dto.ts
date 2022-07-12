@@ -14,6 +14,13 @@ export class CreateUserDto {
     mainPublicKey: string;
 }
 
+export interface GetUserDto {
+    userId: string;
+    username: string;
+    mainPublicKey: string;
+    email: string;
+}
+
 export interface ChangeEmailDto {
     username: string;
     email: string;

@@ -19,7 +19,7 @@ import {verifySignature} from "../../utils/crypto.util";
 export class DigitalTwinService {
     constructor(private _prisma: PrismaService, private readonly userService: UserService) {}
 
-    async create(username: string, payload: string) {
+    async create(username: string, payload: string): Promise<string>  {
         const encodedPayload = JSON.parse(payload);
 
         const user = await this.userService.findByUsername(username);
@@ -55,7 +55,7 @@ export class DigitalTwinService {
         return createdTwin.id
     }
 
-    async updateYggdrasilHandler(username: string, payload: string) {
+    async updateYggdrasilHandler(username: string, payload: string): Promise<string>  {
         const data = JSON.parse(JSON.stringify(payload));
 
         const signedIp = data.signedYggdrasilIpAddress;
@@ -84,10 +84,6 @@ export class DigitalTwinService {
 
     async update(yggdrasilIp: string, twinId: string) {
         return this._prisma.digitalTwin.update(updateTwinYggdrasilIpQuery(yggdrasilIp, twinId));
-    }
-
-    async delete(twinId: string) {
-        return this._prisma.digitalTwin.delete(deleteTwinByIdQuery(twinId));
     }
 
     async findAll(): Promise<DigitalTwinDto[]> {

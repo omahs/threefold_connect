@@ -1,38 +1,51 @@
 import {Injectable} from '@nestjs/common';
 import {PrismaService} from 'nestjs-prisma';
-import {Prisma} from '@prisma/client';
-import {AuthorizationHeaders, ChangeEmailDto} from './dtos/user.dto';
+import {AuthorizationHeaders, ChangeEmailDto, CreateUserDto, GetUserDto} from './dtos/user.dto';
 import {BadRequestException, ExpectationFailedException, NotFoundException} from '../../exceptions';
 import {decodeBase64} from 'tweetnacl-util';
 import {findUserByUsernameQuery, updateEmailOfUserQuery} from './queries/user.queries';
 import {verifySignature} from "../../utils/crypto.util";
-import {CreateUserDto} from "../app/app.controller";
+import {User as UserModel} from '@prisma/client';
 
 @Injectable()
 export class UserService {
     constructor(private _prisma: PrismaService) {
     }
 
-    async findAll() {
-        return this._prisma.user.findMany();
+    async findAll(): Promise<GetUserDto[]> {
+        const users = await this._prisma.user.findMany();
+        return users.map((user: UserModel) => {
+            return {
+                userId: user.userId,
+                username: user.username,
+                mainPublicKey: user.mainPublicKey,
+                email: user.email
+            }
+        })
     }
 
-    async findByUsername(username: string) {
+    async findByUsername(username: string): Promise<GetUserDto> {
         const user = await this._prisma.user.findUnique(findUserByUsernameQuery(username));
         if (!user) throw new NotFoundException('Username not found');
 
-        return user;
+        return {
+            userId: user.userId,
+            username: user.username,
+            mainPublicKey: user.mainPublicKey,
+            email: user.email
+        }
     }
 
-    async doesUserExist(username: string) {
-        return await this._prisma.user.findUnique(findUserByUsernameQuery(username));
+    async doesUserExist(username: string): Promise<boolean> {
+        const user = await this._prisma.user.findUnique(findUserByUsernameQuery(username));
+        return !!user;
     }
 
     async updateEmail(userId: string, email: string) {
         return this._prisma.user.update(updateEmailOfUserQuery(userId, email));
     }
 
-    async changeEmail(data: string, requestHeaders: string) {
+    async changeEmail(data: string, requestHeaders: string): Promise<string> {
         const headers = JSON.parse(JSON.stringify(requestHeaders));
         const emailObject: ChangeEmailDto = JSON.parse(JSON.stringify(data));
 
@@ -62,17 +75,17 @@ export class UserService {
             throw new BadRequestException('Wrong intention');
         }
 
-        return this.updateEmail(user.userId, emailObject.email);
+        const updatedUser = await this.updateEmail(user.userId, emailObject.email);
+        return updatedUser.userId
     }
 
-    async create(createUserData: string) {
+    async create(createUserData: string): Promise<string> {
         const userData: CreateUserDto = JSON.parse(JSON.stringify(createUserData));
 
-        const username = userData.doubleName.toLowerCase();
+        const username = userData.username.toLowerCase();
         const email = userData.email.trim();
         const publicKey = userData['public_key'];
 
-        console.log(userData)
         if (!publicKey || !username || !email) {
             throw new ExpectationFailedException('Not all required parameters are given');
         }
@@ -87,7 +100,8 @@ export class UserService {
             mainPublicKey: publicKey,
         };
 
-        return this._prisma.user.create({ data: createObject });
+        const createdUser = await this._prisma.user.create({data: createObject});
+        return createdUser.userId;
     }
 
 }

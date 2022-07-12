@@ -8,12 +8,12 @@ export class SignController {
     }
 
     @Post(':username/cancel')
-    async cancel(@Param('username') username: string) {
+    async cancel(@Param('username') username: string): Promise<void> {
         return this.userGateway.emitCancelSignAttempt(username);
     }
 
     @Post('signed-attempt')
-    async signedLoginAttemptHandler(@Body() data: string) {
+    async signedLoginAttemptHandler(@Body() data: string): Promise<void>  {
         return this.signService.handleSignedSignAttempt(data);
     }
 }

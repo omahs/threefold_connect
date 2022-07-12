@@ -11,7 +11,7 @@ export class LoginService {
     constructor(private readonly userService: UserService, private readonly userGateway: UserGateway) {
     }
 
-    async handleSignedLoginAttempt(data: string) {
+    async handleSignedLoginAttempt(data: string): Promise<void> {
         const signedLoginAttempt: SignedLoginAttemptDto = JSON.parse(JSON.stringify(data));
 
         const username = signedLoginAttempt.doubleName;

@@ -2,11 +2,6 @@ import {Controller, Get} from '@nestjs/common';
 import {AppService} from './app.service';
 import {FlagsmithService} from '../flagsmith/flagsmith.service';
 
-export interface CreateUserDto {
-    doubleName: string;
-    email: string;
-    publicKey: string;
-}
 
 @Controller()
 export class AppController {
