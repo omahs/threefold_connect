@@ -132,23 +132,51 @@ def set_digitaltwin_user_handler(doublename):
 
 @api_users.route("/digitaltwin/<doublename>", methods=["PUT"])
 def set_digitaltwin_user_yggdrasil_ip_handler(doublename):
+    print('this is  the double name')
+    print(doublename)
     try:
         logger.debug("/digitaltwin/doublename user %s", doublename)
         body = request.get_data().decode()
+        print('body')
+        print(body)
         result_object = json.loads(body)
+        print('result object')
+        print(result_object)
         app_id = result_object["app_id"]
+        print('app id')
+        print(app_id)
         signed_yggdrasil_ip_address = base64.b64decode(
             result_object["signed_yggdrasil_ip_address"])
 
+        print('signed ip')
+        print(signed_yggdrasil_ip_address)
         digitaltwin_user = db.get_digitaltwin_user_by_double_name_and_app_id(
             doublename, app_id)
+
+        print('digital twin user')
+        print(digitaltwin_user)
+
 
         public_key = base64.b64decode(digitaltwin_user['public_key'])
         digital_twin_public_key = VerifyKey(public_key)
 
+        print('public key')
+        print(public_key)
+
+        print('digital twin public  key')
+        print(digital_twin_public_key)
+
         ip = digital_twin_public_key.verify(
             signed_yggdrasil_ip_address).decode()
 
+        print('ip')
+        print(ip)
+
+
+        print('updating')
+        print(ip)
+        print(doublename)
+        print(app_id)
         result = db.update_digitaltwin_user(ip, doublename, app_id)
 
         if not result:
