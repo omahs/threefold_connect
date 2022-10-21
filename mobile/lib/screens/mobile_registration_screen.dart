@@ -156,8 +156,7 @@ class _MobileRegistrationScreenState extends State<MobileRegistrationScreen> {
     // String deviceId = await _listener.getToken();
     // String signedDeviceId =
     //     await (signData(deviceId, _registrationData.keys['privateKey']));
-    Response response = await finishRegistration(doubleNameController.text, emailController.text,
-        'random', base64.encode(_registrationData.keyPair.pk));
+    Response response = await finishRegistration(doubleNameController.text, emailController.text, base64.encode(_registrationData.keyPair.pk));
 
     if (response.statusCode == 201) {
       saveRegistration();

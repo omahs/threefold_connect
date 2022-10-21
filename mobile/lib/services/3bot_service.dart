@@ -173,16 +173,16 @@ Future<Response> getUserInfo(doubleName) {
   return http.get(url, headers: requestHeaders);
 }
 
-Future<Response> finishRegistration(String doubleName, String email, String sid, String publicKey) async {
+Future<Response> finishRegistration(
+    String doubleName, String email, String publicKey) async {
   Uri url = Uri.parse('$threeBotApiUrl/users');
   print('Sending call: ${url.toString()}');
 
   return http.post(url,
       body: json.encode({
         'username': doubleName + '.3bot',
-        'sid': sid,
         'email': email.toLowerCase().trim(),
-        'public_key': publicKey
+        'mainPublicKey': publicKey
       }),
       headers: requestHeaders);
 }
