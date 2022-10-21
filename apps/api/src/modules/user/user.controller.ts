@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserGateway } from './user.gateway';
-import { ChangeEmailDto, CreatedUserDto, CreateUserDto, GetUserDto, UpdatedUserDto } from 'shared-types';
+import { ChangeEmailDto, CreatedUserDto, CreateUserDto, GetUserDto, UpdatedUserDto, UsernameDto } from 'shared-types';
 
 @Controller('users')
 export class UserController {
@@ -13,18 +13,22 @@ export class UserController {
     }
 
     @Post(':username/emailverified')
-    async emailVerified(@Param('username') username: string): Promise<void> {
-        return this.userGateway.emitEmailVerified(username);
+    async emailVerified(@Param() username: UsernameDto): Promise<void> {
+        return this.userGateway.emitEmailVerified(username.username);
     }
 
     @Post(':username/smsverified')
-    async smsVerified(@Param('username') username: string): Promise<void> {
-        return this.userGateway.emitSmsVerified(username);
+    async smsVerified(@Param() username: UsernameDto): Promise<void> {
+        return this.userGateway.emitSmsVerified(username.username);
     }
 
-    @Post('change-email')
-    async changeEmail(@Body() changeEmailData: ChangeEmailDto, @Headers() headers: string): Promise<UpdatedUserDto> {
-        return this.userService.changeEmail(changeEmailData, headers);
+    @Put(':username/email')
+    async changeEmail(
+        @Param() username: UsernameDto,
+        @Body() email: ChangeEmailDto,
+        @Headers() headers: string
+    ): Promise<UpdatedUserDto> {
+        return this.userService.changeEmail(username.username, email.email, headers);
     }
 
     @Get('')
@@ -33,7 +37,7 @@ export class UserController {
     }
 
     @Get(':username')
-    async findByUsername(@Param('username') username: string): Promise<GetUserDto> {
-        return await this.userService.findByUsername(username);
+    async findByUsername(@Param() username: UsernameDto): Promise<GetUserDto> {
+        return await this.userService.findByUsername(username.username);
     }
 }

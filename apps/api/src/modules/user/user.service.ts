@@ -44,16 +44,16 @@ export class UserService {
         };
     }
 
-    async changeEmail(emailData: ChangeEmailDto, requestHeaders: string): Promise<UpdatedUserDto> {
+    async changeEmail(username: string, email: string, requestHeaders: string): Promise<UpdatedUserDto> {
         const headers = JSON.parse(JSON.stringify(requestHeaders));
 
         const signedHeader = headers['jimber-authorization'];
         if (!signedHeader) {
-            console.error(`No Jimber Authorization header available for ${emailData.username}`);
-            throw new ExpectationFailedException(`No Jimber Authorization header available for ${emailData.username}`);
+            console.error(`No Jimber Authorization header available for ${username}`);
+            throw new ExpectationFailedException(`No Jimber Authorization header available for ${username}`);
         }
 
-        const username = emailData.username.trim().toLowerCase();
+        username = username.trim().toLowerCase();
         const user = await this.findByUsername(username);
         if (!user) {
             console.error(`Username ${username} not found`);
@@ -77,7 +77,7 @@ export class UserService {
             throw new BadRequestException(`Wrong intention: ${verifiedHeaders.intention}`);
         }
 
-        const updatedUser = await this.updateEmail(user.userId, emailData.email);
+        const updatedUser = await this.updateEmail(user.userId, email);
 
         return {
             userId: updatedUser.userId,

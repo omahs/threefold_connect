@@ -20,18 +20,20 @@ export class CreateUserDto {
     mainPublicKey: string;
 }
 
-export class ChangeEmailDto {
-    @IsString()
-    @IsNotEmpty()
-    @IsEmail()
-    email: string;
-
+export class UsernameDto {
     @Validate(EndsWith3Bot)
     @MinLength(6)
     @MaxLength(55)
     @IsString()
     @IsNotEmpty()
     username: string;
+}
+
+export class ChangeEmailDto {
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
+    email: string;
 }
 
 export type GetUserDto = {

@@ -20,10 +20,7 @@ Future<Response> getSignedEmailIdentifierFromOpenKYC(String doubleName) async {
   Map<String, String> payload = {"timestamp": timestamp, "intention": "get-signedemailidentifier"};
   String signedPayload = await signData(jsonEncode(payload), sk);
 
-  Map<String, String> loginRequestHeaders = {
-    'Content-type': 'application/json',
-    'Jimber-Authorization': signedPayload
-  };
+  Map<String, String> loginRequestHeaders = {'Content-type': 'application/json', 'Jimber-Authorization': signedPayload};
 
   Uri url = Uri.parse('$openKycApiUrl/verification/retrieve-sei/$doubleName');
   print('Sending call: ${url.toString()}');
@@ -38,10 +35,7 @@ Future<Response> getSignedPhoneIdentifierFromOpenKYC(String doubleName) async {
   Map<String, String> payload = {"timestamp": timestamp, "intention": "get-signedphoneidentifier"};
   String signedPayload = await signData(jsonEncode(payload), sk);
 
-  Map<String, String> loginRequestHeaders = {
-    'Content-type': 'application/json',
-    'Jimber-Authorization': signedPayload
-  };
+  Map<String, String> loginRequestHeaders = {'Content-type': 'application/json', 'Jimber-Authorization': signedPayload};
 
   Uri url = Uri.parse('$openKycApiUrl/verification/retrieve-spi/$doubleName');
   print('Sending call: ${url.toString()}');
@@ -53,17 +47,11 @@ Future<Response> getSignedIdentityIdentifierFromOpenKYC(String doubleName) async
   String timestamp = new DateTime.now().millisecondsSinceEpoch.toString();
   Uint8List sk = await getPrivateKey();
 
-  Map<String, String> payload = {
-    "timestamp": timestamp,
-    "intention": "get-identity-kyc-data-identifiers"
-  };
+  Map<String, String> payload = {"timestamp": timestamp, "intention": "get-identity-kyc-data-identifiers"};
 
   String signedPayload = await signData(jsonEncode(payload), sk);
 
-  Map<String, String> loginRequestHeaders = {
-    'Content-type': 'application/json',
-    'Jimber-Authorization': signedPayload
-  };
+  Map<String, String> loginRequestHeaders = {'Content-type': 'application/json', 'Jimber-Authorization': signedPayload};
 
   Uri url = Uri.parse('$openKycApiUrl/verification/retrieve-sii/$doubleName');
   print('Sending call: ${url.toString()}');
@@ -75,16 +63,14 @@ Future<Response> verifySignedEmailIdentifier(String signedEmailIdentifier) async
   Uri url = Uri.parse('$openKycApiUrl/verification/verify-sei');
   print('Sending call: ${url.toString()}');
 
-  return http.post(url,
-      body: json.encode({"signedEmailIdentifier": signedEmailIdentifier}), headers: requestHeaders);
+  return http.post(url, body: json.encode({"signedEmailIdentifier": signedEmailIdentifier}), headers: requestHeaders);
 }
 
 Future<Response> verifySignedPhoneIdentifier(String signedPhoneIdentifier) async {
   Uri url = Uri.parse('$openKycApiUrl/verification/verify-spi');
   print('Sending call: ${url.toString()}');
 
-  return http.post(url,
-      body: json.encode({"signedPhoneIdentifier": signedPhoneIdentifier}), headers: requestHeaders);
+  return http.post(url, body: json.encode({"signedPhoneIdentifier": signedPhoneIdentifier}), headers: requestHeaders);
 }
 
 Future<Response> verifySignedIdentityIdentifier(
@@ -197,15 +183,13 @@ Future<Response> updateEmailAddressOfUser() async {
 
   Map<String, String?> email = await getEmail();
 
-  Map<String, String> loginRequestHeaders = {
-    'Content-type': 'application/json',
-    'Jimber-Authorization': signedPayload
-  };
+  Map<String, String> loginRequestHeaders = {'Content-type': 'application/json', 'Jimber-Authorization': signedPayload};
 
+  String doubleName = (await getDoubleName())!;
   String encodedBody = jsonEncode({'username': await getDoubleName(), "email": email['email']});
 
-  Uri url = Uri.parse('$threeBotApiUrl/users/change-email');
+  Uri url = Uri.parse('$threeBotApiUrl/users/$doubleName/email');
   print('Sending call: ${url.toString()}');
 
-  return http.post(url, headers: loginRequestHeaders, body: encodedBody);
+  return http.put(url, headers: loginRequestHeaders, body: encodedBody);
 }
