@@ -1,10 +1,18 @@
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
-import {ISocketCheckName, ISocketJoin, ISocketLeave, ISocketLogin, ISocketSign, SocketEvents, SocketTypes} from 'types';
+import {
+    ISocketCheckName,
+    ISocketJoin,
+    ISocketLeave,
+    ISocketLogin,
+    ISocketSign,
+    SocketEvents,
+    SocketTypes,
+} from 'shared-types';
 import { UserService } from './user.service';
-import {SignedLoginAttemptDto} from "../login/dtos/login.dto";
-import {SignedSignAttemptDto} from "../sign/dtos/sign.dto";
+import { SignedLoginAttemptDto } from '../login/dtos/login.dto';
+import { SignedSignAttemptDto } from '../sign/dtos/sign.dto';
 
 export interface IQueueMessage {
     event: string;

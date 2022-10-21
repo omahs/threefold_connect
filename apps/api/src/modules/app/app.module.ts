@@ -1,28 +1,28 @@
-import {MiddlewareConsumer, Module, NestModule, RequestMethod} from '@nestjs/common';
-import {ConfigModule} from '@nestjs/config';
-import {AppController} from './app.controller';
-import {AppService} from './app.service';
-import {PrismaModule} from 'nestjs-prisma';
-import {UserModule} from '../user/user.module';
-import {ScheduleModule} from '@nestjs/schedule';
-import {FlagsmithModule} from '../flagsmith/flagsmith.module';
-import {FlagsmithService} from '../flagsmith/flagsmith.service';
-import {DigitalTwinModule} from '../digitaltwin/digitaltwin.module';
-import {RawBodyMiddleware} from '../../middleware/RawBodyMIddleware';
-import {JsonBodyMiddleware} from '../../middleware/JsonBodyMiddleware';
-import {LoginModule} from "../login/login.module";
-import {SignModule} from "../sign/sign.module";
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { PrismaModule } from 'nestjs-prisma';
+import { UserModule } from '../user/user.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { FlagsmithModule } from '../flagsmith/flagsmith.module';
+import { FlagsmithService } from '../flagsmith/flagsmith.service';
+import { DigitalTwinModule } from '../digitaltwin/digitaltwin.module';
+import { LoginModule } from '../login/login.module';
+import { SignModule } from '../sign/sign.module';
+import { JsonBodyMiddleware } from '../../middleware/JsonBodyMiddleware';
+import { RawBodyMiddleware } from '../../middleware/RawBodyMIddleware';
 
 @Module({
     imports: [
         ConfigModule.forRoot({}),
-        PrismaModule.forRoot({isGlobal: true}),
+        PrismaModule.forRoot({ isGlobal: true }),
         ScheduleModule.forRoot(),
         UserModule,
         FlagsmithModule,
         DigitalTwinModule,
         LoginModule,
-        SignModule
+        SignModule,
     ],
     controllers: [AppController],
     providers: [AppService, FlagsmithService],

@@ -1,15 +1,14 @@
-import {Body, Controller, Get, Headers, Param, Post} from '@nestjs/common';
-import {UserService} from './user.service';
-import {UserGateway} from './user.gateway';
-import {GetUserDto} from "./dtos/user.dto";
+import { Body, Controller, Get, Headers, Param, Post } from '@nestjs/common';
+import { UserService } from './user.service';
+import { UserGateway } from './user.gateway';
+import { ChangeEmailDto, CreatedUserDto, CreateUserDto, GetUserDto, UpdatedUserDto } from 'shared-types';
 
 @Controller('users')
 export class UserController {
-    constructor(private readonly userService: UserService, private readonly userGateway: UserGateway) {
-    }
+    constructor(private readonly userService: UserService, private readonly userGateway: UserGateway) {}
 
     @Post('')
-    async create(@Body() createUserData: string): Promise<string> {
+    async create(@Body() createUserData: CreateUserDto): Promise<CreatedUserDto> {
         return this.userService.create(createUserData);
     }
 
@@ -24,8 +23,8 @@ export class UserController {
     }
 
     @Post('change-email')
-    async changeEmail(@Body() data: string, @Headers() headers): Promise<string> {
-        return this.userService.changeEmail(data, headers);
+    async changeEmail(@Body() changeEmailData: ChangeEmailDto, @Headers() headers: string): Promise<UpdatedUserDto> {
+        return this.userService.changeEmail(changeEmailData, headers);
     }
 
     @Get('')

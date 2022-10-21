@@ -1,8 +1,8 @@
 <template>
     <div class="min-h-screen bg-white md:block flex justify-center items-center">
         <img
-            class="absolute left-2 top-2 w-20 h-20 lg:w-40 lg:h-40 md:filter-whiteout"
-            src="https://threefold.io/assets/static/tft_color_logo.3e8a41b.7b655c36cc78de99d8ef9da582b8cc8c.svg"
+            class="absolute left-2 top-2 w-20 h-16 lg:w-32 lg:h-24 md:filter-whiteout"
+            src="https://www.threefold.io/home/black_threefold_header.png#mx-auto#medium"
             alt=""
         />
         <div class="grid md:grid-cols-2">

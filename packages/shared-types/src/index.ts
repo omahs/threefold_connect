@@ -1,4 +1,6 @@
 export * from './digitaltwin';
+export * from './user';
+export * from './core';
 
 export const SocketEvents = {
     SIGN: 'SIGN',

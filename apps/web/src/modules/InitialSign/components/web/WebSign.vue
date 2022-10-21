@@ -47,32 +47,31 @@
 </template>
 
 <script lang="ts" setup>
-    import { onMounted, ref } from 'vue';
-    import { useDebounceFn } from '@vueuse/core';
-    import { Config } from '@/modules/Core/configs/config';
-    import { selectedImageId, userKnown, username } from '@/modules/Initial/data';
-    import { emitCheckName } from '@/modules/Core/services/socket.service';
-    import { useRouter } from 'vue-router';
-    import { generateRandomImageId } from '@/modules/Login/utils/generate.util';
-    import { signUserWeb } from '@/modules/InitialSign/services/sign.service';
-    import { validateName } from '@/modules/Initial/validators/name.validator';
-    import { ISocketCheckName } from 'types';
+import {onMounted, ref} from 'vue';
+import {useDebounceFn} from '@vueuse/core';
+import {Config} from '@/modules/Core/configs/config';
+import {userKnown, username} from '@/modules/Initial/data';
+import {emitCheckName} from '@/modules/Core/services/socket.service';
+import {useRouter} from 'vue-router';
+import {signUserWeb} from '@/modules/InitialSign/services/sign.service';
+import {validateName} from '@/modules/Initial/validators/name.validator';
+import {ISocketCheckName} from 'shared-types';
 
-    const router = useRouter();
+const router = useRouter();
 
-    const isValidUsername = ref<boolean>(false);
-    const errorUsername = ref<string | null>(null);
+const isValidUsername = ref<boolean>(false);
+const errorUsername = ref<string | null>(null);
 
-    onMounted(() => {
-        if (!username.value) return;
-        setTimeout(() => {
-            checkName();
-        }, 1000);
-    });
+onMounted(() => {
+  if (!username.value) return;
+  setTimeout(() => {
+    checkName();
+  }, 1000);
+});
 
-    const debounceCheckName = useDebounceFn(() => {
-        checkName();
-    }, Config.DEBOUNCE_NAME_SOCKET);
+const debounceCheckName = useDebounceFn(() => {
+  checkName();
+}, Config.DEBOUNCE_NAME_SOCKET);
 
     const checkName = () => {
         const socketName: ISocketCheckName = { username: username.value + '.3bot' };

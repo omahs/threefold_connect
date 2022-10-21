@@ -1,6 +1,6 @@
-import {ISocketSignResult} from "types";
-import {redirectUrl} from "@/modules/Initial/data";
-import {createSafetyUrl} from "@/modules/Login/services/redirection.service";
+import { ISocketSignResult } from 'types/src';
+import { redirectUrl } from '@/modules/Initial/data';
+import { createSafetyUrl } from '@/modules/Login/services/redirection.service';
 
 export const redirectToOriginalLocationForSigning = (signedSignAttempt: ISocketSignResult) => {
     console.log('[REDIRECTING] - SIGNED ATTEMPT: ', signedSignAttempt);

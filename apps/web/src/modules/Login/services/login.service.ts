@@ -11,9 +11,9 @@ import {
     state,
     username,
 } from '@/modules/Initial/data';
-import { ISocketJoin, ISocketLeave, ISocketLogin } from 'types';
-import {encrypt} from "@/modules/Core/utils/crypto.util";
-import {encodeBase64} from "tweetnacl-util";
+import { ISocketJoin, ISocketLeave, ISocketLogin } from 'types/src';
+import { encrypt } from '@/modules/Core/utils/crypto.util';
+import { encodeBase64 } from 'tweetnacl-util';
 
 export const loginUserWeb = async () => {
     const doubleName = username.value + '.3bot';
@@ -27,7 +27,7 @@ export const loginUserWeb = async () => {
 
     const randomRoom = nanoid();
 
-    console.log(locationId.value)
+    console.log(locationId.value);
 
     const objectToEncrypt = JSON.stringify({
         doubleName: doubleName,

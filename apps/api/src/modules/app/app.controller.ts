@@ -1,12 +1,10 @@
-import {Controller, Get} from '@nestjs/common';
-import {AppService} from './app.service';
-import {FlagsmithService} from '../flagsmith/flagsmith.service';
-
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service';
+import { FlagsmithService } from '../flagsmith/flagsmith.service';
 
 @Controller()
 export class AppController {
-    constructor(private readonly appService: AppService, private readonly flagService: FlagsmithService) {
-    }
+    constructor(private readonly appService: AppService, private readonly flagService: FlagsmithService) {}
 
     @Get('maintenance')
     async isInMaintenance() {

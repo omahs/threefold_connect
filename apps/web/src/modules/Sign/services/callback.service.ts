@@ -1,9 +1,9 @@
-import {ISocketSignResult} from "types";
-import {getPublicKeyOfUsername} from "@/modules/Login/services/external.service";
-import {encodeBase64} from "tweetnacl-util";
-import {verifySignature} from "@/modules/Core/utils/crypto.util";
-import {redirectWithCancel} from "@/modules/Login/services/redirection.service";
-import {redirectToOriginalLocationForSigning} from "@/modules/Sign/services/redirection.service";
+import { ISocketSignResult } from 'types/src';
+import { getPublicKeyOfUsername } from '@/modules/Login/services/external.service';
+import { encodeBase64 } from 'tweetnacl-util';
+import { verifySignature } from '@/modules/Core/utils/crypto.util';
+import { redirectWithCancel } from '@/modules/Login/services/redirection.service';
+import { redirectToOriginalLocationForSigning } from '@/modules/Sign/services/redirection.service';
 
 export const socketCallbackSign = async (data: ISocketSignResult) => {
     if (!data.doubleName || !data.signedAttempt) return;

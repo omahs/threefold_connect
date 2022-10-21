@@ -1,5 +1,3 @@
-import exp from 'constants';
-
 export const findAllTwinsQuery = {
     select: {
         yggdrasilIp: true,
@@ -23,6 +21,7 @@ export const findAllTwinsByUsernameQuery = userId => {
             yggdrasilIp: true,
             appId: true,
             derivedPublicKey: true,
+            id: true,
         },
         where: {
             user: {

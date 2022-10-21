@@ -11,9 +11,9 @@ import {
     ISocketLoginResult,
     ISocketSign,
     SocketTypes,
-} from 'types/index';
-import {ISocketSignResult} from "types";
-import {redirectWithCancelForSigning, socketCallbackSign} from "@/modules/Sign/services/callback.service";
+} from 'shared-types';
+import { ISocketSignResult } from 'shared-types';
+import { redirectWithCancelForSigning, socketCallbackSign } from '@/modules/Sign/services/callback.service';
 
 const state = reactive<State>({
     socket: '',

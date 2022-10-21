@@ -1,19 +1,20 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { DigitalTwinService } from './digitaltwin.service';
-import { decodeBase64ToString } from './utils/transform.util';
-import { DigitalTwinDto } from './dtos/digitaltwin.dto';
+import { DigitalTwinDto } from 'shared-types';
+import { decodeBase64ToString } from '../../utils/transform.utils';
 
 @Controller('digitaltwin')
 export class DigitalTwinController {
     constructor(private readonly digitalTwinService: DigitalTwinService) {}
+
     @Post(':username')
-    async create(@Param('username') username: string, @Body() data: any): Promise<string>  {
+    async create(@Param('username') username: string, @Body() data: any): Promise<string> {
         return await this.digitalTwinService.create(username, data.toString());
     }
 
     @Put(':username')
     async update(@Param('username') username: string, @Body() data: string): Promise<string> {
-        return await this.digitalTwinService.updateYggdrasilHandler(username, data);
+        return await this.digitalTwinService.updateYggdrasilOfTwin(username, data);
     }
 
     @Get('')
