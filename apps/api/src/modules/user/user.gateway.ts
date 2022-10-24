@@ -9,9 +9,9 @@ import {
     ISocketSign,
     SocketEvents,
     SocketTypes,
+    LoginAttemptDto,
 } from 'shared-types';
 import { UserService } from './user.service';
-import { SignedLoginAttemptDto } from '../login/dtos/login.dto';
 import { SignedSignAttemptDto } from '../sign/dtos/sign.dto';
 
 interface IQueueMessage {
@@ -119,7 +119,7 @@ export class UserGateway {
         this.server.to(username).emit(SocketTypes.PHONE_VERIFIED, '');
     }
 
-    async emitSignedLoginAttempt(room: string, data: SignedLoginAttemptDto): Promise<void> {
+    async emitSignedLoginAttempt(room: string, data: LoginAttemptDto): Promise<void> {
         this.server.to(room).emit(SocketTypes.LOGIN_CALLBACK, data);
     }
 

@@ -1,7 +1,7 @@
 import { Body, Controller, Param, Post } from '@nestjs/common';
 import { LoginService } from './login.service';
 import { UserGateway } from '../user/user.gateway';
-import { UsernameDto } from 'shared-types';
+import { LoginAttemptDto, UsernameDto } from 'shared-types';
 
 @Controller('login')
 export class LoginController {
@@ -12,8 +12,11 @@ export class LoginController {
         return this.userGateway.emitCancelLoginAttempt(username.username);
     }
 
-    @Post('signed-login-attempt')
-    async signedLoginAttemptHandler(@Body() data: string): Promise<void> {
-        return this.loginService.handleSignedLoginAttempt(data);
+    @Post(':username')
+    async signedLoginAttemptHandler(
+        @Param('') username: UsernameDto,
+        @Body() loginAttempt: LoginAttemptDto
+    ): Promise<void> {
+        return this.loginService.handleSignedLoginAttempt(username.username, loginAttempt);
     }
 }
