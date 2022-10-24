@@ -1,20 +1,33 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { DigitalTwinService } from './digitaltwin.service';
-import { DigitalTwinDto } from 'shared-types/src';
+import {
+    CreatedDigitalTwinDto,
+    CreateDigitalTwinDto,
+    DigitalTwinDto,
+    UpdatedDigitalTwinDto,
+    UpdateDigitalTwinIpDto,
+    UsernameDto,
+} from 'shared-types';
 import { decodeBase64ToString } from '../../utils/transform.utils';
 
 @Controller('digitaltwin')
 export class DigitalTwinController {
     constructor(private readonly digitalTwinService: DigitalTwinService) {}
 
-    @Post(':username')
-    async create(@Param('username') username: string, @Body() data: any): Promise<string> {
-        return await this.digitalTwinService.create(username, data.toString());
+    @Post('')
+    async create(@Body() data: CreateDigitalTwinDto, @Res() res): Promise<CreatedDigitalTwinDto> {
+        const userId = await this.digitalTwinService.create(data);
+
+        if (!userId) return res.status(HttpStatus.NO_CONTENT).send();
+        return userId;
     }
 
-    @Put(':username')
-    async update(@Param('username') username: string, @Body() data: string): Promise<string> {
-        return await this.digitalTwinService.updateYggdrasilOfTwin(username, data);
+    @Put(':username/ip')
+    async update(
+        @Param('') username: UsernameDto,
+        @Body() data: UpdateDigitalTwinIpDto
+    ): Promise<UpdatedDigitalTwinDto> {
+        return await this.digitalTwinService.updateYggdrasilOfTwin(username.username, data);
     }
 
     @Get('')
@@ -23,15 +36,15 @@ export class DigitalTwinController {
     }
 
     @Get(':username')
-    async findByUsername(@Param('username') username: string): Promise<DigitalTwinDto[]> {
-        return await this.digitalTwinService.findByUsername(username);
+    async findByUsername(@Param('') username: UsernameDto): Promise<DigitalTwinDto[]> {
+        return await this.digitalTwinService.findByUsername(username.username, true);
     }
 
     @Get(':username/:appId')
     async findByUsernameAndAppId(
-        @Param('username') username: string,
+        @Param('') username: UsernameDto,
         @Param('appId') appId: string
     ): Promise<DigitalTwinDto> {
-        return await this.digitalTwinService.findByUsernameAndAppId(username, decodeBase64ToString(appId));
+        return await this.digitalTwinService.findByUsernameAndAppId(username.username, decodeBase64ToString(appId));
     }
 }

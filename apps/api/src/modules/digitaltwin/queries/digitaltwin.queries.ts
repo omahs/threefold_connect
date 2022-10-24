@@ -2,6 +2,7 @@ export const findAllTwinsQuery = {
     select: {
         yggdrasilIp: true,
         appId: true,
+        derivedPublicKey: true,
         user: {
             select: {
                 username: true,
@@ -64,10 +65,13 @@ export const updateTwinYggdrasilIpQuery = (yggdrasilIp: string, twinId: string) 
     };
 };
 
-export const deleteTwinByIdQuery = (twinId: string) => {
+export const getTwinByPublicKeyQuery = (derivedPublicKey: string) => {
     return {
+        select: {
+            derivedPublicKey: true,
+        },
         where: {
-            id: twinId,
+            derivedPublicKey: derivedPublicKey,
         },
     };
 };

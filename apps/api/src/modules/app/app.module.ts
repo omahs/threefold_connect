@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,7 +11,6 @@ import { DigitalTwinModule } from '../digitaltwin/digitaltwin.module';
 import { LoginModule } from '../login/login.module';
 import { SignModule } from '../sign/sign.module';
 import { JsonBodyMiddleware } from '../../middleware/JsonBodyMiddleware';
-import { RawBodyMiddleware } from '../../middleware/RawBodyMIddleware';
 
 @Module({
     imports: [
@@ -29,13 +28,6 @@ import { RawBodyMiddleware } from '../../middleware/RawBodyMIddleware';
 })
 export class AppModule implements NestModule {
     public configure(consumer: MiddlewareConsumer): void {
-        consumer
-            .apply(RawBodyMiddleware)
-            .forRoutes({
-                path: '/digitaltwin/:username',
-                method: RequestMethod.POST,
-            })
-            .apply(JsonBodyMiddleware)
-            .forRoutes('*');
+        consumer.apply(JsonBodyMiddleware).forRoutes('*');
     }
 }

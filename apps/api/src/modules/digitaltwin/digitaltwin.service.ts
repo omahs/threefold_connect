@@ -1,18 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import { UserService } from '../user/user.service';
-import {
-    BadRequestException,
-    ConflictException,
-    ExpectationFailedException,
-    NotFoundException,
-} from '../../exceptions';
+import { BadRequestException, NotFoundException } from '../../exceptions';
 import { decodeBase64 } from 'tweetnacl-util';
-import { CreateDigitalTwinDto, DigitalTwinDetailsDto, DigitalTwinDto } from 'shared-types/src';
+import {
+    CreatedDigitalTwinDto,
+    CreateDigitalTwinDto,
+    DigitalTwinDetailsDto,
+    DigitalTwinDto,
+    UpdatedDigitalTwinDto,
+    UpdateDigitalTwinIpDto,
+    VerifiedCreateDigitalTwinDto,
+} from 'shared-types';
 import {
     findAllTwinsByUsernameQuery,
     findAllTwinsQuery,
     findTwinByUsernameAndAppIdQuery,
+    getTwinByPublicKeyQuery,
     updateTwinYggdrasilIpQuery,
 } from './queries/digitaltwin.queries';
 import { verifyMessage } from '../../utils/crypto.utils';
@@ -21,51 +25,68 @@ import { verifyMessage } from '../../utils/crypto.utils';
 export class DigitalTwinService {
     constructor(private _prisma: PrismaService, private readonly userService: UserService) {}
 
-    async create(username: string, payload: string): Promise<string> {
-        const encodedPayload = JSON.parse(payload);
-
-        const user = await this.userService.findByUsername(username);
+    async create(createDigitalTwin: CreateDigitalTwinDto): Promise<CreatedDigitalTwinDto> {
+        const user = await this.userService.findByUsername(createDigitalTwin.username);
         if (!user) {
-            throw new NotFoundException(`Username ${username} doesn't exist`);
+            console.error(`Username ${createDigitalTwin.username} doesn't exist`);
+            throw new NotFoundException(`Username ${createDigitalTwin.username} doesn't exist`);
         }
 
-        const signedData = verifyMessage(decodeBase64(encodedPayload['data']), decodeBase64(user.mainPublicKey));
-        if (!signedData) throw new BadRequestException('Signature mismatch');
-
-        const messageData: CreateDigitalTwinDto = JSON.parse(signedData);
-
-        if (username != messageData.username) {
-            throw new ConflictException('Username mismatch');
+        const signedData = verifyMessage(decodeBase64(createDigitalTwin.signedData), decodeBase64(user.mainPublicKey));
+        if (!signedData) {
+            console.error(`Signature mismatch for ${user.mainPublicKey} with data ${createDigitalTwin.signedData}`);
+            throw new BadRequestException(
+                `Signature mismatch for ${user.mainPublicKey} with data ${createDigitalTwin.signedData}`
+            );
         }
 
-        const existingTwins = await this.findByUsernameAndAppId(user.username, messageData.appId);
+        const verifiedData = JSON.parse(signedData) as VerifiedCreateDigitalTwinDto;
+        const existingTwins = await this.findByUsernameAndAppId(user.username, verifiedData.appId);
         if (existingTwins) {
-            return 'Combination of username and appId already exists';
+            // When record is already created => just early return and don't make new database record
+            console.log(`Combination of username ${user.username} and appId ${verifiedData.appId} already exists`);
+            return;
         }
 
-        const twin = {
-            derivedPublicKey: messageData.derivedPublicKey,
-            appId: messageData.appId,
-            userId: user.userId,
-        };
+        const publicKeyExists = await this.doesPublicKeyExists(verifiedData.derivedPublicKey);
+        if (publicKeyExists) {
+            // When public key already exists => just early return and don't make new database record
+            console.log(`Derived public key ${verifiedData.derivedPublicKey} already exists`);
+            return;
+        }
 
-        const createdTwin = await this._prisma.digitalTwin.create({ data: twin });
-        return createdTwin.id;
+        const createdTwin = await this._prisma.digitalTwin.create({
+            data: {
+                derivedPublicKey: verifiedData.derivedPublicKey,
+                appId: verifiedData.appId,
+                userId: user.userId,
+            },
+        });
+
+        return {
+            twinId: createdTwin.id,
+        };
     }
 
-    async updateYggdrasilOfTwin(username: string, payload: string): Promise<string> {
-        const { signedIp, appId } = JSON.parse(JSON.stringify(payload));
+    async updateYggdrasilOfTwin(
+        username: string,
+        updateTwinDto: UpdateDigitalTwinIpDto
+    ): Promise<UpdatedDigitalTwinDto> {
+        const twin = await this.findByUsernameAndAppId(username, updateTwinDto.appId);
+        if (!twin) {
+            console.error(`There is no twin named ${username} with appId ${updateTwinDto.appId}`);
+            throw new NotFoundException(`There is no twin named ${username} with appId ${updateTwinDto.appId}`);
+        }
 
-        if (!signedIp) throw new ExpectationFailedException('Yggdrasil IP is required');
-        if (!appId) throw new ExpectationFailedException('AppId is required');
+        const verifiedIp = verifyMessage(
+            decodeBase64(updateTwinDto.signedYggdrasilIp),
+            decodeBase64(twin.derivedPublicKey)
+        );
 
-        const twin = await this.findByUsernameAndAppId(username, appId);
-        if (!twin) throw new NotFoundException(`There is no twin named ${username} with appId ${appId}`);
-
-        const verifiedIp = verifyMessage(decodeBase64(signedIp), decodeBase64(twin.derivedPublicKey));
-
-        const updatedTwin = await this.update(verifiedIp, twin.id);
-        return updatedTwin.id;
+        const updatedTwin = await this.update(verifiedIp, twin.twinId);
+        return {
+            twinId: updatedTwin.id,
+        };
     }
 
     async update(yggdrasilIp: string, twinId: string) {
@@ -77,6 +98,7 @@ export class DigitalTwinService {
 
         return t.map(twin => {
             return {
+                derivedPublicKey: twin.derivedPublicKey,
                 yggdrasilIp: twin.yggdrasilIp,
                 appId: twin.appId,
                 username: twin.user.username,
@@ -84,20 +106,31 @@ export class DigitalTwinService {
         });
     }
 
-    async findByUsername(username: string): Promise<DigitalTwinDetailsDto[]> {
+    async doesPublicKeyExists(derivedPublicKey: string): Promise<boolean> {
+        const twin = await this._prisma.digitalTwin.findMany(getTwinByPublicKeyQuery(derivedPublicKey));
+        return !(!twin || twin.length == 0);
+    }
+
+    async findByUsername(username: string, withException = false): Promise<DigitalTwinDetailsDto[]> {
         const user = await this.userService.findByUsername(username);
-        if (!user) {
+        if (!user && withException) {
+            console.error(`Username ${username} does not exists`);
             throw new NotFoundException(`Username ${username} does not exists`);
         }
 
+        if (!user) return null;
+
         const t = await this._prisma.digitalTwin.findMany(findAllTwinsByUsernameQuery(user.userId));
-        if (!t || t.length == 0) {
+        if ((!t || t.length == 0) && withException) {
+            console.error(`No twins found for username ${username}`);
             throw new NotFoundException(`No twins found for username ${username}`);
         }
 
+        if (!t || t.length == 0) return null;
+
         return t.map(twin => {
             return {
-                id: twin.id,
+                twinId: twin.id,
                 yggdrasilIp: twin.yggdrasilIp,
                 appId: twin.appId,
                 username: twin.user.username,
@@ -106,17 +139,29 @@ export class DigitalTwinService {
         });
     }
 
-    async findByUsernameAndAppId(username: string, appId: string): Promise<DigitalTwinDetailsDto> {
+    async findByUsernameAndAppId(
+        username: string,
+        appId: string,
+        withException = false
+    ): Promise<DigitalTwinDetailsDto> {
         const user = await this.userService.findByUsername(username);
-        if (!user) {
+        if (!user && withException) {
+            console.error(`Username ${username} does not exists`);
             throw new NotFoundException(`Username ${username} does not exists`);
         }
 
+        if (!user) return null;
+
         const t = await this._prisma.digitalTwin.findFirst(findTwinByUsernameAndAppIdQuery(user.userId, appId));
-        if (!t) throw new NotFoundException(`No twins found for username ${username} in combination with ${appId}`);
+        if (!t && withException) {
+            console.error(`No twins found for username ${username} in combination with ${appId}`);
+            throw new NotFoundException(`No twins found for username ${username} in combination with ${appId}`);
+        }
+
+        if (!t) return null;
 
         return {
-            id: t.id,
+            twinId: t.id,
             yggdrasilIp: t.yggdrasilIp,
             appId: t.appId,
             username: t.user.username,
