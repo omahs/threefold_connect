@@ -45,6 +45,6 @@ export class DigitalTwinController {
         @Param('') username: UsernameDto,
         @Param('appId') appId: string
     ): Promise<DigitalTwinDto> {
-        return await this.digitalTwinService.findByUsernameAndAppId(username.username, decodeBase64ToString(appId));
+        return await this.digitalTwinService.findByUsernameAndAppId(username.username, appId);
     }
 }
