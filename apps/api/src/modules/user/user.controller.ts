@@ -12,6 +12,16 @@ export class UserController {
         return this.userService.create(createUserData);
     }
 
+    @Get('')
+    async findAll(): Promise<GetUserDto[]> {
+        return await this.userService.findAll();
+    }
+
+    @Get(':username')
+    async findByUsername(@Param() username: UsernameDto): Promise<GetUserDto> {
+        return await this.userService.findByUsername(username.username, true);
+    }
+
     @Post(':username/emailverified')
     async emailVerified(@Param() username: UsernameDto): Promise<void> {
         return this.userGateway.emitEmailVerified(username.username);
@@ -29,15 +39,5 @@ export class UserController {
         @Headers() headers: string
     ): Promise<UpdatedUserDto> {
         return this.userService.changeEmail(username.username, email.email, headers);
-    }
-
-    @Get('')
-    async findAll(): Promise<GetUserDto[]> {
-        return await this.userService.findAll();
-    }
-
-    @Get(':username')
-    async findByUsername(@Param() username: UsernameDto): Promise<GetUserDto> {
-        return await this.userService.findByUsername(username.username);
     }
 }

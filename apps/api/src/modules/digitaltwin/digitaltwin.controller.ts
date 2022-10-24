@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { DigitalTwinService } from './digitaltwin.service';
-import { DigitalTwinDto } from 'shared-types';
+import { DigitalTwinDto } from 'shared-types/src';
 import { decodeBase64ToString } from '../../utils/transform.utils';
 
 @Controller('digitaltwin')

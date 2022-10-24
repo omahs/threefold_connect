@@ -8,7 +8,7 @@ import {
     NotFoundException,
 } from '../../exceptions';
 import { decodeBase64 } from 'tweetnacl-util';
-import { CreateDigitalTwinDto, DigitalTwinDetailsDto, DigitalTwinDto } from 'shared-types';
+import { CreateDigitalTwinDto, DigitalTwinDetailsDto, DigitalTwinDto } from 'shared-types/src';
 import {
     findAllTwinsByUsernameQuery,
     findAllTwinsQuery,

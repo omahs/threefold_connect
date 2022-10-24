@@ -14,7 +14,7 @@ import { UserService } from './user.service';
 import { SignedLoginAttemptDto } from '../login/dtos/login.dto';
 import { SignedSignAttemptDto } from '../sign/dtos/sign.dto';
 
-export interface IQueueMessage {
+interface IQueueMessage {
     event: string;
     data: Object;
 }
@@ -103,27 +103,27 @@ export class UserGateway {
         }
     }
 
-    async emitCancelLoginAttempt(username: string) {
+    async emitCancelLoginAttempt(username: string): Promise<void> {
         this.server.to(username).emit(SocketTypes.LOGIN_CANCEL, { scanned: true });
     }
 
-    async emitCancelSignAttempt(username: string) {
+    async emitCancelSignAttempt(username: string): Promise<void> {
         this.server.to(username).emit(SocketTypes.SIGN_CANCEL, { scanned: true });
     }
 
-    async emitEmailVerified(username: string) {
+    async emitEmailVerified(username: string): Promise<void> {
         this.server.to(username).emit(SocketTypes.EMAIL_VERIFIED, '');
     }
 
-    async emitSmsVerified(username: string) {
+    async emitSmsVerified(username: string): Promise<void> {
         this.server.to(username).emit(SocketTypes.PHONE_VERIFIED, '');
     }
 
-    async emitSignedLoginAttempt(room: string, data: SignedLoginAttemptDto) {
+    async emitSignedLoginAttempt(room: string, data: SignedLoginAttemptDto): Promise<void> {
         this.server.to(room).emit(SocketTypes.LOGIN_CALLBACK, data);
     }
 
-    async emitSignedSignAttempt(room: string, data: SignedSignAttemptDto) {
+    async emitSignedSignAttempt(room: string, data: SignedSignAttemptDto): Promise<void> {
         this.server.to(room).emit(SocketTypes.SIGN_CALLBACK, data);
     }
 

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 import {
     AuthorizationHeaders,
-    ChangeEmailDto,
     CreatedUserDto,
     CreateUserDto,
     GetUserDto,
@@ -32,9 +31,10 @@ export class UserService {
         });
     }
 
-    async findByUsername(username: string): Promise<GetUserDto> {
+    async findByUsername(username: string, withException: boolean = false): Promise<GetUserDto> {
         const user = await this._prisma.user.findUnique(findUserByUsernameQuery(username));
-        if (!user) return null;
+        if (!user && !withException) return null;
+        if (!user && withException) throw new NotFoundException(`Username ${username} not found`);
 
         return {
             userId: user.userId,
