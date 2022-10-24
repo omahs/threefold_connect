@@ -10,9 +10,10 @@ import {
     ISocketLogin,
     ISocketLoginResult,
     ISocketSign,
+    ISocketSignResult,
     SocketTypes,
 } from 'shared-types';
-import { ISocketSignResult } from 'shared-types';
+
 import { redirectWithCancelForSigning, socketCallbackSign } from '@/modules/Sign/services/callback.service';
 
 const state = reactive<State>({
@@ -46,18 +47,18 @@ export const initializeSockets = () => {
     });
 
     state.socket.on(SocketTypes.SIGN_CANCEL, () => {
-        console.log('[SOCKET:RECEIVE]: LOGIN CANCEL');
+        console.log('[SOCKET:RECEIVE]: SIGN CANCEL');
         redirectWithCancelForSigning();
     });
 
-    state.socket.on(SocketTypes.LOGIN_CALLBACK, async (data: ISocketLoginResult) => {
+    state.socket.on(SocketTypes.LOGIN_CALLBACK, async (loginResult: ISocketLoginResult) => {
         console.log('[SOCKET:RECEIVE]: LOGIN_CALLBACK');
-        await socketCallbackLogin(data);
+        await socketCallbackLogin(loginResult);
     });
 
-    state.socket.on(SocketTypes.SIGN_CALLBACK, async (data: ISocketSignResult) => {
+    state.socket.on(SocketTypes.SIGN_CALLBACK, async (signResult: ISocketSignResult) => {
         console.log('[SOCKET:RECEIVE]: SIGN_CALLBACK');
-        await socketCallbackSign(data);
+        await socketCallbackSign(signResult);
     });
 };
 

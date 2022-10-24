@@ -1,8 +1,8 @@
 import { QueryOptionsLogin } from '@/modules/Initial/services/query.service';
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 import { appId, appPublicKey, redirectUrl, scope, state, username } from '@/modules/Initial/data';
-import {QueryOptionsSigning} from "@/modules/InitialSign/services/sign.service";
-import {dataHash, dataUrl, friendlyName, isJson} from "@/modules/InitialSign/data";
+import { QueryOptionsSigning } from '@/modules/InitialSign/services/sign.service';
+import { dataHash, dataUrl, friendlyName, isJson } from '@/modules/InitialSign/data';
 
 export const setLocalStorageDataForLogin = (route: RouteLocationNormalizedLoaded) => {
     const queryParams: QueryOptionsLogin = route.query as QueryOptionsLogin;
@@ -18,12 +18,9 @@ export const setLocalStorageDataForLogin = (route: RouteLocationNormalizedLoaded
     redirectUrl.value = queryParams.redirecturl;
 };
 
-
 export const setLocalStorageDataForSigning = (route: RouteLocationNormalizedLoaded) => {
     //@ts-ignore
     const queryParams: QueryOptionsSigning = route.query as QueryOptionsSigning;
-
-    console.log(queryParams)
 
     if (queryParams.username) {
         username.value = queryParams.username;

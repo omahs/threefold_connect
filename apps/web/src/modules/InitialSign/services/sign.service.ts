@@ -1,10 +1,11 @@
 import { nanoid } from 'nanoid';
-import { ISocketJoin, ISocketLeave, ISocketSign } from 'types/src';
+import { ISocketJoin, ISocketLeave, ISocketSign } from 'shared-types';
 import { emitJoin, emitLeave, emitSign } from '@/modules/Core/services/socket.service';
 import { appId, redirectUrl, state, username } from '@/modules/Initial/data';
 import { dataHash, dataUrl, friendlyName, isJson } from '@/modules/InitialSign/data';
 import { getPublicKeyOfUsername } from '@/modules/Login/services/external.service';
 import { encrypt } from '@/modules/Core/utils/crypto.util';
+import { Config } from '@/modules/Core/configs/config';
 
 export type QueryOptionsSigning = {
     username: string;
@@ -22,7 +23,7 @@ export const signUserMobile = () => {
     const roomToJoin: ISocketJoin = { room: randomRoom };
     emitJoin(roomToJoin);
 
-    const uniLinkUrl = `threebot://sign/?state=${state.value}&appId=${appId.value}&randomRoom=${randomRoom}&dataUrl=${dataUrl.value}&redirecturl=${redirectUrl.value}&dataHash=${dataHash.value}&isJson=${isJson.value}&friendlyName=${friendlyName.value}`;
+    const uniLinkUrl = `${Config.APP_DEEPLINK}sign/?state=${state.value}&appId=${appId.value}&randomRoom=${randomRoom}&dataUrl=${dataUrl.value}&redirecturl=${redirectUrl.value}&dataHash=${dataHash.value}&isJson=${isJson.value}&friendlyName=${friendlyName.value}`;
 
     window.open(uniLinkUrl);
 };

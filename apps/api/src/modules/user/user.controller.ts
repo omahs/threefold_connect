@@ -22,12 +22,12 @@ export class UserController {
         return await this.userService.findByUsername(username.username, true);
     }
 
-    @Post(':username/emailverified')
+    @Post(':username/email/verified')
     async emailVerified(@Param() username: UsernameDto): Promise<void> {
         return this.userGateway.emitEmailVerified(username.username);
     }
 
-    @Post(':username/smsverified')
+    @Post(':username/phone/verified')
     async smsVerified(@Param() username: UsernameDto): Promise<void> {
         return this.userGateway.emitSmsVerified(username.username);
     }

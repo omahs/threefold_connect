@@ -1,10 +1,10 @@
-import {Router} from 'vue-router';
+import { Router } from 'vue-router';
 import PathNotFound from '@/modules/Core/views/404.vue';
 import ErrorPage from '@/modules/Core/views/Error.vue';
-import {hasRequiredParameters} from '@/modules/Initial/services/query.service';
-import {setLocalStorageDataForLogin, setLocalStorageDataForSigning} from '@/modules/Core/services/storage.service';
-import {appId} from '@/modules/Initial/data';
-
+import { hasRequiredParameters } from '@/modules/Initial/services/query.service';
+import { setLocalStorageDataForLogin, setLocalStorageDataForSigning } from '@/modules/Core/services/storage.service';
+import { appId } from '@/modules/Initial/data';
+import { RequiredParameterRoutes } from 'shared-types';
 const coreRoutes = [
     {
         path: '/404',
@@ -27,19 +27,19 @@ const coreRoutes = [
 export default async (router: Router) => {
     router.beforeEach((to, from, next) => {
         // @TODO: can this be cleaner?
-        if (to.name === 'initial') {
+        if (to.name === RequiredParameterRoutes.INITIAL) {
             setLocalStorageDataForLogin(to);
         }
 
-        if (to.name === 'sign') {
-            setLocalStorageDataForSigning(to)
+        if (to.name === RequiredParameterRoutes.SIGN) {
+            setLocalStorageDataForSigning(to);
         }
 
-        if (to.name === 'login') {
+        if (to.name === RequiredParameterRoutes.LOGIN) {
             appId.value ? next() : next('error');
         }
 
-        const {requiredParameters} = to.meta;
+        const { requiredParameters } = to.meta;
         hasRequiredParameters(to, requiredParameters) === true ? next() : next('/error');
     });
 

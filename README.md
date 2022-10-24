@@ -7,12 +7,17 @@
 docker-compose -f docker-compose.development.yml up -d
 ```
 
-**Start application**
+**Run shared types**
 ```shell
-yarn && yarn dev
+cd packages/shared-types && yarn build:watch
 ```
 
 **Run migrations**
 ```shell
 cd apps/api/ && yarn prisma:migrate-prod
+```
+
+**Start application**
+```shell
+yarn && yarn dev
 ```

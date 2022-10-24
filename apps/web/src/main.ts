@@ -15,7 +15,7 @@ import InitialSignModule from '@/modules/InitialSign';
 import sodium from 'libsodium-wrappers';
 import socketIo from '@/plugins/SocketIo';
 import { registerGlobalComponent } from '@/components/global';
-import { initializeConfiguration} from '@/modules/Core/services/flag.service';
+import { initializeConfiguration } from '@/modules/Core/services/flag.service';
 
 const initApplication = async () => {
     await sodium.ready;
@@ -39,7 +39,7 @@ const initApplication = async () => {
 
     registerGlobalComponent(app);
 
-    await initializeConfiguration();
+    await initializeConfiguration(router);
 
     app.mount('#app');
 };

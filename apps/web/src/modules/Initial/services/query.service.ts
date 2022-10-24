@@ -1,4 +1,3 @@
-// @TODO: improve typings overall projects
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 
 export type QueryOptionsLogin = {

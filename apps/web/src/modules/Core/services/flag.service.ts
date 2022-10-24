@@ -1,21 +1,23 @@
-import axios from "axios";
-import {Config} from "@/modules/Core/configs/config";
+import axios from 'axios';
+import { Config } from '@/modules/Core/configs/config';
+import { Router } from 'vue-router';
 
-export const initializeConfiguration = async () => {
+export const initializeConfiguration = async (router: Router) => {
     let t;
 
     try {
         t = (await axios.get('/api/env')).data;
 
-        Config.DEBOUNCE_NAME_SOCKET = t['debounce-name-socket'].value
-        Config.SUPPORT_URL = t['support-url'].value
-        Config.API_KYC_URL = t['openkyc-url'].value
-
+        Config.DEBOUNCE_NAME_SOCKET = t['debounce-name-socket'].value;
+        Config.SUPPORT_URL = t['support-url'].value;
+        Config.API_KYC_URL = t['openkyc-url'].value;
+        Config.APP_DEEPLINK = t['app-deep-link'].value;
     } catch (e) {
-        console.error(e)
-        console.log('Could not get flagsmith configs of backend')
+        console.error(e);
+        console.log('Could not get flagsmith configs of backend');
+
+        await router.push('/TODO');
     }
 
-    console.table(t)
-
+    console.table(t);
 };

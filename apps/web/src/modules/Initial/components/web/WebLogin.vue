@@ -55,8 +55,8 @@
     import { useRouter } from 'vue-router';
     import { generateRandomImageId } from '@/modules/Login/utils/generate.util';
     import { loginUserWeb } from '@/modules/Login/services/login.service';
-    import { validateName } from '@/modules/Initial/validators/name.validator';
     import { ISocketCheckName } from 'shared-types';
+    import { validateName } from '@/modules/Core/validators/name.validate';
 
     const router = useRouter();
 

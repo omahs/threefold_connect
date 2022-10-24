@@ -11,26 +11,27 @@ import {
     state,
     username,
 } from '@/modules/Initial/data';
-import { ISocketJoin, ISocketLeave, ISocketLogin } from 'types/src';
+import { ISocketJoin, ISocketLeave, ISocketLogin } from 'shared-types';
 import { encrypt } from '@/modules/Core/utils/crypto.util';
-import { encodeBase64 } from 'tweetnacl-util';
+import { Config } from '@/modules/Core/configs/config';
 
 export const loginUserWeb = async () => {
-    const doubleName = username.value + '.3bot';
+    const name = username.value + '.3bot';
 
-    const roomToJoinUser: ISocketJoin = { room: doubleName };
+    const roomToJoinUser: ISocketJoin = { room: name };
     emitJoin(roomToJoinUser);
 
-    const pk = await getPublicKeyOfUsername(doubleName);
+    const pk = await getPublicKeyOfUsername(name);
 
-    if (pk.length === 1) return;
+    if (pk.length === 1) {
+        console.error(`Public key not found for user ${name}`);
+        return;
+    }
 
     const randomRoom = nanoid();
 
-    console.log(locationId.value);
-
     const objectToEncrypt = JSON.stringify({
-        doubleName: doubleName,
+        doubleName: name,
         state: state.value,
         scope: scope.value,
         appId: appId.value,
@@ -42,13 +43,13 @@ export const loginUserWeb = async () => {
 
     const encryptedAttempt = encrypt(objectToEncrypt, pk);
 
-    const roomToLeaveUser: ISocketLeave = { room: doubleName };
+    const roomToLeaveUser: ISocketLeave = { room: name };
     emitLeave(roomToLeaveUser);
 
     const roomToJoinRandom: ISocketJoin = { room: randomRoom };
     emitJoin(roomToJoinRandom);
 
-    const loginAttempt: ISocketLogin = { doubleName: doubleName, encryptedLoginAttempt: encryptedAttempt };
+    const loginAttempt: ISocketLogin = { doubleName: name, encryptedLoginAttempt: encryptedAttempt };
     emitLogin(loginAttempt);
 };
 
@@ -57,7 +58,7 @@ export const loginUserMobile = async () => {
     const roomToJoin: ISocketJoin = { room: randomRoom };
     emitJoin(roomToJoin);
 
-    const uniLinkUrl = `threebot://login/?state=${state.value}&scope=${scope.value}&appId=${appId.value}&randomRoom=${randomRoom}&appPublicKey=${appPublicKey.value}&redirecturl=${redirectUrl.value}`;
+    const uniLinkUrl = `${Config.APP_DEEPLINK}login/?state=${state.value}&scope=${scope.value}&appId=${appId.value}&randomRoom=${randomRoom}&appPublicKey=${appPublicKey.value}&redirectUrl=${redirectUrl.value}`;
 
     window.open(uniLinkUrl);
 };

@@ -10,8 +10,8 @@ export const getSignedEmailIdentifier = async (emailData: RetrieveSeiDto) => {
     try {
         return (await axios.post(`${Config.API_KYC_URL}verification/verify-email`, emailData))?.data;
     } catch (err) {
-        console.error('Error in getSignedEmailIdentifier')
-        console.error(err)
+        console.error('Error in getSignedEmailIdentifier');
+        console.error(err);
         return null;
     }
 };
@@ -24,18 +24,18 @@ export const getSignedEmailIdentifierSigner = async (sei: string) => {
             })
         )?.data;
     } catch (err) {
-        console.error('Error in getSignedEmailIdentifierSigner')
-        console.error(err)
+        console.error('Error in getSignedEmailIdentifierSigner');
+        console.error(err);
         return null;
     }
 };
 
 export const setEmailVerified = async (username: string) => {
     try {
-        return await axios.post(`/api/users/${username}/emailverified`);
+        return await axios.post(`/api/users/${username}/email/verified`);
     } catch (err) {
-        console.error('Error in setEmailVerified')
-        console.error(err)
+        console.error('Error in setEmailVerified');
+        console.error(err);
         return null;
     }
 };

@@ -12,5 +12,3 @@
 
     const { text } = defineProps<IProps>();
 </script>
-
-<style></style>

@@ -1,10 +1,11 @@
-import sodium from "libsodium-wrappers";
-import {decodeBase64, encodeBase64} from "tweetnacl-util";
+import sodium from 'libsodium-wrappers';
+import { decodeBase64, encodeBase64 } from 'tweetnacl-util';
 
 export const verifySignature = async (signedData: string, publicKey: Uint8Array) => {
     try {
         return sodium.crypto_sign_open(decodeBase64(signedData), publicKey);
     } catch (e) {
+        console.error(`Couldn't verify signature for ${signedData} with publicKey ${publicKey}`);
         return null;
     }
 };

@@ -40,6 +40,7 @@
     import { onMounted, ref } from 'vue';
     import { validatePhone } from '@/modules/Phone/services/phone.service';
     import { isMobile } from '@/modules/Core/utils/mobile.util';
+    import { Config } from '@/modules/Core/configs/config';
 
     const route = useRoute();
 
@@ -64,7 +65,7 @@
     });
 
     const openApp = () => {
-        const url = 'threebot://register';
+        const url = `${Config.APP_DEEPLINK}register`;
         window.open(url);
     };
 </script>

@@ -1,6 +1,4 @@
-import { ref, Ref } from 'vue';
-import { useLocalStorage } from '@vueuse/core';
-import { nanoid } from 'nanoid';
+import { ref } from 'vue';
 
 export const friendlyName = ref<string>();
 export const isJson = ref<boolean>();
