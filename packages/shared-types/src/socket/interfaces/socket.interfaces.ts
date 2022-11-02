@@ -8,14 +8,14 @@ export interface ISocketJoin {
 }
 
 export interface ISocketLogin {
-    doubleName: string;
+    username: string;
     encryptedLoginAttempt: string;
     created?: number;
     type?: string;
 }
 
 export interface ISocketSign {
-    doubleName: string;
+    username: string;
     encryptedSignAttempt: string;
     created?: number;
     type?: string;
@@ -26,20 +26,20 @@ export interface ISocketCheckName {
 }
 
 export interface ISocketLoginResult {
-    doubleName: string;
+    username: string;
     signedAttempt: string;
 }
 
 export interface ISocketSignResult {
-    doubleName: string;
+    username: string;
     signedAttempt: string;
 }
 
 export interface ISocketSignedAttempt {
+    username: string;
     signedState: string;
     data: ISocketSignedData;
-    doubleName: string;
-    randomRoom: string;
+    room: string;
     appId: string;
     selectedImageId: number;
 }

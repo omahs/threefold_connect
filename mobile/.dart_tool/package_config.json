@@ -21,9 +21,9 @@
     },
     {
       "name": "async",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/async-2.8.2",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/async-2.9.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "bip39",
@@ -39,37 +39,25 @@
     },
     {
       "name": "characters",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "charcode",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/charcode-1.3.1",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/characters-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "clock",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/clock-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "collection",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "convert",
       "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/convert-3.0.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "country_picker",
-      "rootUri": "file:///home/jimber/.pub-cache/git/flutter-country-picker-fbd0654a7e1ce4df536a6a19117d1feeed242a4b/",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -141,7 +129,7 @@
     },
     {
       "name": "fake_async",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/fake_async-1.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -179,7 +167,7 @@
       "name": "flutter",
       "rootUri": "file:///home/jimber/Development/flutter/packages/flutter",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "flutter_inappwebview",
@@ -227,13 +215,13 @@
       "name": "flutter_test",
       "rootUri": "file:///home/jimber/Development/flutter/packages/flutter_test",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "flutter_web_plugins",
       "rootUri": "file:///home/jimber/Development/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "google_fonts",
@@ -279,9 +267,9 @@
     },
     {
       "name": "js",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/js-0.6.3",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/js-0.6.4",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "json_annotation",
@@ -303,13 +291,19 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.12",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
+      "name": "material_color_utilities",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/material_color_utilities-0.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.13"
+    },
+    {
       "name": "meta",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/meta-1.7.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/meta-1.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -327,7 +321,7 @@
     },
     {
       "name": "path",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/path-1.8.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/path-1.8.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -434,12 +428,6 @@
       "languageVersion": "2.14"
     },
     {
-      "name": "qr_code_scanner",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/qr_code_scanner-0.7.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "redirection",
       "rootUri": "file:///home/jimber/.pub-cache/git/redirection-3b4c9c3ae5113a02b28ec494937a86cfc279fb20/",
       "packageUri": "lib/",
@@ -525,9 +513,9 @@
     },
     {
       "name": "source_span",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.1",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "stack_trace",
@@ -543,19 +531,19 @@
     },
     {
       "name": "string_scanner",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "term_glyph",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.3",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.12",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -639,7 +627,7 @@
     },
     {
       "name": "vector_math",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.1",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -680,7 +668,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-10-21T08:57:08.779514Z",
+  "generated": "2022-10-26T13:44:11.139860Z",
   "generator": "pub",
-  "generatorVersion": "2.15.1"
+  "generatorVersion": "2.18.2"
 }

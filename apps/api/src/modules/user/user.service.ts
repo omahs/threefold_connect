@@ -10,7 +10,7 @@ import {
 } from 'shared-types';
 import { BadRequestException, ExpectationFailedException, NotFoundException } from '../../exceptions';
 import { decodeBase64 } from 'tweetnacl-util';
-import { findUserByUsernameQuery, updateEmailOfUserQuery } from './queries/user.queries';
+import { findUserByPublicKeyQuery, findUserByUsernameQuery, updateEmailOfUserQuery } from './queries/user.queries';
 import { verifyMessage } from '../../utils/crypto.utils';
 import { User as UserModel } from '@prisma/client';
 import { isBase64 } from 'class-validator';
@@ -26,21 +26,41 @@ export class UserService {
                 userId: user.userId,
                 username: user.username,
                 mainPublicKey: user.mainPublicKey,
-                email: user.email,
             };
         });
     }
 
     async findByUsername(username: string, withException: boolean = false): Promise<GetUserDto> {
         const user = await this._prisma.user.findUnique(findUserByUsernameQuery(username));
-        if (!user && !withException) return null;
-        if (!user && withException) throw new NotFoundException(`Username ${username} not found`);
+        if (!user && !withException) {
+            console.error(`Username ${username} not found`);
+            return null;
+        }
+        if (!user && withException) {
+            throw new NotFoundException(`Username ${username} not found`);
+        }
 
         return {
             userId: user.userId,
             username: user.username,
             mainPublicKey: user.mainPublicKey,
-            email: user.email,
+        };
+    }
+
+    async findByPublicKey(publicKey: string, withException = false): Promise<any> {
+        const user = await this._prisma.user.findUnique(findUserByPublicKeyQuery(publicKey));
+        if (!user && !withException) {
+            console.error(`PublicKey ${publicKey} not found`);
+            return null;
+        }
+        if (!user && withException) {
+            throw new NotFoundException(`PublicKey ${publicKey} not found`);
+        }
+
+        return {
+            userId: user.userId,
+            username: user.username,
+            mainPublicKey: user.mainPublicKey,
         };
     }
 

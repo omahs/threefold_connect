@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/app.dart';
-import 'package:threebotlogin/apps/chatbot/chatbot.dart';
-import 'package:threebotlogin/apps/wallet/wallet.dart';
-import 'package:threebotlogin/screens/identity_verification_screen.dart';
-import 'package:threebotlogin/screens/planetary_network_screen.dart';
-// import 'package:threebotlogin/screens/planetary_network_screen.dart';
-import 'package:threebotlogin/screens/preference_screen.dart';
-import 'package:threebotlogin/screens/registered_screen.dart';
-import 'package:threebotlogin/screens/reservation_screen.dart';
 
-import 'apps/farmers/farmers.dart';
-import 'apps/news/news.dart';
 
 class AppInfo {
   Route route;
@@ -24,78 +14,6 @@ class JRouter {
 
   init() async {
     routes = [
-      AppInfo(
-          route: Route(
-            path: '/',
-            name: 'Home',
-            icon: Icons.home,
-            view: RegisteredScreen(),
-          ),
-          app: null),
-      AppInfo(
-          route: Route(
-            path: '/news',
-            name: 'News',
-            icon: Icons.article,
-            view: await News().widget(),
-          ),
-          app: News()),
-      AppInfo(
-          route: Route(
-            path: '/wallet',
-            name: 'Wallet',
-            icon: Icons.account_balance_wallet,
-            view: await Wallet().widget(),
-          ),
-          app: Wallet()),
-      AppInfo(
-          route: Route(
-            path: '/farmers',
-            name: 'Farmers',
-            icon: Icons.person_pin,
-            view: await Farmers().widget(),
-          ),
-          app: Farmers()),
-      AppInfo(
-          route: Route(
-            path: '/chatbot',
-            name: 'Support',
-            icon: Icons.chat,
-            view: await Chatbot().widget(),
-          ),
-          app: Chatbot()),
-      // AppInfo(
-      //     route: Route(
-      //       path: '/reservations',
-      //       name: 'Reservations',
-      //       icon: Icons.book_online,
-      //       view: ReservationScreen(),
-      //     ),
-      //     app: null),
-      AppInfo(
-          route: Route(
-            path: '/planetary',
-            name: 'Planetary Network',
-            icon: Icons.network_check,
-            view: PlanetaryNetworkScreen(),
-          ),
-          app: null),
-      AppInfo(
-          route: Route(
-            path: '/settings',
-            name: 'Settings',
-            icon: Icons.settings,
-            view: PreferenceScreen(),
-          ),
-          app: null),
-      AppInfo(
-          route: Route(
-            path: '/identityverification',
-            name: 'IdentityVerification',
-            icon: Icons.lock,
-            view: IdentityVerificationScreen(),
-          ),
-          app: null),
     ];
   }
 

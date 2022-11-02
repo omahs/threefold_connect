@@ -14,9 +14,9 @@ export const initializeConfiguration = async (router: Router) => {
         Config.APP_DEEPLINK = t['app-deep-link'].value;
     } catch (e) {
         console.error(e);
-        console.log('Could not get flagsmith configs of backend');
+        console.error('Could not get flagsmith configs of backend');
 
-        await router.push('/TODO');
+        await router.push({ name: 'failed', params: { reason: 'flagsmith' } });
     }
 
     console.table(t);

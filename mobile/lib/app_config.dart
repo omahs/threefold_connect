@@ -1,8 +1,5 @@
 import 'package:threebotlogin/app_config_local.dart';
-import 'package:threebotlogin/helpers/env_config.dart';
-import 'package:threebotlogin/helpers/environment.dart';
-
-import 'helpers/globals.dart';
+import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
 
 class AppConfig extends EnvConfig {
   late AppConfigImpl appConfig;
@@ -100,10 +97,7 @@ class AppConfigProduction extends AppConfigImpl {
   }
 
   Map<String, String> flagSmithConfig() {
-    return {
-      'url': 'https://flagsmith.jimber.io/api/v1/',
-      'apiKey': 'BuzktmbcnMJ77vznU7WhJB'
-    };
+    return {'url': 'https://flagsmith.jimber.io/api/v1/', 'apiKey': 'BuzktmbcnMJ77vznU7WhJB'};
   }
 }
 
@@ -137,10 +131,7 @@ class AppConfigStaging extends AppConfigImpl {
   }
 
   Map<String, String> flagSmithConfig() {
-    return {
-      'url': 'https://flagsmith.jimber.io/api/v1/',
-      'apiKey': 'n6YyxDdrePqwAF49KCYx7S'
-    };
+    return {'url': 'https://flagsmith.jimber.io/api/v1/', 'apiKey': 'n6YyxDdrePqwAF49KCYx7S'};
   }
 }
 
@@ -174,22 +165,10 @@ class AppConfigTesting extends AppConfigImpl {
   }
 
   Map<String, String> flagSmithConfig() {
-    return {
-      'url': 'https://flagsmith.jimber.io/api/v1/',
-      'apiKey': 'VtTsMwJwiF69QWFWHGEMKM'
-    };
+    return {'url': 'https://flagsmith.jimber.io/api/v1/', 'apiKey': 'VtTsMwJwiF69QWFWHGEMKM'};
   }
 }
 
 void setFallbackConfigs() {
   print("Can't connect to FlagSmith, setting default configs... ");
-
-  Globals().isOpenKYCEnabled = false;
-  Globals().isYggdrasilEnabled = false;
-  Globals().debugMode = false;
-  Globals().useNewWallet = false;
-  Globals().newWalletUrl = '';
-  Globals().redoIdentityVerification = false;
-  Globals().timeOutSeconds = 10;
-  Globals().phoneVerification = false;
 }

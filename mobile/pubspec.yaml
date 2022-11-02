@@ -3,7 +3,7 @@ description: A decentralized login application
 
 publish_to: "none"
 
-version: 3.7.0+163
+version: 3.8.0+164
 
 environment:
   sdk: ">=2.12.0<3.0.0"
@@ -12,10 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  country_picker:
-    git:
-      url: git@github.com:jimbertools/flutter-country-picker.git
-      ref: main
+#  country_picker:
+#    git:
+#      url: git@github.com:jimbertools/flutter-country-picker.git
+#      ref: main
 
   yggdrasil_plugin:
     git:
@@ -50,7 +50,7 @@ dependencies:
   flutter_sodium: ^0.2.0
   uni_links: ^0.5.1
   pbkdf2ns: ^0.0.2
-  qr_code_scanner: ^0.7.0
+#  qr_code_scanner: ^0.7.0
   flutter_json_viewer: ^1.0.1
   device_info_plus: ^3.2.2
   permission_handler: ^8.3.0
@@ -72,6 +72,5 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
-    - assets/circle_images/
     - assets/icons/
     - assets/

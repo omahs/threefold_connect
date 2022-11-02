@@ -1,6 +1,7 @@
 import { Router } from 'vue-router';
 import PathNotFound from '@/modules/Core/views/404.vue';
 import ErrorPage from '@/modules/Core/views/Error.vue';
+import FailedPage from '@/modules/Core/views/FailedPage.vue';
 import { hasRequiredParameters } from '@/modules/Initial/services/query.service';
 import { setLocalStorageDataForLogin, setLocalStorageDataForSigning } from '@/modules/Core/services/storage.service';
 import { appId } from '@/modules/Initial/data';
@@ -16,6 +17,12 @@ const coreRoutes = [
         path: '/error',
         name: 'error',
         component: ErrorPage,
+        props: true,
+    },
+    {
+        path: '/failed',
+        name: 'failed',
+        component: FailedPage,
         props: true,
     },
     {
@@ -36,7 +43,7 @@ export default async (router: Router) => {
         }
 
         if (to.name === RequiredParameterRoutes.LOGIN) {
-            appId.value ? next() : next('error');
+            appId.value ? next() : next('/error');
         }
 
         const { requiredParameters } = to.meta;

@@ -8,7 +8,6 @@ import {
     UpdateDigitalTwinIpDto,
     UsernameDto,
 } from 'shared-types';
-import { decodeBase64ToString } from '../../utils/transform.utils';
 
 @Controller('digitaltwin')
 export class DigitalTwinController {
@@ -45,6 +44,6 @@ export class DigitalTwinController {
         @Param('') username: UsernameDto,
         @Param('appId') appId: string
     ): Promise<DigitalTwinDto> {
-        return await this.digitalTwinService.findByUsernameAndAppId(username.username, appId);
+        return await this.digitalTwinService.findByUsernameAndAppId(username.username, appId, true);
     }
 }

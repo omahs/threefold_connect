@@ -1,4 +1,4 @@
-import { IsBase64, IsEmail, IsNotEmpty, IsString, MaxLength, MinLength, Validate } from 'class-validator';
+import { isBase64, IsBase64, IsEmail, IsNotEmpty, IsString, MaxLength, MinLength, Validate } from 'class-validator';
 import { EndsWith3Bot } from 'api/src/validators/index';
 
 export class CreateUserDto {
@@ -29,6 +29,13 @@ export class UsernameDto {
     username: string;
 }
 
+export class PublicKeyDto {
+    @IsBase64()
+    @IsString()
+    @IsNotEmpty()
+    publicKey: string;
+}
+
 export class ChangeEmailDto {
     @IsString()
     @IsNotEmpty()
@@ -40,7 +47,6 @@ export type GetUserDto = {
     userId: string;
     username: string;
     mainPublicKey: string;
-    email: string;
 };
 
 export type CreatedUserDto = {

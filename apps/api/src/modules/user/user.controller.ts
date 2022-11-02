@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Param, Post, Put, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserGateway } from './user.gateway';
 import { ChangeEmailDto, CreatedUserDto, CreateUserDto, GetUserDto, UpdatedUserDto, UsernameDto } from 'shared-types';
@@ -13,7 +13,14 @@ export class UserController {
     }
 
     @Get('')
-    async findAll(): Promise<GetUserDto[]> {
+    async findAll(@Query() query): Promise<GetUserDto | GetUserDto[]> {
+        if (query.publicKey) {
+            return await this.userService.findByPublicKey(query.publicKey, true);
+        }
+        if (query.username) {
+            return await this.userService.findByUsername(query.username, true);
+        }
+
         return await this.userService.findAll();
     }
 

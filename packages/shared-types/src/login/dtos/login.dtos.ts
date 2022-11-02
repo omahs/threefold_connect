@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, MaxLength, MinLength, Validate } from 'class-validator';
-import { EndsWith3Bot } from 'api/dist/validators';
+import { EndsWith3Bot } from 'api/src/validators/index';
 
 export class SignedLoginAttemptDto {
     @IsString()

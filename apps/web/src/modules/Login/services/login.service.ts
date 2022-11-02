@@ -28,17 +28,16 @@ export const loginUserWeb = async () => {
         return;
     }
 
-    const randomRoom = nanoid();
-
     const objectToEncrypt = JSON.stringify({
-        doubleName: name,
+        username: name,
         state: state.value,
         scope: scope.value,
         appId: appId.value,
-        randomRoom: randomRoom,
+        room: name,
         appPublicKey: appPublicKey.value,
         randomImageId: selectedImageId.value.toString(),
         locationId: locationId.value,
+        isMobile: false,
     });
 
     const encryptedAttempt = encrypt(objectToEncrypt, pk);
@@ -46,10 +45,10 @@ export const loginUserWeb = async () => {
     const roomToLeaveUser: ISocketLeave = { room: name };
     emitLeave(roomToLeaveUser);
 
-    const roomToJoinRandom: ISocketJoin = { room: randomRoom };
+    const roomToJoinRandom: ISocketJoin = { room: name };
     emitJoin(roomToJoinRandom);
 
-    const loginAttempt: ISocketLogin = { doubleName: name, encryptedLoginAttempt: encryptedAttempt };
+    const loginAttempt: ISocketLogin = { username: name, encryptedLoginAttempt: encryptedAttempt };
     emitLogin(loginAttempt);
 };
 

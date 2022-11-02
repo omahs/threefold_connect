@@ -6,13 +6,21 @@ export const findUserByUsernameQuery = (username: string) => {
     };
 };
 
-export const updateEmailOfUserQuery = (userId: string, email: string) => {
+export const findUserByPublicKeyQuery = (publicKey: string) => {
+    return {
+        where: {
+            mainPublicKey: publicKey,
+        },
+    };
+};
+
+export const updateEmailOfUserQuery = (username: string, email: string) => {
     return {
         data: {
             email: email,
         },
         where: {
-            userId: userId,
+            username: username,
         },
     };
 };

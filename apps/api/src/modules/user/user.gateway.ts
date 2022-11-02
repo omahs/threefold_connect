@@ -47,7 +47,7 @@ export class UserGateway {
             data: data,
         };
 
-        this._emitOrQueue(m, data.doubleName);
+        this._emitOrQueue(m, data.username);
     }
 
     @SubscribeMessage(SocketTypes.SIGN)
@@ -62,7 +62,7 @@ export class UserGateway {
             data: data,
         };
 
-        this._emitOrQueue(m, data.doubleName);
+        this._emitOrQueue(m, data.username);
     }
 
     @SubscribeMessage(SocketTypes.JOIN)
