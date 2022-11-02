@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sodium/flutter_sodium.dart';
-import 'package:threebotlogin/core/storage/core.storage.dart';
-import 'package:threebotlogin/crypto/services/crypto.services.dart';
-
-import '../core/components/dividers/box.dividers.dart';
-import '../core/styles/color.styles.dart';
-import '../crypto/utils/crypto.utils.dart';
+import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
+import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
+import 'package:threebotlogin/core/events/classes/event.classes.dart';
+import 'package:threebotlogin/core/events/services/events.service.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
+import 'package:threebotlogin/core/styles/color.styles.dart';
+import 'package:threebotlogin/views/home.view.dart';
+import 'package:threebotlogin/views/recover/recover.helpers.dart';
+import 'package:threebotlogin/views/recover/recover.widgets.dart';
 
 class RecoverScreen extends StatefulWidget {
   RecoverScreen();
@@ -17,7 +19,6 @@ class _RecoverScreenState extends State<RecoverScreen> {
   _RecoverScreenState();
 
   String? recoverError;
-
   final TextEditingController mnemonicController = TextEditingController();
 
   @override
@@ -31,34 +32,16 @@ class _RecoverScreenState extends State<RecoverScreen> {
         padding: EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [labelSeedPhrase, kSizedBoxSm, seedPhraseInputField(), errorText(), kSizedBoxMd, recoverButton()],
+          children: [
+            labelSeedPhrase,
+            kSizedBoxSm,
+            seedPhraseInputField(),
+            errorText(recoverError),
+            kSizedBoxMd,
+            recoverButton(recoverAccount)
+          ],
         ),
       ),
-    );
-  }
-
-  Widget errorText() {
-    if (recoverError == null) return Container();
-    return Container(
-        padding: EdgeInsets.only(top: 8),
-        child: Text(
-          recoverError!,
-          style: TextStyle(color: kErrorColor, fontWeight: FontWeight.bold),
-        ));
-  }
-
-  Widget labelSeedPhrase = Container(
-      child: Text(
-    'Enter your existing 24 worded mnemonic seed',
-    textAlign: TextAlign.left,
-    style: TextStyle(fontWeight: FontWeight.bold),
-  ));
-
-  Widget recoverButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: kThreeFoldGreenColor, padding: EdgeInsets.all(12)),
-      onPressed: () => recoverAccount(),
-      child: Text('RECOVER'),
     );
   }
 
@@ -85,17 +68,13 @@ class _RecoverScreenState extends State<RecoverScreen> {
     }
 
     setState(() => recoverError = null);
-    await saveDataToLocalStorage(mnemonic, validationMnemonic['username']);
-    Navigator.pop(context, true);
-  }
+    await saveRecoverDataToLocalStorage(mnemonic, validationMnemonic['username']);
 
-  Future<void> saveDataToLocalStorage(String mnemonic, String username) async {
-    KeyPair kp = generateKeyPairFromMnemonic(mnemonic);
+    Events().emit(RecoveredEvent());
 
-    await setPrivateKey(kp.sk);
-    await setPublicKey(kp.pk);
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
 
-    await setUsername(username);
-    await setFingerPrint(false);
+
   }
 }

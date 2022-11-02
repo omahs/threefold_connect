@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/app.dart';
+import 'package:threebotlogin/core/router/routes/router.routes.dart';
 
+class JRoute {
+  final IconData icon;
+  final String name;
+  final String path;
+  final Widget view;
+
+  JRoute({required this.path, required this.name, required this.icon, required this.view});
+}
 
 class AppInfo {
-  Route route;
+  JRoute route;
   App? app;
 
-  AppInfo({required this.route,  this.app});
+  AppInfo({required this.route, this.app});
 }
 
 class JRouter {
-  List<AppInfo> routes = [];
-
-  init() async {
-    routes = [
-    ];
-  }
-
   Map<String, Widget Function(BuildContext)> getRoutes() {
     return Map.fromIterable(routes, key: (v) => v.path, value: (v) => v.view);
   }
@@ -57,13 +59,4 @@ class JRouter {
     });
     return iconButtons;
   }
-}
-
-class Route {
-  final IconData icon;
-  final String name;
-  final String path;
-  final Widget view;
-
-  Route({required this.path, required this.name, required this.icon, required this.view});
 }

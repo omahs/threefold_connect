@@ -3,7 +3,7 @@ import 'package:threebotlogin/app_config.dart';
 class AppConfigLocal extends AppConfigImpl {
 
   String baseUrl() {
-    return "192.168.68.113:3001";
+    return "192.168.0.114:3001";
   }
 
   String openKycApiUrl() {
@@ -11,15 +11,15 @@ class AppConfigLocal extends AppConfigImpl {
   }
 
   String threeBotApiUrl() {
-    return "http://192.168.68.113:3001/api";
+    return "http://192.168.0.114:3001/api";
   }
 
   String threeBotFrontEndUrl() {
-    return "http://192.168.68.113:3000/";
+    return "http://192.168.0.114:3000/";
   }
 
   String threeBotSocketUrl() {
-    return "http://192.168.68.113:3001";
+    return "http://192.168.0.114:3001";
   }
 
   String wizardUrl() {
@@ -33,7 +33,7 @@ class AppConfigLocal extends AppConfigImpl {
   Map<String, String> flagSmithConfig() {
       return {
         'url': 'https://flagsmith.jimber.io/api/v1/',
-        'apiKey': 'm3L3gTcQYcFwCzSGxFJJWd'
+        'apiKey': 'T3vCeteoyrXNw82VGErnEL'
       };
   }
 }

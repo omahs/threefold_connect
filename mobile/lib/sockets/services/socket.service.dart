@@ -1,8 +1,8 @@
 import 'package:threebotlogin/app_config.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:threebotlogin/core/services/event.service.dart';
+import 'package:threebotlogin/core/events/classes/event.classes.dart';
+import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/sockets/enums/socket.enums.dart';
-import 'package:threebotlogin/sockets/helpers/socket.helpers.dart';
 
 class SocketConnection {
   late IO.Socket socket;
@@ -43,9 +43,6 @@ class SocketConnection {
 
     socket.on(SocketListenerTypes.sign, (data) async {
       print('[SOCKET:RECEIVE]: SIGN');
-
-      // Sign signData = await Sign.createAndDecryptSignObject(data);
-      // Events().emit(NewSignEvent(signData: signData));
     });
 
     socket.on(SocketListenerTypes.login, (data) async {

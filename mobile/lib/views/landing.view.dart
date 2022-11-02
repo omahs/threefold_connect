@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
-import 'package:threebotlogin/views/recover.view.dart';
+import 'package:threebotlogin/views/recover/recover.view.dart';
 
 class LandingScreen extends StatefulWidget {
   LandingScreen();
@@ -14,6 +15,7 @@ class _LandingScreenState extends State<LandingScreen> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
+    Globals().globalBuildContext = context;
     return Material(
         child: Scaffold(
             body: Stack(
@@ -78,12 +80,6 @@ class _LandingScreenState extends State<LandingScreen> with WidgetsBindingObserv
   }
 
   void goToRecover() async {
-    bool? isRecovered = await Navigator.push(context, MaterialPageRoute(builder: (context) => RecoverScreen()));
-
-    if(isRecovered == null || isRecovered == false) return;
-
-    // Navigator.pushReplacement(context, )
-
-    print(isRecovered);
+    await Navigator.push(context, MaterialPageRoute(builder: (context) => RecoverScreen()));
   }
 }
