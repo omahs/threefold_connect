@@ -19,12 +19,12 @@ export class LoginService {
 
         const signedData = verifyMessage(
             decodeBase64(loginAttempt.signedAttempt.toString()),
-            decodeBase64(user.mainPublicKey)
+            decodeBase64(user.publicKey)
         );
         if (!signedData) {
-            console.error(`Signature mismatch for ${user.mainPublicKey} with data ${loginAttempt.signedAttempt}`);
+            console.error(`Signature mismatch for ${user.publicKey} with data ${loginAttempt.signedAttempt}`);
             throw new BadRequestException(
-                `Signature mismatch for ${user.mainPublicKey} with data ${loginAttempt.signedAttempt}`
+                `Signature mismatch for ${user.publicKey} with data ${loginAttempt.signedAttempt}`
             );
         }
 

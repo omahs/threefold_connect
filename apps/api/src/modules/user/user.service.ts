@@ -1,36 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import {
-    AuthorizationHeaders,
-    CreatedUserDto,
-    CreateUserDto,
-    GetUserDto,
-    UpdatedUserDto,
-    UserIntentions,
-} from 'shared-types';
+import { AuthorizationHeaders, CreatedUserDto, CreateUserDto, UpdatedUserDto, UserIntentions } from 'shared-types';
 import { BadRequestException, ExpectationFailedException, NotFoundException } from '../../exceptions';
 import { decodeBase64 } from 'tweetnacl-util';
 import { findUserByPublicKeyQuery, findUserByUsernameQuery, updateEmailOfUserQuery } from './queries/user.queries';
 import { verifyMessage } from '../../utils/crypto.utils';
 import { User as UserModel } from '@prisma/client';
 import { isBase64 } from 'class-validator';
+import { UserDto } from 'shared-types/src/user/dtos/user.dtos';
 
 @Injectable()
 export class UserService {
     constructor(private _prisma: PrismaService) {}
 
-    async findAll(): Promise<GetUserDto[]> {
+    async findAll(): Promise<UserDto[]> {
         const users = await this._prisma.user.findMany();
         return users.map((user: UserModel) => {
             return {
-                userId: user.userId,
-                username: user.username,
-                mainPublicKey: user.mainPublicKey,
+                doublename: user.username,
+                publicKey: user.mainPublicKey,
             };
         });
     }
 
-    async findByUsername(username: string, withException: boolean = false): Promise<GetUserDto> {
+    async findByUsername(username: string, withException: boolean = false): Promise<UserDto> {
         const user = await this._prisma.user.findUnique(findUserByUsernameQuery(username));
         if (!user && !withException) {
             console.error(`Username ${username} not found`);
@@ -40,14 +33,21 @@ export class UserService {
             throw new NotFoundException(`Username ${username} not found`);
         }
 
+        if (withException) {
+            return {
+                doublename: user.username,
+                publicKey: user.mainPublicKey,
+            };
+        }
+
         return {
             userId: user.userId,
-            username: user.username,
-            mainPublicKey: user.mainPublicKey,
+            doublename: user.username,
+            publicKey: user.mainPublicKey,
         };
     }
 
-    async findByPublicKey(publicKey: string, withException = false): Promise<any> {
+    async findByPublicKey(publicKey: string, withException = false): Promise<UserDto> {
         const user = await this._prisma.user.findUnique(findUserByPublicKeyQuery(publicKey));
         if (!user && !withException) {
             console.error(`PublicKey ${publicKey} not found`);
@@ -58,9 +58,8 @@ export class UserService {
         }
 
         return {
-            userId: user.userId,
-            username: user.username,
-            mainPublicKey: user.mainPublicKey,
+            doublename: user.username,
+            publicKey: user.mainPublicKey,
         };
     }
 
@@ -85,10 +84,10 @@ export class UserService {
             throw new ExpectationFailedException(`Signed header ${signedHeader} is not Base64 encoded`);
         }
 
-        const signedData = verifyMessage(decodeBase64(signedHeader), decodeBase64(user.mainPublicKey));
+        const signedData = verifyMessage(decodeBase64(signedHeader), decodeBase64(user.publicKey));
         if (!signedData) {
-            console.error(`Signature mismatch for ${user.mainPublicKey}`);
-            throw new BadRequestException(`Signature mismatch for ${user.mainPublicKey}`);
+            console.error(`Signature mismatch for ${user.publicKey}`);
+            throw new BadRequestException(`Signature mismatch for ${user.publicKey}`);
         }
 
         const verifiedHeaders: AuthorizationHeaders = JSON.parse(signedData);

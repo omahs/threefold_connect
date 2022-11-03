@@ -32,19 +32,19 @@ export class DigitalTwinService {
             throw new NotFoundException(`Username ${createDigitalTwin.username} doesn't exist`);
         }
 
-        const signedData = verifyMessage(decodeBase64(createDigitalTwin.signedData), decodeBase64(user.mainPublicKey));
+        const signedData = verifyMessage(decodeBase64(createDigitalTwin.signedData), decodeBase64(user.publicKey));
         if (!signedData) {
-            console.error(`Signature mismatch for ${user.mainPublicKey} with data ${createDigitalTwin.signedData}`);
+            console.error(`Signature mismatch for ${user.publicKey} with data ${createDigitalTwin.signedData}`);
             throw new BadRequestException(
-                `Signature mismatch for ${user.mainPublicKey} with data ${createDigitalTwin.signedData}`
+                `Signature mismatch for ${user.publicKey} with data ${createDigitalTwin.signedData}`
             );
         }
 
         const verifiedData = JSON.parse(signedData) as VerifiedCreateDigitalTwinDto;
-        const existingTwins = await this.findByUsernameAndAppId(user.username, verifiedData.appId);
+        const existingTwins = await this.findByUsernameAndAppId(user.doublename, verifiedData.appId);
         if (existingTwins) {
             // When record is already created => just early return and don't make new database record
-            console.log(`Combination of username ${user.username} and appId ${verifiedData.appId} already exists`);
+            console.log(`Combination of username ${user.doublename} and appId ${verifiedData.appId} already exists`);
             return;
         }
 

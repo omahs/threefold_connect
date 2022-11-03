@@ -2,6 +2,7 @@ import { Body, Controller, Get, Headers, Param, Post, Put, Query } from '@nestjs
 import { UserService } from './user.service';
 import { UserGateway } from './user.gateway';
 import { ChangeEmailDto, CreatedUserDto, CreateUserDto, GetUserDto, UpdatedUserDto, UsernameDto } from 'shared-types';
+import { UserDto } from 'shared-types/src/user/dtos/user.dtos';
 
 @Controller('users')
 export class UserController {
@@ -13,7 +14,7 @@ export class UserController {
     }
 
     @Get('')
-    async findAll(@Query() query): Promise<GetUserDto | GetUserDto[]> {
+    async findAll(@Query() query): Promise<UserDto | UserDto[]> {
         if (query.publicKey) {
             return await this.userService.findByPublicKey(query.publicKey, true);
         }
@@ -25,7 +26,7 @@ export class UserController {
     }
 
     @Get(':username')
-    async findByUsername(@Param() username: UsernameDto): Promise<GetUserDto> {
+    async findByUsername(@Param() username: UsernameDto): Promise<UserDto> {
         return await this.userService.findByUsername(username.username, true);
     }
 

@@ -20,10 +20,7 @@ export class SignService {
             throw new NotFoundException('User not found');
         }
 
-        const signedData = verifyMessage(
-            decodeBase64(signedSignAttempt.signedAttempt),
-            decodeBase64(user.mainPublicKey)
-        );
+        const signedData = verifyMessage(decodeBase64(signedSignAttempt.signedAttempt), decodeBase64(user.doublename));
         if (!signedData) {
             throw new BadRequestException('Signature mismatch');
         }

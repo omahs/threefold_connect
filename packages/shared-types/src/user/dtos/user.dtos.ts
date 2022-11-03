@@ -49,6 +49,12 @@ export type GetUserDto = {
     mainPublicKey: string;
 };
 
+export type UserDto = {
+    userId?: string;
+    doublename: string;
+    publicKey: string;
+};
+
 export type CreatedUserDto = {
     userId: string;
 };
