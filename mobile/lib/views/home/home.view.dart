@@ -14,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return LayoutDrawer(
-      titleText: 'Test',
+      titleText: 'Home',
       content: Container(
         child: ElevatedButton(
           onPressed: () async {

@@ -7,8 +7,9 @@ class JRoute {
   final String name;
   final String path;
   final Widget view;
+  final bool canSee;
 
-  JRoute({required this.path, required this.name, required this.icon, required this.view});
+  JRoute({required this.path, required this.name, required this.icon, required this.view, required this.canSee});
 }
 
 class AppInfo {

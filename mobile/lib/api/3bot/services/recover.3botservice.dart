@@ -19,7 +19,7 @@ Future<String?> getUsernameOfPublicKey(String encodedPublicKey) async {
   }
 
   Map<String, dynamic> body = jsonDecode(r.body);
-  String? username = body['username'];
+  String? username = body['doublename'];
 
   if (username == null || username.isEmpty) {
     print("Username is not returned");
