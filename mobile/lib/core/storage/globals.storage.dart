@@ -27,7 +27,10 @@ class Globals {
   bool canVerifyPhone = false;
   bool canVerifyEmail = false;
 
-  String termsAndConditionsUrl = '';
+  bool canSeeWizard = false;
+  String wizardUrl = 'https://wizard.jimber.org';
+
+  String termsAndConditionsUrl = 'https://library.threefold.me/info/legal/#/';
 
   static final Globals _singleton = new Globals._internal();
 
@@ -36,5 +39,4 @@ class Globals {
   }
 
   Globals._internal();
-
 }

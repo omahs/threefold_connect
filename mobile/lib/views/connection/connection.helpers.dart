@@ -73,15 +73,27 @@ Future<void> navigateToCorrectPage() async {
   String? username = await getUsername();
   bool initDone = await getInitialized();
 
-  if (!initDone) {
+  // User is already registered
+  if (username != null && initDone == true) {
     await Navigator.pushReplacement(
-        Globals().globalBuildContext, MaterialPageRoute(builder: (context) => WizardScreen()));
+        Globals().globalBuildContext, MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
-  if (username == null) {
+  // User has done wizard, but is not registered yet
+  if (username == null && initDone == true) {
     await Navigator.pushReplacement(
         Globals().globalBuildContext, MaterialPageRoute(builder: (context) => LandingScreen()));
   }
 
-  await Navigator.pushReplacement(Globals().globalBuildContext, MaterialPageRoute(builder: (context) => HomeScreen()));
+  // Wizard not done + may see wizard
+  if (initDone == false && Globals().canSeeWizard) {
+    await Navigator.pushReplacement(
+        Globals().globalBuildContext, MaterialPageRoute(builder: (context) => WizardScreen()));
+  }
+
+  // Initialization is not done but neither may see wizard
+  if (initDone == false && !Globals().canSeeWizard) {
+    await Navigator.pushReplacement(
+        Globals().globalBuildContext, MaterialPageRoute(builder: (context) => LandingScreen()));
+  }
 }

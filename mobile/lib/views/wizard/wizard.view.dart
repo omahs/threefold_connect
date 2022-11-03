@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:threebotlogin/core/storage/core.storage.dart';
+import 'package:threebotlogin/views/landing.view.dart';
+import 'package:threebotlogin/views/wizard/wizard.enums.dart';
+import 'package:threebotlogin/views/wizard/wizard.options.dart';
 
 class WizardScreen extends StatefulWidget {
   WizardScreen();
@@ -7,11 +11,46 @@ class WizardScreen extends StatefulWidget {
   _WizardScreenState createState() => _WizardScreenState();
 }
 
-class _WizardScreenState extends State<WizardScreen> with WidgetsBindingObserver {
-  _WizardScreenState();
+class _WizardScreenState extends State<WizardScreen> {
+  late InAppWebViewController webView;
+  late InAppWebView iaWebView;
+
+  _WizardScreenState() {
+    iaWebView = InAppWebView(
+      initialUrlRequest: request,
+      initialOptions: options,
+      onWebViewCreated: (InAppWebViewController controller) {
+        webView = controller;
+        addHandler();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      home: SafeArea(child: iaWebView),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  finish(_) async {
+    await setInitialized();
+
+    await Navigator.pushAndRemoveUntil(
+        context, MaterialPageRoute(builder: (context) => LandingScreen()), (Route<dynamic> route) => false);
+  }
+
+  addHandler() {
+    webView.addJavaScriptHandler(handlerName: WizardHandlerTypes.finish, callback: finish);
   }
 }
