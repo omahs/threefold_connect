@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/core/router/routes/router.routes.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
 
 Widget logo = Container(
   width: 200,
@@ -21,22 +21,24 @@ Widget logo = Container(
 Widget tabs() {
   return ListView.builder(
     shrinkWrap: true,
-    itemCount: routes.length,
+    itemCount: Globals().customRouter.getAllRoutes().length,
     physics: ClampingScrollPhysics(),
     itemBuilder: (context, index) {
-      return routes[index].route.canSee
+      return Globals().customRouter.getAllRoutes()[index].route.canSee
           ? ListTile(
               minLeadingWidth: 10,
               leading: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(padding: const EdgeInsets.only(left: 30)),
-                  Icon(routes[index].route.icon, color: Colors.black, size: 18)
+                  Icon(Globals().customRouter.getAllRoutes()[index].route.icon, color: Colors.black, size: 18)
                 ],
               ),
-              title: Text(routes[index].route.name, style: TextStyle(fontWeight: FontWeight.w400)),
+              title: Text(Globals().customRouter.getAllRoutes()[index].route.name,
+                  style: TextStyle(fontWeight: FontWeight.w400)),
               onTap: () async {
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => routes[index].route.view));
+                await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Globals().customRouter.getAllRoutes()[index].route.view));
               },
             )
           : Container();

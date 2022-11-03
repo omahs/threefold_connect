@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/app.dart';
-import 'package:threebotlogin/core/router/routes/router.routes.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
+import 'package:threebotlogin/views/farmer/farmer.view.dart';
+import 'package:threebotlogin/views/home/home.view.dart';
+import 'package:threebotlogin/views/identity/identity.view.dart';
+import 'package:threebotlogin/views/news/news.class.dart';
+import 'package:threebotlogin/views/settings/settings.view.dart';
+import 'package:threebotlogin/views/support/support.view.dart';
+import 'package:threebotlogin/views/wallet/wallet.view.dart';
+import 'package:threebotlogin/views/yggdrasil/yggdrasil.view.dart';
 
 class JRoute {
   final IconData icon;
@@ -20,8 +28,87 @@ class AppInfo {
 }
 
 class JRouter {
-  Map<String, Widget Function(BuildContext)> getRoutes() {
-    return Map.fromIterable(routes, key: (v) => v.path, value: (v) => v.view);
+  List<AppInfo> routes = [];
+
+  init() async {
+    routes = [
+      AppInfo(
+          route: JRoute(
+            path: '/',
+            name: 'Home',
+            icon: Icons.home,
+            canSee: true,
+            view: HomeScreen(),
+          ),
+          app: null),
+      AppInfo(
+          route: JRoute(
+            path: '/news',
+            name: 'News',
+            icon: Icons.article,
+            canSee: Globals().canSeeNews,
+            view: await News().widget(),
+          ),
+          app: News()),
+      AppInfo(
+          route: JRoute(
+            path: '/wallet',
+            name: 'Wallet',
+            icon: Icons.wallet,
+            canSee: Globals().canSeeWallet,
+            view: WalletScreen(),
+          ),
+          app: null),
+      AppInfo(
+          route: JRoute(
+            path: '/farming',
+            name: 'Farming',
+            icon: Icons.person_pin,
+            canSee: Globals().canSeeFarmer,
+            view: FarmerScreen(),
+          ),
+          app: null),
+      AppInfo(
+          route: JRoute(
+            path: '/support',
+            name: 'Support',
+            icon: Icons.chat,
+            canSee: Globals().canSeeSupport,
+            view: SupportScreen(),
+          ),
+          app: null),
+      AppInfo(
+          route: JRoute(
+            path: '/yggdrasil',
+            name: 'Planetary Network',
+            icon: Icons.network_check,
+            canSee: Globals().canSeeYggdrasil,
+            view: YggDrasilScreen(),
+          ),
+          app: null),
+      AppInfo(
+          route: JRoute(
+            path: '/identity',
+            name: 'Identity',
+            icon: Icons.person,
+            canSee: Globals().canSeeKyc,
+            view: IdentityScreen(),
+          ),
+          app: null),
+      AppInfo(
+          route: JRoute(
+            path: '/settings',
+            name: 'Settings',
+            icon: Icons.settings,
+            canSee: true,
+            view: SettingsScreen(),
+          ),
+          app: null),
+    ];
+  }
+
+  List<AppInfo> getAllRoutes() {
+    return routes;
   }
 
   bool emailMustBeVerified(int index) {

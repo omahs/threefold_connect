@@ -55,3 +55,7 @@ class EmailVerifiedEvent {
 class RecoveredEvent {
   RecoveredEvent();
 }
+
+class NewsGoBack {
+  NewsGoBack();
+}
