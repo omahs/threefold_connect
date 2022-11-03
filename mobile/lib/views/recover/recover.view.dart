@@ -3,7 +3,6 @@ import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
 import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
-import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 import 'package:threebotlogin/views/home/home.view.dart';
 import 'package:threebotlogin/views/recover/recover.helpers.dart';

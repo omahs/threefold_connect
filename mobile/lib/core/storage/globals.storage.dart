@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/router/classes/router.classes.dart';
 
@@ -34,8 +33,9 @@ class Globals {
 
   String termsAndConditionsUrl = 'https://library.threefold.me/info/legal/#/';
 
-  final JRouter customRouter = new JRouter();
-  late TabController tabController;
+
+  int incorrectPinAttempts = 0;
+  int lockedUntil = 0;
 
   static final Globals _singleton = new Globals._internal();
 

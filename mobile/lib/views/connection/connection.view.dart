@@ -71,7 +71,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> with WidgetsBinding
       setState(() {});
       await checkConnectionToPkid();
 
-      await Globals().customRouter.init();
       await navigateToCorrectPage();
 
     } catch (e) {

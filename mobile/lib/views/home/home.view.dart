@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:threebotlogin/core/auth/pin/views/auth.view.dart';
 import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
 import 'package:threebotlogin/core/components/tabs/tabs.core.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
@@ -24,7 +25,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [logo, kSizedBoxSm, registeredLogo(), kSizedBoxSm, introText]),
+            children: [
+              logo,
+              kSizedBoxSm,
+              registeredLogo(),
+              kSizedBoxSm,
+              introText,
+            ]),
       ),
     );
   }
