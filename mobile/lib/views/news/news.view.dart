@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:threebotlogin/core/components/tabs/tabs.core.dart';
+import 'package:threebotlogin/core/router/tabs/views/tabs.core.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
+import 'package:threebotlogin/views/home/home.view.dart';
 import 'package:threebotlogin/views/news/news.options.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -15,12 +17,6 @@ class _NewsScreenState extends State<NewsScreen> {
   late InAppWebViewController webView;
   late InAppWebView iaWebView;
 
-  _back(NewsGoBack event) async {
-    print("HALLO");
-    Uri? url = await webView.getUrl();
-    print("URL: " + url.toString());
-    this.webView.goBack();
-  }
 
   _NewsScreenState() {
     iaWebView = InAppWebView(
@@ -30,12 +26,18 @@ class _NewsScreenState extends State<NewsScreen> {
         webView = controller;
       },
     );
-
-    Events().onEvent(NewsGoBack().runtimeType, _back);
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutDrawer(titleText: 'News', content: SafeArea(child: iaWebView));
+    return LayoutDrawer(
+        titleText: 'News',
+        content: SafeArea(
+            child: WillPopScope(
+                child: iaWebView,
+                onWillPop: () async {
+                  await Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                  return Future.value(false);
+                })));
   }
 }

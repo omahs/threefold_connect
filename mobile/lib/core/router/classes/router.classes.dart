@@ -50,7 +50,6 @@ class JRouter {
       name: 'News',
       icon: Icons.article,
       canSee: Globals().canSeeNews,
-      pinRequired: true,
       view: NewsScreen(),
     )),
     AppInfo(

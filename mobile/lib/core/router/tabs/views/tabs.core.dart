@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/core/components/tabs/tabs.widgets.dart';
+import 'package:threebotlogin/core/router/tabs/widgets/tabs.widgets.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 
 class LayoutDrawer extends StatefulWidget {

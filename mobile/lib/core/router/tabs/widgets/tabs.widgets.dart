@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/router/classes/router.classes.dart';
+import 'package:threebotlogin/core/router/tabs/helpers/tabs.helpers.dart';
 
 Widget logo = Container(
   width: 200,
@@ -37,9 +38,8 @@ Widget tabs() {
               title: Text(JRouter().routes[index].route.name, style: TextStyle(fontWeight: FontWeight.w400)),
               onTap: () async {
                 bool? pinRequired = JRouter().routes[index].route.pinRequired;
-
-                if(pinRequired == true) {
-
+                if (pinRequired == true) {
+                    await navigateIfAuthenticated(JRouter().routes[index].route);
                 }
 
                 await Navigator.push(
