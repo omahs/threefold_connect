@@ -7,8 +7,8 @@ import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/flagsmith/classes/flagsmith.class.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 import 'package:threebotlogin/views/home/home.view.dart';
-import 'package:threebotlogin/views/recover/recover.helpers.dart';
-import 'package:threebotlogin/views/recover/recover.widgets.dart';
+import 'package:threebotlogin/views/recover/helpers/recover.helpers.dart';
+import 'package:threebotlogin/views/recover/widgets/recover.widgets.dart';
 
 class RecoverScreen extends StatefulWidget {
   RecoverScreen();

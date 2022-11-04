@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
-import 'package:threebotlogin/views/recover/recover.view.dart';
+import 'package:threebotlogin/views/recover/views/recover.view.dart';
 
 class LandingScreen extends StatefulWidget {
   LandingScreen();

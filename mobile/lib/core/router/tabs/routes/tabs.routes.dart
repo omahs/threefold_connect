@@ -4,7 +4,7 @@ import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/views/farmer/farmer.view.dart';
 import 'package:threebotlogin/views/home/home.view.dart';
 import 'package:threebotlogin/views/identity/identity.view.dart';
-import 'package:threebotlogin/views/news/news.view.dart';
+import 'package:threebotlogin/views/news/views/news.view.dart';
 import 'package:threebotlogin/views/settings/settings.view.dart';
 import 'package:threebotlogin/views/support/support.view.dart';
 import 'package:threebotlogin/views/wallet/views/wallet.view.dart';

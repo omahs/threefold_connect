@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:threebotlogin/views/wallet/classes/wallet.classes.dart';
 
 // Initialization
 Future<bool> getInitialized() async {

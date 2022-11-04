@@ -27,7 +27,7 @@ Future<bool> authenticateWithBiometrics() async {
       }
     }
 
-    didAuthenticate = await auth.authenticateWithBiometrics(
+    didAuthenticate = await auth.authenticate(
         localizedReason: _localizedReason,
         useErrorDialogs: true);
   } on PlatformException catch (e) {

@@ -7,8 +7,8 @@ import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/views/home/home.view.dart';
-import 'package:threebotlogin/views/landing/landing.view.dart';
-import 'package:threebotlogin/views/wizard/wizard.view.dart';
+import 'package:threebotlogin/views/landing/views/landing.view.dart';
+import 'package:threebotlogin/views/wizard/views/wizard.view.dart';
 
 Future<void> checkInternetConnection() async {
   try {

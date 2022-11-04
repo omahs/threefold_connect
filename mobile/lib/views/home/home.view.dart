@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/core/auth/pin/views/auth.view.dart';
 import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
-import 'package:threebotlogin/views/connection/connection.widgets.dart';
+import 'package:threebotlogin/views/connection/widgets/connection.widgets.dart';
 import 'package:threebotlogin/views/home/home.widgets.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -3,8 +3,8 @@ import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
 import 'package:threebotlogin/core/components/spinners/loaders.spinners.dart';
 import 'package:threebotlogin/core/flagsmith/classes/flagsmith.class.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
-import 'package:threebotlogin/views/connection/connection.helpers.dart';
-import 'package:threebotlogin/views/connection/connection.widgets.dart';
+import 'package:threebotlogin/views/connection/helpers/connection.helpers.dart';
+import 'package:threebotlogin/views/connection/widgets/connection.widgets.dart';
 
 class ConnectionScreen extends StatefulWidget {
   ConnectionScreen();

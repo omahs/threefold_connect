@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/core/router/classes/router.classes.dart';
 
 class Globals {
   late BuildContext globalBuildContext;

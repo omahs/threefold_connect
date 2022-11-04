@@ -164,7 +164,6 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
     int failedAuthAttempts = await getFailedAuthAttempts();
 
     int currentTime = new DateTime.now().millisecondsSinceEpoch;
-    String seconds = ((lockedUntil - currentTime) / 1000).toStringAsFixed(0);
 
     // Unblock if necessary
     if (lockedUntil < currentTime && failedAuthAttempts >= 3) {

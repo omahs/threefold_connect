@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
-import 'package:threebotlogin/views/landing/landing.view.dart';
-import 'package:threebotlogin/views/wizard/wizard.enums.dart';
-import 'package:threebotlogin/views/wizard/wizard.options.dart';
+import 'package:threebotlogin/views/landing/views/landing.view.dart';
+import 'package:threebotlogin/views/wizard/enums/wizard.enums.dart';
+import 'package:threebotlogin/views/wizard/options/wizard.options.dart';
 
 class WizardScreen extends StatefulWidget {
   WizardScreen();

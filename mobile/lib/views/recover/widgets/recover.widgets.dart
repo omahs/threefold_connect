@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/styles/color.styles.dart';
+import '../../../core/styles/color.styles.dart';
 
 Widget labelSeedPhrase = Container(
     child: Text(

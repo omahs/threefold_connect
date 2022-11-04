@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:threebotlogin/core/events/listeners/event.listeners.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'views/connection/connection.view.dart';
+import 'views/connection/views/connection.view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -3,7 +3,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
-import 'package:threebotlogin/views/news/news.options.dart';
+import 'package:threebotlogin/views/news/options/news.options.dart';
 
 class NewsScreen extends StatefulWidget {
   NewsScreen();
