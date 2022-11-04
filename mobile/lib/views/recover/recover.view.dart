@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:threebotlogin/core/auth/pin/views/change.pin.view.dart';
 import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
 import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
+import 'package:threebotlogin/core/flagsmith/classes/flagsmith.class.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 import 'package:threebotlogin/views/home/home.view.dart';
 import 'package:threebotlogin/views/recover/recover.helpers.dart';
@@ -69,11 +71,15 @@ class _RecoverScreenState extends State<RecoverScreen> {
     setState(() => recoverError = null);
     await saveRecoverDataToLocalStorage(mnemonic, validationMnemonic['username']);
 
-    Events().emit(RecoveredEvent());
+    await Flags().initFlagSmith();
+    await Flags().setFlagSmithDefaultValues();
 
+
+    await Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePinScreen(hideBackButton: true)));
+
+
+    Events().emit(RecoveredEvent());
     Navigator.of(context).popUntil((route) => route.isFirst);
     await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-
-
   }
 }

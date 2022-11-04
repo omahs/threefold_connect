@@ -31,3 +31,14 @@ Future<void> setFailedAuthAttempts(int? attempts) async {
   currentFailedAttempts++;
   prefs.setInt('failedAuthAttempts', currentFailedAttempts);
 }
+
+Future<void> savePin(String pin) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.remove('pin');
+  prefs.setString('pin', pin);
+}
+
+Future<String?> getPin() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('pin');
+}
