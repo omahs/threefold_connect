@@ -10,6 +10,7 @@ import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/storage/auth/auth.storage.dart';
 import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
+import 'package:threebotlogin/views/home/views/home.view.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   final int pinLength = 4;
@@ -36,12 +37,6 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => checkFingerprint());
   }
 
-  close() {
-    if (Navigator.canPop(context)) {
-      Navigator.pop(context, false);
-    }
-  }
-
   checkFingerprint() async {
     bool? isFingerprintEnabled = await getFingerPrint();
 
@@ -51,6 +46,12 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
       if (isAuthenticated) {
         Navigator.pop(context, true);
       }
+    }
+  }
+
+  close() {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context, false);
     }
   }
 
@@ -121,37 +122,46 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        automaticallyImplyLeading: true,
-        backgroundColor: kAppBarColor,
-        title: Text("Authentication"),
-      ),
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              child: Text("Please authenticate to " + widget.userMessage),
-              padding: const EdgeInsets.only(bottom: 50),
+    return WillPopScope(
+        child: Scaffold(
+          appBar: new AppBar(
+            automaticallyImplyLeading: true,
+            backgroundColor: kAppBarColor,
+            title: Text("Authentication"),
+          ),
+          body: Container(
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  child: Text("Please authenticate to " + widget.userMessage),
+                  padding: const EdgeInsets.only(bottom: 50),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      generateTextFields(),
+                      SizedBox(height: 25),
+                      generateNumbers(),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Container(
-              alignment: Alignment.center,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  generateTextFields(),
-                  SizedBox(height: 25),
-                  generateNumbers(),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
+        onWillPop: () {
+          print('joejoe');
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context, false);
+          }
+
+          return Future.value(false);
+        });
   }
 
   Future<void> onOk() async {

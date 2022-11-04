@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/router/classes/router.classes.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
-import 'package:threebotlogin/views/farmer/farmer.view.dart';
-import 'package:threebotlogin/views/home/home.view.dart';
+import 'package:threebotlogin/views/farmer/views/farmer.view.dart';
+import 'package:threebotlogin/views/home/views/home.view.dart';
 import 'package:threebotlogin/views/identity/identity.view.dart';
 import 'package:threebotlogin/views/news/views/news.view.dart';
 import 'package:threebotlogin/views/settings/settings.view.dart';

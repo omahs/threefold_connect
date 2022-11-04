@@ -19,7 +19,7 @@ Widget logo = Container(
       )),
 );
 
-Widget tabs() {
+Widget tabs(BuildContext ctx) {
   return ListView.builder(
     shrinkWrap: true,
     itemCount: routes.length,
@@ -39,7 +39,7 @@ Widget tabs() {
               onTap: () async {
                 bool? pinRequired = routes[index].route.pinRequired;
                 if (pinRequired == true) {
-                  await navigateIfAuthenticated(routes[index].route);
+                  await navigateIfAuthenticated(routes[index].route, ctx);
                 }
 
                 await Navigator.push(context, MaterialPageRoute(builder: (context) => routes[index].route.view));

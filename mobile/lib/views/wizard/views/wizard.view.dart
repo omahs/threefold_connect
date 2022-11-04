@@ -17,8 +17,8 @@ class _WizardScreenState extends State<WizardScreen> {
 
   _WizardScreenState() {
     iaWebView = InAppWebView(
-      initialUrlRequest: request,
-      initialOptions: options,
+      initialUrlRequest: requestWizard,
+      initialOptions: optionsWizard,
       onWebViewCreated: (InAppWebViewController controller) {
         webView = controller;
         addHandler();

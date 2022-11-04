@@ -23,6 +23,6 @@ class _LayoutDrawerState extends State<LayoutDrawer> {
           iconTheme: IconThemeData(color: Colors.white),
         ),
         body: SafeArea(child: widget.content),
-        drawer: SafeArea(child: Drawer(child: Column(children: <Widget>[logo, tabs()]))));
+        drawer: SafeArea(child: Drawer(child: Column(children: <Widget>[logo, tabs(context)]))));
   }
 }

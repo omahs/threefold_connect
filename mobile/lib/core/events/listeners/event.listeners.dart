@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
-import 'package:threebotlogin/views/home/home.view.dart';
+import 'package:threebotlogin/views/home/views/home.view.dart';
 import 'package:threebotlogin/views/recover/dialogs/recover.dialogs.dart';
 
 Future<void> initializeEventListeners() async {

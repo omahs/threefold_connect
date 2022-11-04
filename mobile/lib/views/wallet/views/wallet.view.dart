@@ -29,13 +29,17 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
 
   _WalletScreenState() {
     iaWebView = InAppWebView(
-      initialUrlRequest: request,
-      initialOptions: options,
+      initialUrlRequest: requestWallet,
+      initialOptions: optionsWallet,
+      onConsoleMessage: (InAppWebViewController controller, ConsoleMessage consoleMessage) {
+        print("Wallet console: " + consoleMessage.message);
+      },
       onWebViewCreated: (InAppWebViewController controller) {
         webView = controller;
         this.addHandler();
       },
     );
+    Globals().isWalletCacheCleared = true;
   }
 
   _back() async {
@@ -71,6 +75,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
   }
 
   vueInitialized(List<dynamic> params) async {
+    print('coming here');
     var seed = base64.encode(await getDerivedSeed('wallet.threefold.me'));
     var username = await getUsername();
     var importedWallets = await getImportedWallets();
