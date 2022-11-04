@@ -18,6 +18,7 @@ path_provider_linux=/home/jimber/.pub-cache/hosted/pub.dev/path_provider_linux-2
 path_provider_macos=/home/jimber/.pub-cache/hosted/pub.dev/path_provider_macos-2.0.6/
 path_provider_windows=/home/jimber/.pub-cache/hosted/pub.dev/path_provider_windows-2.0.7/
 permission_handler=/home/jimber/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/
+qr_code_scanner=/home/jimber/.pub-cache/git/qr_code_scanner-5c8a34b848e4e1bad6b4c987d89634b90fd3ab9e/
 redirection=/home/jimber/.pub-cache/git/redirection-3b4c9c3ae5113a02b28ec494937a86cfc279fb20/
 shared_preferences=/home/jimber/.pub-cache/hosted/pub.dev/shared_preferences-2.0.15/
 shared_preferences_android=/home/jimber/.pub-cache/hosted/pub.dev/shared_preferences_android-2.0.14/

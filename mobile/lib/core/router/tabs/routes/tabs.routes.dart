@@ -7,7 +7,7 @@ import 'package:threebotlogin/views/identity/identity.view.dart';
 import 'package:threebotlogin/views/news/news.view.dart';
 import 'package:threebotlogin/views/settings/settings.view.dart';
 import 'package:threebotlogin/views/support/support.view.dart';
-import 'package:threebotlogin/views/wallet/wallet.view.dart';
+import 'package:threebotlogin/views/wallet/views/wallet.view.dart';
 import 'package:threebotlogin/views/yggdrasil/yggdrasil.view.dart';
 
 List<AppInfo> routes = [

@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter_sodium/flutter_sodium.dart';
 import 'package:threebotlogin/api/3bot/services/recover.3botservice.dart';
-import 'package:threebotlogin/core/crypto/services/crypto.services.dart';
+import 'package:threebotlogin/core/crypto/services/crypto.service.dart';
 import 'transform.utils.dart';
 
 bool canGenerateKeyPairFromMnemonic(String mnemonic) {
@@ -14,6 +15,10 @@ bool canGenerateKeyPairFromMnemonic(String mnemonic) {
   } catch (e) {
     return false;
   }
+}
+
+Future<Uint8List> getDerivedSeed(String appId) async {
+  return await generateDerivedSeed(appId);
 }
 
 Future<Map<String, dynamic>> isValidMnemonic(String mnemonic) async {

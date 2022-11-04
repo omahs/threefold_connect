@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:threebotlogin/app_config.dart';
-import 'package:threebotlogin/core/crypto/services/crypto.services.dart';
+import 'package:threebotlogin/core/crypto/services/crypto.service.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 
 String openKycApiUrl = AppConfig().openKycApiUrl();

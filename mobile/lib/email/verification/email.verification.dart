@@ -1,7 +1,6 @@
+import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/email/helpers/email.helpers.dart';
 import 'package:threebotlogin/email/widgets/email.widgets.dart';
-
-import '../../core/storage/core.storage.dart';
 
 Future emailVerification() async {
   Map<String, String?> email = await getEmail();

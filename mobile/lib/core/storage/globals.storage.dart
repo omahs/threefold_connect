@@ -37,6 +37,9 @@ class Globals {
   int incorrectPinAttempts = 0;
   int lockedUntil = 0;
 
+  bool isWalletCacheCleared = false;
+  bool isFarmerCacheCleared = false;
+
   static final Globals _singleton = new Globals._internal();
 
   factory Globals() {

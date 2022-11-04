@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/components/dialogs/dialog.core.dart';
-import 'package:threebotlogin/core/storage/core.storage.dart';
+import 'package:threebotlogin/core/storage/auth/auth.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 
 Future<void> showIncorrectPin() {

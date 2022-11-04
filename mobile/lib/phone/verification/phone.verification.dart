@@ -1,4 +1,4 @@
-import 'package:threebotlogin/core/storage/core.storage.dart';
+import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/phone/helpers/phone.helpers.dart';
 import 'package:threebotlogin/phone/widgets/phone.widgets.dart';
 

@@ -7,7 +7,8 @@ import 'package:threebotlogin/core/auth/pin/dialogs/auth.dialogs.dart';
 import 'package:threebotlogin/core/auth/pin/widgets/auth.widgets.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
-import 'package:threebotlogin/core/storage/core.storage.dart';
+import 'package:threebotlogin/core/storage/auth/auth.storage.dart';
+import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 
 class AuthenticationScreen extends StatefulWidget {

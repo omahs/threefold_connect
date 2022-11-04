@@ -428,6 +428,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "qr_code_scanner",
+      "rootUri": "file:///home/jimber/.pub-cache/git/qr_code_scanner-5c8a34b848e4e1bad6b4c987d89634b90fd3ab9e/",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "redirection",
       "rootUri": "file:///home/jimber/.pub-cache/git/redirection-3b4c9c3ae5113a02b28ec494937a86cfc279fb20/",
       "packageUri": "lib/",
@@ -668,7 +674,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-11-03T16:56:31.310116Z",
+  "generated": "2022-11-04T08:59:47.908029Z",
   "generator": "pub",
   "generatorVersion": "2.19.0-364.0.dev"
 }

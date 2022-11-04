@@ -1,6 +1,7 @@
 import 'package:flutter_sodium/flutter_sodium.dart';
-import 'package:threebotlogin/core/crypto/services/crypto.services.dart';
+import 'package:threebotlogin/core/crypto/services/crypto.service.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
+import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 
 
 Future<void> saveRecoverDataToLocalStorage(String mnemonic, String username) async {
