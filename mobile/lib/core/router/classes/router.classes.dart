@@ -7,7 +7,7 @@ import 'package:threebotlogin/views/news/views/news.view.dart';
 import 'package:threebotlogin/views/settings/settings.view.dart';
 import 'package:threebotlogin/views/support/views/support.view.dart';
 import 'package:threebotlogin/views/wallet/views/wallet.view.dart';
-import 'package:threebotlogin/views/yggdrasil/yggdrasil.view.dart';
+import 'package:threebotlogin/views/yggdrasil/views/yggdrasil.view.dart';
 
 class JRoute {
   final IconData icon;

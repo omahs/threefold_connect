@@ -9,3 +9,7 @@ Color kThreeFoldGreenColor = _colorFromHex('57BE8E');
 Color kAppBarColor = _colorFromHex('0a73b8');
 Color kErrorColor = _colorFromHex('FF0000');
 Color kTextColor = _colorFromHex('000000');
+
+
+Color kConnectedColor = _colorFromHex('00FF00');
+Color kConnectingColor = _colorFromHex('FFA500');

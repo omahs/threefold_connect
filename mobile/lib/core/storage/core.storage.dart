@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'dart:core';
+import 'package:convert/convert.dart';
 
+import 'package:flutter_sodium/flutter_sodium.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Initialization
@@ -74,4 +77,21 @@ Future<void> setPublicKey(Uint8List privateKey) async {
 
   String encodedPrivateKey = base64.encode(privateKey);
   prefs.setString('publickey', encodedPrivateKey);
+}
+
+Future<Map<String, String>> getEdCurveKeys() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  final String? pkEd = prefs.getString('publickey');
+  final String? skEd = prefs.getString('privatekey');
+
+  final String pkCurve = base64.encode(Sodium.cryptoSignEd25519PkToCurve25519(base64.decode(pkEd!)));
+  final String skCurve = base64.encode(Sodium.cryptoSignEd25519SkToCurve25519(base64.decode(skEd!)));
+
+  return {
+    'signingPublicKey': hex.encode(base64.decode(pkEd)),
+    'signingPrivateKey': hex.encode(base64.decode(skEd)),
+    'encryptionPublicKey': hex.encode(base64.decode(pkCurve)),
+    'encryptionPrivateKey': hex.encode(base64.decode(skCurve))
+  };
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/router/classes/router.classes.dart';
+import 'package:threebotlogin/core/yggdrasil/classes/yggdrasil.classes.dart';
 
 class Globals {
   late BuildContext globalBuildContext;
@@ -42,6 +43,7 @@ class Globals {
 
   late TabController tabController;
   final JRouter router = new JRouter();
+  VpnState vpnState = new VpnState();
 
   static final Globals _singleton = new Globals._internal();
 
