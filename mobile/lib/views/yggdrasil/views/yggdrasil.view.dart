@@ -14,7 +14,6 @@ class YggDrasilScreen extends StatefulWidget {
 }
 
 class _YggDrasilScreenState extends State<YggDrasilScreen> {
-  late MethodChannel channel;
   VpnState _vpnState = new VpnState();
   bool _vpnTimeoutRunning = false;
 
@@ -33,8 +32,6 @@ class _YggDrasilScreenState extends State<YggDrasilScreen> {
   @override
   void initState() {
     super.initState();
-
-    channel = MethodChannel('yggdrasil_plugin/events');
 
     setState(() {
       if (!_vpnState.vpnConnected) return setVpnDisconnectedLayout();
