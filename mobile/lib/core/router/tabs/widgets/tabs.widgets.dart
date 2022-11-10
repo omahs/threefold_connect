@@ -1,6 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/core/router/tabs/helpers/tabs.helpers.dart';
-import 'package:threebotlogin/core/router/tabs/routes/tabs.routes.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
+
+Widget controller() {
+  return DefaultTabController(
+    length: Globals().router.routes.length,
+    child: WillPopScope(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            SafeArea(
+                child: TabBarView(
+              controller: Globals().tabController,
+              physics: NeverScrollableScrollPhysics(),
+              children: Globals().router.getContent(),
+            )),
+          ],
+        ),
+      ),
+      onWillPop: onWillPop,
+    ),
+  );
+}
+
+Future<bool> onWillPop() {
+  if (Globals().tabController.index == 0) {
+    return Future(() => true); // if home screen exit
+  }
+
+  return Future(() => false);
+}
 
 Widget logo = Container(
   width: 200,
@@ -22,27 +50,23 @@ Widget logo = Container(
 Widget tabs(BuildContext ctx) {
   return ListView.builder(
     shrinkWrap: true,
-    itemCount: routes.length,
+    itemCount: Globals().router.routes.length,
     physics: ClampingScrollPhysics(),
     itemBuilder: (context, index) {
-      return routes[index].route.canSee
+      return Globals().router.routes[index].route.canSee
           ? ListTile(
               minLeadingWidth: 10,
               leading: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(padding: const EdgeInsets.only(left: 30)),
-                  Icon(routes[index].route.icon, color: Colors.black, size: 18)
+                  Icon(Globals().router.routes[index].route.icon, color: Colors.black, size: 18)
                 ],
               ),
-              title: Text(routes[index].route.name, style: TextStyle(fontWeight: FontWeight.w400)),
+              title: Text(Globals().router.routes[index].route.name, style: TextStyle(fontWeight: FontWeight.w400)),
               onTap: () async {
-                bool? pinRequired = routes[index].route.pinRequired;
-                if (pinRequired == true) {
-                  await navigateIfAuthenticated(routes[index].route, ctx);
-                }
-
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => routes[index].route.view));
+                Navigator.pop(context);
+                Globals().tabController.animateTo(index);
               },
             )
           : Container();

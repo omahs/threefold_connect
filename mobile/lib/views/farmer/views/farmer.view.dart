@@ -2,13 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
+import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
+import 'package:threebotlogin/views/farmer/enums/farmer.enums.dart';
 import 'package:threebotlogin/views/farmer/options/farmer.options.dart';
 import 'package:threebotlogin/views/wallet/configs/wallet.config.dart';
-
 
 class FarmerScreen extends StatefulWidget {
   FarmerScreen();
@@ -31,10 +33,16 @@ class _FarmerScreenState extends State<FarmerScreen> with AutomaticKeepAliveClie
       },
       onWebViewCreated: (InAppWebViewController controller) {
         webView = controller;
+        this.addHandler();
       },
     );
 
     Globals().isFarmerCacheCleared = true;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   _back() async {
@@ -46,7 +54,20 @@ class _FarmerScreenState extends State<FarmerScreen> with AutomaticKeepAliveClie
     }
 
     this.webView.goBack();
-    return Future.value(false);
+    return Future.value(true);
+  }
+
+  addHandler() {
+    webView.addJavaScriptHandler(handlerName: FarmerHandlerTypes.vueInitialized, callback: vueInitialized);
+  }
+
+  vueInitialized(List<dynamic> params) async {
+    var seed = base64.encode(await getDerivedSeed('wallet.threefold.me'));
+    var username = await getUsername();
+
+    var startFarmer = "window.init('$username', '$seed')";
+
+    webView.evaluateJavascript(source: startFarmer);
   }
 
   @override

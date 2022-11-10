@@ -3,32 +3,38 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
-import 'package:threebotlogin/views/news/options/news.options.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
+import 'package:threebotlogin/views/support/options/support.options.dart';
 
-class NewsScreen extends StatefulWidget {
-  NewsScreen();
+class SupportScreen extends StatefulWidget {
+  SupportScreen();
 
-  _NewsScreenState createState() => _NewsScreenState();
+  _SupportScreenState createState() => _SupportScreenState();
 }
 
-class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMixin {
+class _SupportScreenState extends State<SupportScreen> with AutomaticKeepAliveClientMixin {
   late InAppWebViewController webView;
   late InAppWebView iaWebView;
 
-  _NewsScreenState() {
+  _SupportScreenState() {
     iaWebView = InAppWebView(
-      initialUrlRequest: request,
-      initialOptions: options,
+      initialUrlRequest: requestSupport,
+      initialOptions: optionsSupport,
+      onConsoleMessage: (InAppWebViewController controller, ConsoleMessage consoleMessage) {
+        print("Support console: " + consoleMessage.message);
+      },
       onWebViewCreated: (InAppWebViewController controller) {
         webView = controller;
       },
     );
+
+    Globals().isFarmerCacheCleared = true;
   }
 
   _back() async {
     Uri? url = await webView.getUrl();
 
-    if (url.toString().endsWith(cacheBuster)) {
+    if (url.toString() == Globals().supportUrl) {
       Events().emit(GoHomeEvent());
       return Future.value(true);
     }
@@ -38,15 +44,10 @@ class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMi
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
     return LayoutDrawer(
-        titleText: 'News',
+        titleText: 'Support',
         content: WillPopScope(
           child: iaWebView,
           onWillPop: () => _back(),
@@ -54,5 +55,5 @@ class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMi
   }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 }

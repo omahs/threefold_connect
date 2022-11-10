@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:threebotlogin/core/router/classes/router.classes.dart';
 
 class Globals {
   late BuildContext globalBuildContext;
@@ -38,6 +39,9 @@ class Globals {
 
   bool isWalletCacheCleared = false;
   bool isFarmerCacheCleared = false;
+
+  late TabController tabController;
+  final JRouter router = new JRouter();
 
   static final Globals _singleton = new Globals._internal();
 

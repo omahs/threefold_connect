@@ -64,6 +64,12 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
   }
 
   @override
+  void dispose() {
+    print('coming here');
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return LayoutDrawer(
@@ -75,7 +81,6 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
   }
 
   vueInitialized(List<dynamic> params) async {
-    print('coming here');
     var seed = base64.encode(await getDerivedSeed('wallet.threefold.me'));
     var username = await getUsername();
     var importedWallets = await getImportedWallets();

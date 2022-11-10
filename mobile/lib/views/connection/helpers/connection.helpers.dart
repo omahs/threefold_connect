@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/api/3bot/services/connection.3botservice.dart';
 import 'package:threebotlogin/app_config.dart';
+import 'package:threebotlogin/core/components/tabs/tabs.view.dart';
 import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
-import 'package:threebotlogin/views/home/views/home.view.dart';
 import 'package:threebotlogin/views/landing/views/landing.view.dart';
 import 'package:threebotlogin/views/wizard/views/wizard.view.dart';
 
@@ -76,7 +76,7 @@ Future<void> navigateToCorrectPage() async {
   // User is already registered
   if (username != null && initDone == true) {
     await Navigator.pushReplacement(
-        Globals().globalBuildContext, MaterialPageRoute(builder: (context) => HomeScreen()));
+        Globals().globalBuildContext, MaterialPageRoute(builder: (context) => TabsScreen()));
   }
 
   // User has done wizard, but is not registered yet
