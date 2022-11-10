@@ -20,6 +20,9 @@ class _SupportScreenState extends State<SupportScreen> with AutomaticKeepAliveCl
     iaWebView = InAppWebView(
       initialUrlRequest: requestSupport,
       initialOptions: optionsSupport,
+      onLoadStop: (InAppWebViewController controller, _) {
+        controller.evaluateJavascript(source: hideButtonInjections);
+      },
       onConsoleMessage: (InAppWebViewController controller, ConsoleMessage consoleMessage) {
         print("Support console: " + consoleMessage.message);
       },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:threebotlogin/core/events/listeners/event.listeners.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:threebotlogin/core/storage/globals.storage.dart';
 
 import 'views/connection/views/connection.view.dart';
 
