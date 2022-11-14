@@ -36,7 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         globalSettingsTile,
         usernameTile(username),
         phraseTile(seedPhrase),
-        biometricsTile(useBiometrics, this.biometricsName),
+        biometricsTile(useBiometrics, biometricsName),
         changePinTile(),
         versionTile(version, buildNumber),
         tosTile(),
@@ -54,7 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
       this.useBiometrics = await getFingerPrint();
       this.biometricsName = await getBiometricDeviceName();
-      this.showBiometricsTab = await checkBiometricsAvailable();
+      this.showBiometricsTab = await checkBiometricsAvailable() && Globals().canUseBiometrics;
 
       Map<String, String> appInfo = await getAppInfo();
       this.version = (appInfo['version'])!;
@@ -75,6 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget biometricsTile(bool isEnabled, String biometricsDeviceName) {
+    if (!showBiometricsTab) return Container();
     return CheckboxListTile(
       secondary: Icon(Icons.fingerprint),
       value: isEnabled,
