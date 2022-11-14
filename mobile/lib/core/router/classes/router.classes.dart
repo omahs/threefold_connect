@@ -10,7 +10,8 @@ import 'package:threebotlogin/views/wallet/views/wallet.view.dart';
 import 'package:threebotlogin/views/yggdrasil/views/yggdrasil.view.dart';
 
 class JRoute {
-  final IconData icon;
+  // Needs to be dynamic since we want to support images as Icons too
+  final dynamic icon;
   final String name;
   final String path;
   final Widget view;
@@ -37,7 +38,7 @@ class JRouter {
           route: JRoute(
         path: '/',
         name: 'Home',
-        icon: Icons.home,
+        icon: Icon(Icons.home, color: Colors.black, size: 18),
         canSee: true,
         view: HomeScreen(),
       )),
@@ -45,7 +46,7 @@ class JRouter {
           route: JRoute(
         path: '/news',
         name: 'News',
-        icon: Icons.article,
+        icon: Icon(Icons.article, color: Colors.black, size: 18),
         canSee: Globals().canSeeNews,
         view: NewsScreen(),
       )),
@@ -53,7 +54,7 @@ class JRouter {
           route: JRoute(
         path: '/wallet',
         name: 'Wallet',
-        icon: Icons.wallet,
+        icon: Icon(Icons.wallet, color: Colors.black, size: 18),
         canSee: Globals().canSeeWallet,
         pinRequired: true,
         view: WalletScreen(),
@@ -62,7 +63,12 @@ class JRouter {
           route: JRoute(
         path: '/farming',
         name: 'Farming',
-        icon: Icons.person_pin,
+        icon: Image.asset(
+          'assets/server.png',
+          scale: 1.0,
+          height: 18.0,
+          width: 18.0,
+        ),
         canSee: Globals().canSeeFarmer,
         pinRequired: true,
         view: FarmerScreen(),
@@ -71,7 +77,7 @@ class JRouter {
           route: JRoute(
         path: '/support',
         name: 'Support',
-        icon: Icons.chat,
+        icon: Icon(Icons.chat, color: Colors.black, size: 18),
         canSee: Globals().canSeeSupport,
         view: SupportScreen(),
       )),
@@ -79,7 +85,7 @@ class JRouter {
           route: JRoute(
         path: '/yggdrasil',
         name: 'Planetary Network',
-        icon: Icons.network_check,
+        icon: Icon(Icons.network_check, color: Colors.black, size: 18),
         canSee: Globals().canSeeYggdrasil,
         view: YggDrasilScreen(),
       )),
@@ -87,7 +93,7 @@ class JRouter {
           route: JRoute(
         path: '/identity',
         name: 'Identity',
-        icon: Icons.person,
+        icon: Icon(Icons.person, color: Colors.black, size: 18),
         canSee: Globals().canSeeKyc,
         view: IdentityScreen(),
       )),
@@ -95,7 +101,7 @@ class JRouter {
           route: JRoute(
         path: '/settings',
         name: 'Settings',
-        icon: Icons.settings,
+        icon: Icon(Icons.settings, color: Colors.black, size: 18),
         canSee: true,
         view: SettingsScreen(),
       )),

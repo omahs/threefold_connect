@@ -60,7 +60,7 @@ Widget tabs(BuildContext ctx) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(padding: const EdgeInsets.only(left: 30)),
-                  Icon(Globals().router.routes[index].route.icon, color: Colors.black, size: 18)
+                  Globals().router.routes[index].route.icon
                 ],
               ),
               title: Text(Globals().router.routes[index].route.name, style: TextStyle(fontWeight: FontWeight.w400)),

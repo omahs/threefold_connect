@@ -30,19 +30,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   late bool showBiometricsTab;
 
+  bool isLoading = true;
+
   Widget listviewListTiles() {
-    return ListView(
-      children: [
-        globalSettingsTile,
-        usernameTile(username),
-        phraseTile(seedPhrase),
-        biometricsTile(useBiometrics, biometricsName),
-        changePinTile(),
-        versionTile(version, buildNumber),
-        tosTile(),
-        removeAccountTile()
-      ],
-    );
+    return this.isLoading
+        ? Container()
+        : ListView(
+            children: [
+              globalSettingsTile,
+              usernameTile(username),
+              phraseTile(seedPhrase),
+              biometricsTile(useBiometrics, biometricsName),
+              changePinTile(),
+              versionTile(version, buildNumber),
+              tosTile(),
+              removeAccountTile()
+            ],
+          );
   }
 
   @override
@@ -60,6 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       this.version = (appInfo['version'])!;
       this.buildNumber = (appInfo['buildNumber'])!;
 
+      this.isLoading = false;
       setState(() {});
     });
   }
