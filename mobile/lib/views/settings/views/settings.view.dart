@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:package_info/package_info.dart';
 import 'package:threebotlogin/core/auth/biometrics/services/biometric.service.dart';
 import 'package:threebotlogin/core/auth/pin/helpers/pin.helpers.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
@@ -9,8 +8,6 @@ import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 import 'package:threebotlogin/views/settings/dialogs/settings.dialogs.dart';
 import 'package:threebotlogin/views/settings/tiles/settings.tiles.dart';
-
-import '../../../core/storage/auth/auth.storage.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen();

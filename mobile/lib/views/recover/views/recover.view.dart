@@ -7,7 +7,6 @@ import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/flagsmith/classes/flagsmith.class.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
-import 'package:threebotlogin/views/home/views/home.view.dart';
 import 'package:threebotlogin/views/recover/helpers/recover.helpers.dart';
 import 'package:threebotlogin/views/recover/widgets/recover.widgets.dart';
 
