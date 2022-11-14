@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/auth/pin/views/change.pin.view.dart';
 import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
+import 'package:threebotlogin/core/components/tabs/tabs.view.dart';
 import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
@@ -80,6 +81,6 @@ class _RecoverScreenState extends State<RecoverScreen> {
 
     Events().emit(RecoveredEvent());
     Navigator.of(context).popUntil((route) => route.isFirst);
-    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
   }
 }

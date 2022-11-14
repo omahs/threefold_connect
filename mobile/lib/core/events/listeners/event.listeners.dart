@@ -7,7 +7,7 @@ import 'package:threebotlogin/views/recover/dialogs/recover.dialogs.dart';
 
 Future<void> initializeEventListeners() async {
   Events().onEvent(RecoveredEvent().runtimeType, (RecoveredEvent event) async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 100));
     showSuccessfullyRecovered();
   });
 

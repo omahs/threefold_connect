@@ -154,7 +154,6 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
           ),
         ),
         onWillPop: () {
-          print('joejoe');
           if (Navigator.canPop(context)) {
             Navigator.pop(context, false);
           }

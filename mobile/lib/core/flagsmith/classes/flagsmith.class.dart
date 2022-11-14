@@ -43,6 +43,7 @@ class Flags {
     Globals().canVerifyPhone = await Flags().hasFlagValueByFeatureName('can-verify-phone');
     Globals().canSeeFarmer = await Flags().hasFlagValueByFeatureName('can-see-farmer');
     Globals().canSeeWizard = await Flags().hasFlagValueByFeatureName('can-see-wizard');
+    Globals().canUseBiometrics = await Flags().hasFlagValueByFeatureName('can-use-biometrics');
 
     Globals().newWalletUrl = (await Flags().getFlagValueByFeatureName('new-wallet-url'))!;
     Globals().newsUrl = (await Flags().getFlagValueByFeatureName('news-url'))!;
@@ -50,8 +51,6 @@ class Flags {
     Globals().farmerUrl = (await Flags().getFlagValueByFeatureName('farmer-url'))!;
     Globals().supportUrl = (await Flags().getFlagValueByFeatureName('chatbot-url'))!;
     Globals().termsAndConditionsUrl = (await Flags().getFlagValueByFeatureName('terms-and-conditions-url'))!;
-    Globals().termsAndConditionsUrl = (await Flags().getFlagValueByFeatureName('wizard-url'))!;
-
   }
 
   Future<bool> hasFlagValueByFeatureName(String name) async {

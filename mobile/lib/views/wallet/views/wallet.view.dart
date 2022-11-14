@@ -65,7 +65,6 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
 
   @override
   void dispose() {
-    print('coming here');
     super.dispose();
   }
 

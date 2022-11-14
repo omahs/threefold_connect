@@ -29,6 +29,8 @@ class Globals {
   bool canVerifyPhone = false;
   bool canVerifyEmail = false;
 
+  bool canUseBiometrics = false;
+
   bool canSeeWizard = false;
   String wizardUrl = 'https://wizard.jimber.org';
 

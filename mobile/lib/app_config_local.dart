@@ -3,7 +3,7 @@ import 'package:threebotlogin/app_config.dart';
 class AppConfigLocal extends AppConfigImpl {
 
   String baseUrl() {
-    return "192.168.68.104:3001";
+    return "192.168.2.149:3001";
   }
 
   String openKycApiUrl() {
@@ -11,15 +11,15 @@ class AppConfigLocal extends AppConfigImpl {
   }
 
   String threeBotApiUrl() {
-    return "http://192.168.68.104:3001/api";
+    return "http://192.168.2.149:3001/api";
   }
 
   String threeBotFrontEndUrl() {
-    return "http://192.168.68.104:3000/";
+    return "http://192.168.2.149:3000/";
   }
 
   String threeBotSocketUrl() {
-    return "http://192.168.68.104:3001";
+    return "http://192.168.2.149:3001";
   }
 
   String wizardUrl() {

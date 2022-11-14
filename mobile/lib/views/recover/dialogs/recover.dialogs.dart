@@ -6,7 +6,7 @@ Future<void> showSuccessfullyRecovered() {
   return showDialog(
     context: Globals().globalBuildContext,
     builder: (BuildContext context) => CustomDialog(
-      image: Icons.email,
+      image: Icons.verified,
       title: "Recovered",
       description: "Your account has successfully been recovered!",
       actions: <Widget>[

@@ -4,6 +4,7 @@ import 'dart:core';
 import 'package:convert/convert.dart';
 
 import 'package:flutter_sodium/flutter_sodium.dart';
+import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Initialization
@@ -93,5 +94,20 @@ Future<Map<String, String>> getEdCurveKeys() async {
     'signingPrivateKey': hex.encode(base64.decode(skEd)),
     'encryptionPublicKey': hex.encode(base64.decode(pkCurve)),
     'encryptionPrivateKey': hex.encode(base64.decode(skCurve))
+  };
+}
+
+Future<bool> clearData() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  setInitialized();
+  return await prefs.clear();
+}
+
+Future<Map<String, String>> getAppInfo() async {
+  PackageInfo info = await PackageInfo.fromPlatform();
+
+  return {
+    'version': info.version,
+    'buildNumber': info.buildNumber
   };
 }
