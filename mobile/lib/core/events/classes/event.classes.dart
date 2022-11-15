@@ -59,3 +59,7 @@ class RecoveredEvent {
 class NewsGoBack {
   NewsGoBack();
 }
+
+class DisconnectPkidClient {
+  DisconnectPkidClient();
+}

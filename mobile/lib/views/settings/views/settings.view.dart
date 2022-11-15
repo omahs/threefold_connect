@@ -50,20 +50,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      this.username = (await getUsername())!;
-      this.seedPhrase = (await getPhrase())!;
-
-      this.useBiometrics = await getFingerPrint();
-      this.biometricsName = await getBiometricDeviceName();
-      this.showBiometricsTab = await checkBiometricsAvailable() && Globals().canUseBiometrics;
-
-      Map<String, String> appInfo = await getAppInfo();
-      this.version = (appInfo['version'])!;
-      this.buildNumber = (appInfo['buildNumber'])!;
-
-      this.isLoading = false;
-      setState(() {});
+      await setSettingsData();
     });
+  }
+
+  Future<void> setSettingsData() async {
+    this.username = (await getUsername())!;
+    this.seedPhrase = (await getPhrase())!;
+
+    this.useBiometrics = await getFingerPrint();
+    this.biometricsName = await getBiometricDeviceName();
+    this.showBiometricsTab = await checkBiometricsAvailable() && Globals().canUseBiometrics;
+
+    Map<String, String> appInfo = await getAppInfo();
+    this.version = (appInfo['version'])!;
+    this.buildNumber = (appInfo['buildNumber'])!;
+
+    this.isLoading = false;
+    setState(() {});
   }
 
   @override

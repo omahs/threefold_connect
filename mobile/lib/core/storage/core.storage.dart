@@ -106,8 +106,23 @@ Future<bool> clearData() async {
 Future<Map<String, String>> getAppInfo() async {
   PackageInfo info = await PackageInfo.fromPlatform();
 
-  return {
-    'version': info.version,
-    'buildNumber': info.buildNumber
-  };
+  return {'version': info.version, 'buildNumber': info.buildNumber};
+}
+
+Future<bool> getIsMigratedInPkid() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  bool? migrated = prefs.getBool('migratedInPkid');
+  if (migrated == null) {
+    prefs.setBool('migratedInPkid', false);
+    migrated = prefs.getBool('migratedInPkid');
+  }
+
+  bool isInitDone = migrated == true;
+  return isInitDone;
+}
+
+Future<void> setIsMigratedInPkid() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setBool('migratedInPkid', true);
 }

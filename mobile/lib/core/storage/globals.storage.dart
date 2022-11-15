@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pkid/flutter_pkid.dart';
 import 'package:threebotlogin/core/router/classes/router.classes.dart';
 import 'package:threebotlogin/core/yggdrasil/classes/yggdrasil.classes.dart';
 
@@ -48,6 +49,8 @@ class Globals {
   VpnState vpnState = new VpnState();
 
   static final Globals _singleton = new Globals._internal();
+
+  late FlutterPkid? pkidClient;
 
   factory Globals() {
     return _singleton;

@@ -6,7 +6,8 @@ import 'package:threebotlogin/core/storage/auth/auth.storage.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
-import 'package:threebotlogin/sockets/services/socket.service.dart';
+import 'package:threebotlogin/pkid/classes/pkid.classes.dart';
+import 'package:threebotlogin/sockets/classes/socket.classes.dart';
 
 class TabsScreen extends StatefulWidget {
   TabsScreen();
@@ -68,14 +69,16 @@ class _TabsScreenState extends State<TabsScreen> with WidgetsBindingObserver, Si
     Globals().tabController = TabController(initialIndex: 0, length: Globals().router.routes.length, vsync: this);
     Globals().tabController.addListener(_handleTabSelection);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => addSockets());
+    WidgetsBinding.instance.addPostFrameCallback((_) => initializeClients());
 
     WidgetsBinding.instance.addObserver(this);
   }
 
-  Future<void> addSockets() async {
+  Future<void> initializeClients() async {
     String username = (await getUsername())!;
-    SocketConnection(username).initializeSocketClient();
+    String phrase = (await getPhrase())!;
+    await PkidClient(username, phrase).initializePkidClient();
+    await SocketConnection(username).initializeSocketClient();
   }
 
   @override

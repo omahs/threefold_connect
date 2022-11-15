@@ -55,6 +55,7 @@ Future<void> launchTermsAndConditions() async {
 Future<void> removeAccountFromDevice() async {
   Events().emit(CloseSocketEvent());
   Events().emit(CloseVpnEvent());
+  Events().emit(DisconnectPkidClient());
 
   bool isCleared = await clearData();
 
