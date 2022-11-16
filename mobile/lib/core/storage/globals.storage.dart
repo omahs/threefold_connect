@@ -44,6 +44,8 @@ class Globals {
   int incorrectPinAttempts = 0;
   int lockedUntil = 0;
 
+  bool enableCacheWallet = false;
+  bool enableCacheFarmer = false;
   bool isWalletCacheCleared = false;
   bool isFarmerCacheCleared = false;
 

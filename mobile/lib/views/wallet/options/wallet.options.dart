@@ -9,6 +9,8 @@ String walletUrl = Globals().useNewWallet ? Globals().newWalletUrl : Globals().o
 URLRequest requestWallet = URLRequest(url: Uri.parse(walletUrl + '?cache_buster=' + cacheBuster));
 
 InAppWebViewGroupOptions optionsWallet = InAppWebViewGroupOptions(
-    crossPlatform:
-        InAppWebViewOptions(cacheEnabled: Globals().isWalletCacheCleared, clearCache: !Globals().isWalletCacheCleared),
+    crossPlatform: Globals().enableCacheWallet
+        ? InAppWebViewOptions()
+        : InAppWebViewOptions(
+            cacheEnabled: Globals().isWalletCacheCleared, clearCache: !Globals().isWalletCacheCleared),
     android: AndroidInAppWebViewOptions(supportMultipleWindows: true, useHybridComposition: true));

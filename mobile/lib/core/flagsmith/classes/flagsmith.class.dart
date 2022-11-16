@@ -44,6 +44,8 @@ class Flags {
     Globals().canSeeFarmer = await Flags().hasFlagValueByFeatureName('can-see-farmer');
     Globals().canSeeWizard = await Flags().hasFlagValueByFeatureName('can-see-wizard');
     Globals().canUseBiometrics = await Flags().hasFlagValueByFeatureName('can-use-biometrics');
+    Globals().enableCacheFarmer = await Flags().hasFlagValueByFeatureName('enable-cache-farmer');
+    Globals().enableCacheWallet = await Flags().hasFlagValueByFeatureName('enable-cache-wallet');
 
     Globals().newWalletUrl = (await Flags().getFlagValueByFeatureName('new-wallet-url'))!;
     Globals().newsUrl = (await Flags().getFlagValueByFeatureName('news-url'))!;

@@ -6,6 +6,8 @@ String cacheBusterFarmer = new DateTime.now().millisecondsSinceEpoch.toString();
 URLRequest requestFarmer = URLRequest(url: Uri.parse(Globals().farmerUrl + '?cache_buster=' + cacheBusterFarmer));
 
 InAppWebViewGroupOptions optionsFarmer = InAppWebViewGroupOptions(
-    crossPlatform:
-        InAppWebViewOptions(cacheEnabled: Globals().isFarmerCacheCleared, clearCache: !Globals().isFarmerCacheCleared),
+    crossPlatform: Globals().enableCacheFarmer
+        ? InAppWebViewOptions()
+        : InAppWebViewOptions(
+            cacheEnabled: Globals().isFarmerCacheCleared, clearCache: !Globals().isFarmerCacheCleared),
     android: AndroidInAppWebViewOptions(supportMultipleWindows: true, useHybridComposition: true));
