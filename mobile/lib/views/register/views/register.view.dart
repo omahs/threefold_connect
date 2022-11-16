@@ -190,6 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setPhrase(_registrationData.phrase);
 
     await saveEmailToPKid();
+    await savePhoneToPKid();
 
     sendVerificationEmail(_registrationData.username, _registrationData.email, base64.encode(_registrationData.kp.pk));
 
