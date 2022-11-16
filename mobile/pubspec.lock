@@ -304,7 +304,7 @@ packages:
       name: intl_phone_field
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "3.1.0"
   js:
     dependency: transitive
     description:

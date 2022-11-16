@@ -8,6 +8,7 @@ import 'package:threebotlogin/core/auth/pin/widgets/auth.widgets.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/storage/auth/auth.storage.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 
@@ -39,7 +40,7 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
   checkFingerprint() async {
     bool? isFingerprintEnabled = await getFingerPrint();
 
-    if (isFingerprintEnabled == true) {
+    if (isFingerprintEnabled == true && Globals().canUseBiometrics) {
       bool isAuthenticated = await authenticateWithBiometrics();
 
       if (isAuthenticated) {

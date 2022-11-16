@@ -33,7 +33,7 @@ class AppConfigLocal extends AppConfigImpl {
   Map<String, String> flagSmithConfig() {
       return {
         'url': 'https://flagsmith.jimber.io/api/v1/',
-        'apiKey': 'Pss8pNhA5tD8hiVsfSv5zu'
+        'apiKey': 'T3vCeteoyrXNw82VGErnEL'
       };
   }
 }

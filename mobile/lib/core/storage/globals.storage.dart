@@ -6,6 +6,9 @@ import 'package:threebotlogin/core/yggdrasil/classes/yggdrasil.classes.dart';
 class Globals {
   late BuildContext globalBuildContext;
 
+  ValueNotifier<bool> emailVerified = ValueNotifier(false);
+  ValueNotifier<bool> phoneVerified = ValueNotifier(false);
+
   int loginTimeout = 120;
   int httpTimeout = 12;
   bool maintenance = true;
@@ -47,6 +50,9 @@ class Globals {
   late TabController tabController;
   final JRouter router = new JRouter();
   VpnState vpnState = new VpnState();
+
+  int smsSentOn = 0;
+  int smsMinutesCoolDown = 5;
 
   static final Globals _singleton = new Globals._internal();
 

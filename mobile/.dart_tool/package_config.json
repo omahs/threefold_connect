@@ -261,7 +261,7 @@
     },
     {
       "name": "intl_phone_field",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/intl_phone_field-2.1.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/intl_phone_field-3.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -674,7 +674,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-11-15T12:09:00.638224Z",
+  "generated": "2022-11-16T12:40:07.516032Z",
   "generator": "pub",
   "generatorVersion": "2.18.4"
 }

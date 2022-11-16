@@ -1,3 +1,4 @@
+import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/phone/helpers/phone.helpers.dart';
 import 'package:threebotlogin/phone/widgets/phone.widgets.dart';
@@ -14,4 +15,6 @@ Future phoneVerification() async {
 
   await setPhone(verifiedPhone, spi);
   showSuccessPhoneVerifiedDialog();
+
+  Globals().phoneVerified.value = true;
 }

@@ -1,3 +1,4 @@
+import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/email/helpers/email.helpers.dart';
 import 'package:threebotlogin/email/widgets/email.widgets.dart';
@@ -14,4 +15,6 @@ Future emailVerification() async {
 
   await setEmail(verifiedEmail, sei);
   showSuccessEmailVerifiedDialog();
+
+  Globals().emailVerified.value = true;
 }

@@ -6,11 +6,47 @@ import 'package:http/http.dart';
 import 'package:threebotlogin/app_config.dart';
 import 'package:threebotlogin/core/crypto/services/crypto.service.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
+import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 
 String openKycApiUrl = AppConfig().openKycApiUrl();
 String threeBotApiUrl = AppConfig().threeBotApiUrl();
 
 Map<String, String> requestHeaders = {'Content-type': 'application/json'};
+
+Future<Response> sendVerificationEmail(String username, String email, String publicKey) async {
+  String encodedBody = json.encode({
+    'user_id': username,
+    'email': email,
+    'public_key': publicKey,
+  });
+
+  Uri url = Uri.parse('$openKycApiUrl/verification/send-email');
+  print('Sending call: ${url.toString()}');
+
+  return http.post(url, body: encodedBody, headers: requestHeaders);
+}
+
+Future<dynamic> sendVerificationSms(String username, String phone, String publicKey) async {
+  String encodedBody = json.encode({
+    'user_id': username,
+    'number':  phone,
+    'public_key': publicKey,
+  });
+
+  Uri url = Uri.parse('$openKycApiUrl/verification/send-sms');
+  print('Sending call: ${url.toString()}');
+
+  // return http.post(url, body: encodedBody, headers: requestHeaders);
+}
+
+// https://api.ipgeolocationapi.com/geolocate
+Future<String> getCountry() async {
+  Uri url = Uri.parse('https://ipinfo.io/country');
+  print('Sending call: ${url.toString()}');
+
+  return (await http.get(url)).body.replaceAll("\n", "");
+}
+
 
 Future<Response> getSignedEmailIdentifierFromOpenKYC(String doubleName) async {
   String timestamp = new DateTime.now().millisecondsSinceEpoch.toString();

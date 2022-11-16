@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/core/components/dialogs/dialog.core.dart';
+import 'package:threebotlogin/core/components/dialogs/custom.dialog.core.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 
 Future<void> showSuccessfullyRecovered() {

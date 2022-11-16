@@ -5,6 +5,14 @@ import 'package:threebotlogin/api/kyc/services/kyc.service.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/phone/widgets/phone.widgets.dart';
 
+Future<void> sendSms(String phone) async {
+  String username = (await getUsername())!;
+  String publicKey = base64Encode(await getPublicKey());
+
+  await sendVerificationSms(username, phone, publicKey);
+}
+
+
 Future<String?> getSignedPhoneIdentifier() async {
   String doubleName = (await getUsername())!;
 
