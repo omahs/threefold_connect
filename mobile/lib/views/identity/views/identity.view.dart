@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:threebotlogin/api/3bot/services/user.3botservice.dart';
 import 'package:threebotlogin/api/kyc/services/kyc.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
@@ -90,6 +91,11 @@ class _IdentityScreenState extends State<IdentityScreen> {
     Globals().emailVerified.value = false;
     await setEmail(email, null);
     await saveEmailToPKid();
+    bool isUpdated = await updateEmailAddressOfUser();
+
+    if (!isUpdated) {
+      print("TODO: ERROR");
+    }
 
     this.email = email;
     setState(() {});

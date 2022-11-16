@@ -3,6 +3,7 @@ import 'package:threebotlogin/core/components/dividers/box.dividers.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 import 'package:threebotlogin/views/recover/views/recover.view.dart';
+import 'package:threebotlogin/views/register/views/register.view.dart';
 
 class LandingScreen extends StatefulWidget {
   LandingScreen();
@@ -63,7 +64,7 @@ class _LandingScreenState extends State<LandingScreen> with WidgetsBindingObserv
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: kThreeFoldGreenColor, padding: EdgeInsets.all(12)),
         child: Text('SIGN UP', style: TextStyle(fontWeight: FontWeight.bold)),
-        onPressed: () => {},
+        onPressed: () => goToRegister(),
       ),
     );
   }
@@ -81,5 +82,9 @@ class _LandingScreenState extends State<LandingScreen> with WidgetsBindingObserv
 
   void goToRecover() async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) => RecoverScreen()));
+  }
+
+  void goToRegister() async {
+    await Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
   }
 }
