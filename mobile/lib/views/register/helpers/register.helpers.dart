@@ -1,3 +1,5 @@
+import 'package:threebotlogin/api/3bot/services/user.3botservice.dart';
+
 bool isValidUsername(String value) {
   Pattern pattern = r'^[a-zA-Z0-9]+$';
   RegExp regex = new RegExp(pattern.toString());
@@ -22,4 +24,22 @@ bool validateMnemonicWords(String seed, String confirmationWords) {
   }
 
   return true;
+}
+
+Future<Map<String, dynamic>> validateUsername(String username) async {
+  if (username == '') {
+    return {'valid': false, 'reason': 'Please choose a name.'};
+  }
+
+  bool validUsername = isValidUsername(username);
+  if (!validUsername) {
+    return {'valid': false, 'reason': 'Please enter a valid name.'};
+  }
+
+  bool doesUserExist = await doesUserExistInBackend(username + '.3bot');
+  if (doesUserExist) {
+    return {'valid': false, 'reason': 'Sorry, this name is already in use.'};
+  }
+
+  return {'valid': true};
 }

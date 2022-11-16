@@ -3,23 +3,16 @@ import 'dart:convert';
 import 'package:bip39/bip39.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_pkid/flutter_pkid.dart';
 import 'package:flutter_sodium/flutter_sodium.dart';
-import 'package:http/http.dart';
 import 'package:threebotlogin/api/3bot/services/user.3botservice.dart';
 import 'package:threebotlogin/api/kyc/services/kyc.service.dart';
 import 'package:threebotlogin/core/auth/pin/views/change.pin.view.dart';
 import 'package:threebotlogin/core/components/dialogs/loading.dialog.dart';
 import 'package:threebotlogin/core/components/tabs/tabs.view.dart';
 import 'package:threebotlogin/core/crypto/services/crypto.service.dart';
-import 'package:threebotlogin/core/flagsmith/classes/flagsmith.class.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
-import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
-import 'package:threebotlogin/pkid/classes/pkid.classes.dart';
-import 'package:threebotlogin/pkid/helpers/pkid.helpers.dart';
-import 'package:threebotlogin/sockets/classes/socket.classes.dart';
 import 'package:threebotlogin/views/identity/helpers/identity.helpers.dart';
 import 'package:threebotlogin/views/register/classes/register.classes.dart';
 import 'package:threebotlogin/views/register/helpers/register.helpers.dart';
@@ -85,31 +78,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {});
   }
 
-  Future<void> validateUsername() async {
+  Future<void> validationUsername() async {
     usernameController.text = usernameController.text.toLowerCase().trim().replaceAll(new RegExp(r"\s+"), " ");
     setState(() {});
 
-    if (usernameController.text == '') {
-      errorStepperText = 'Please choose a name.';
+    Map<String, dynamic> validatedUsername = await validateUsername(usernameController.text);
+    if (validatedUsername['valid'] == false) {
+      errorStepperText = validatedUsername['reason'];
       setState(() {});
       return;
     }
 
     _registrationData.username = usernameController.text + '.3bot';
-    bool validUsername = isValidUsername(usernameController.text);
-
-    if (!validUsername) {
-      errorStepperText = 'Please enter a valid name.';
-      setState(() {});
-      return;
-    }
-
-    bool doesUserExist = await doesUserExistInBackend(_registrationData.username);
-    if (doesUserExist) {
-      errorStepperText = 'Sorry, this name is already in use.';
-      setState(() {});
-      return;
-    }
 
     state = _State.Email;
     setState(() {});
@@ -157,7 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   checkStep(currentStep) async {
     switch (currentStep) {
       case _State.DoubleName:
-        await validateUsername();
+        await validationUsername();
         FocusScope.of(context).requestFocus(emailFocus);
         break;
       case _State.Email:
