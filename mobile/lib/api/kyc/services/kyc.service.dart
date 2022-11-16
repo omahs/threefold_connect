@@ -26,7 +26,7 @@ Future<Response> sendVerificationEmail(String username, String email, String pub
   return http.post(url, body: encodedBody, headers: requestHeaders);
 }
 
-Future<dynamic> sendVerificationSms(String username, String phone, String publicKey) async {
+Future<Response> sendVerificationSms(String username, String phone, String publicKey) async {
   String encodedBody = json.encode({
     'user_id': username,
     'number':  phone,
@@ -36,7 +36,7 @@ Future<dynamic> sendVerificationSms(String username, String phone, String public
   Uri url = Uri.parse('$openKycApiUrl/verification/send-sms');
   print('Sending call: ${url.toString()}');
 
-  // return http.post(url, body: encodedBody, headers: requestHeaders);
+  return http.post(url, body: encodedBody, headers: requestHeaders);
 }
 
 // https://api.ipgeolocationapi.com/geolocate
