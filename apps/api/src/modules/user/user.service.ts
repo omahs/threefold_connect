@@ -114,6 +114,12 @@ export class UserService {
             throw new BadRequestException(`User ${username} already exists`);
         }
 
+        const isFoundByPublicKey = await this.findByPublicKey(user.mainPublicKey);
+        if (isFoundByPublicKey) {
+            console.error(`PublicKey ${user.mainPublicKey} already exists`);
+            throw new BadRequestException(`User ${user.mainPublicKey} already exists`);
+        }
+
         const createdUser = await this._prisma.user.create({
             data: { username: username, email: email, mainPublicKey: publicKey },
         });
