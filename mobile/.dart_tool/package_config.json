@@ -279,7 +279,31 @@
     },
     {
       "name": "local_auth",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/local_auth-1.1.11",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/local_auth-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "local_auth_android",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/local_auth_android-1.0.15",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "local_auth_ios",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/local_auth_ios-1.0.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "local_auth_platform_interface",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/local_auth_platform_interface-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "local_auth_windows",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/local_auth_windows-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -494,12 +518,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "shuftipro_sdk",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/shuftipro_sdk-1.1.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.15"
-    },
-    {
       "name": "sky_engine",
       "rootUri": "file:///home/jimber/Development/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -507,7 +525,7 @@
     },
     {
       "name": "socket_io_client",
-      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/socket_io_client-2.0.0-beta.4-nullsafety.0",
+      "rootUri": "file:///home/jimber/.pub-cache/hosted/pub.dartlang.org/socket_io_client-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -674,7 +692,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-11-16T12:40:07.516032Z",
+  "generated": "2022-11-16T12:59:42.106066Z",
   "generator": "pub",
   "generatorVersion": "2.18.4"
 }
