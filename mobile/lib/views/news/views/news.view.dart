@@ -3,6 +3,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
+import 'package:threebotlogin/core/utils/clipboard.utils.dart';
 import 'package:threebotlogin/views/news/options/news.options.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -19,6 +20,9 @@ class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMi
     iaWebView = InAppWebView(
       initialUrlRequest: request,
       initialOptions: options,
+      onLoadStop: (InAppWebViewController controller, Uri? url) async {
+        addClipboardHandlersOnly(controller);
+      },
       onWebViewCreated: (InAppWebViewController controller) {
         webView = controller;
       },

@@ -8,6 +8,7 @@ import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
+import 'package:threebotlogin/core/utils/clipboard.utils.dart';
 import 'package:threebotlogin/views/farmer/enums/farmer.enums.dart';
 import 'package:threebotlogin/views/farmer/options/farmer.options.dart';
 import 'package:threebotlogin/views/wallet/configs/wallet.config.dart';
@@ -30,6 +31,9 @@ class _FarmerScreenState extends State<FarmerScreen> with AutomaticKeepAliveClie
       initialOptions: optionsFarmer,
       onConsoleMessage: (InAppWebViewController controller, ConsoleMessage consoleMessage) {
         print("Farmer console: " + consoleMessage.message);
+      },
+      onLoadStop: (InAppWebViewController controller, Uri? url) async {
+        addClipboardHandlersOnly(controller);
       },
       onWebViewCreated: (InAppWebViewController controller) {
         webView = controller;

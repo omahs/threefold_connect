@@ -9,6 +9,7 @@ import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/storage/wallet/wallet.storage.dart';
+import 'package:threebotlogin/core/utils/clipboard.utils.dart';
 import 'package:threebotlogin/views/wallet/configs/wallet.config.dart';
 import 'package:threebotlogin/views/wallet/enums/wallet.enums.dart';
 import 'package:threebotlogin/views/wallet/handlers/wallet.handlers.dart';
@@ -33,6 +34,9 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
       initialOptions: optionsWallet,
       onConsoleMessage: (InAppWebViewController controller, ConsoleMessage consoleMessage) {
         print("Wallet console: " + consoleMessage.message);
+      },
+      onLoadStop: (InAppWebViewController controller, Uri? url) async {
+        addClipboardHandlersOnly(controller);
       },
       onWebViewCreated: (InAppWebViewController controller) {
         webView = controller;

@@ -4,6 +4,7 @@ import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
+import 'package:threebotlogin/core/utils/clipboard.utils.dart';
 import 'package:threebotlogin/views/support/options/support.options.dart';
 
 class SupportScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _SupportScreenState extends State<SupportScreen> with AutomaticKeepAliveCl
       initialOptions: optionsSupport,
       onLoadStop: (InAppWebViewController controller, _) {
         controller.evaluateJavascript(source: hideButtonInjections);
+        addClipboardHandlersOnly(controller);
       },
       onConsoleMessage: (InAppWebViewController controller, ConsoleMessage consoleMessage) {
         print("Support console: " + consoleMessage.message);
