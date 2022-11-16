@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'package:threebotlogin/core/components/dialogs/custom.dialog.core.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:threebotlogin/core/styles/color.styles.dart';
-import 'package:threebotlogin/views/identity/helpers/identity.helpers.dart';
+
+void showCouldNotUpdateEmail() async {
+  return showDialog(
+    context: Globals().globalBuildContext,
+    barrierDismissible: false,
+    builder: (BuildContext context) => CustomDialog(
+      image: Icons.error,
+      title: "Could not update email",
+      description: "Could not update email in our backend. Please contact support",
+      actions: <Widget>[
+        TextButton(
+          child: new Text("Ok"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    ),
+  );
+}
 
 void showEmailResentDialog() async {
   return showDialog(

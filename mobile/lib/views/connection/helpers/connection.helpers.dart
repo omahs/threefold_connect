@@ -7,6 +7,8 @@ import 'package:threebotlogin/core/components/tabs/tabs.view.dart';
 import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
+import 'package:threebotlogin/pkid/classes/pkid.classes.dart';
+import 'package:threebotlogin/sockets/classes/socket.classes.dart';
 import 'package:threebotlogin/views/landing/views/landing.view.dart';
 import 'package:threebotlogin/views/wizard/views/wizard.view.dart';
 
@@ -75,6 +77,9 @@ Future<void> navigateToCorrectPage() async {
 
   // User is already registered
   if (username != null && initDone == true) {
+    await PkidClient(username, (await getPhrase())!).initializePkidClient(true);
+    await SocketConnection(username).initializeSocketClient();
+
     await Navigator.pushReplacement(
         Globals().globalBuildContext, MaterialPageRoute(builder: (context) => TabsScreen()));
   }

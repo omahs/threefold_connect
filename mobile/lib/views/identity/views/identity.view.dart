@@ -94,7 +94,7 @@ class _IdentityScreenState extends State<IdentityScreen> {
     bool isUpdated = await updateEmailAddressOfUser();
 
     if (!isUpdated) {
-      print("TODO: ERROR");
+      showCouldNotUpdateEmail();
     }
 
     this.email = email;
@@ -155,7 +155,7 @@ class _IdentityScreenState extends State<IdentityScreen> {
                             constraints: BoxConstraints(
                                 minWidth: MediaQuery.of(context).size.width * 0.55,
                                 maxWidth: MediaQuery.of(context).size.width * 0.55),
-                            child: Text(email == null ? 'Unknown' : email,
+                            child: Text(email == null || email == '' ? 'Unknown' : email,
                                 overflow: TextOverflow.clip,
                                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)))
                       ],
@@ -229,7 +229,7 @@ class _IdentityScreenState extends State<IdentityScreen> {
                                 constraints: BoxConstraints(
                                     minWidth: MediaQuery.of(context).size.width * 0.55,
                                     maxWidth: MediaQuery.of(context).size.width * 0.55),
-                                child: Text(phone == null ? 'Unknown' : phone,
+                                child: Text(phone == null || phone == '' ? 'Unknown' : phone,
                                     overflow: TextOverflow.clip,
                                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)))
                           ],

@@ -20,7 +20,7 @@ Future<void> saveEmailToPKidForMigration() async {
     }
   }
 
-  await Globals().pkidClient?.setPKidDoc('email', json.encode({'email': null}));
+  await Globals().pkidClient?.setPKidDoc('email', json.encode({'email': ''}));
 }
 
 Future<void> savePhoneToPKidForMigration() async {
@@ -40,7 +40,7 @@ Future<void> savePhoneToPKidForMigration() async {
     }
   }
 
-  await Globals().pkidClient?.setPKidDoc('phone', json.encode({'phone': null}));
+  await Globals().pkidClient?.setPKidDoc('phone', json.encode({'phone': ''}));
 }
 
 Future<void> saveEmailToPKid() async {
@@ -77,4 +77,42 @@ Future<dynamic> getEmailFromPKid() async {
 
 Future<dynamic> getPhoneFromPkid() async {
   return await Globals().pkidClient?.getPKidDoc('phone');
+}
+
+Future<void> getEmailFromPkidAndStore() async {
+  Map<String, dynamic> emailData = await getEmailFromPKid();
+
+  try {
+    dynamic email = jsonDecode(emailData['data']);
+
+    if (email['email'] != null && email['sei'] != null) {
+      await setEmail(email['email'], email['sei']);
+    }
+
+    if (email['email'] != null) {
+      await setEmail(email['email'], null);
+    }
+  } catch (e) {
+    print("Error when destructing PKID data: $e");
+    await setEmail('', null);
+  }
+}
+
+Future<void> getPhoneFromPkidAndStore() async {
+  Map<String, dynamic> phoneData = await getPhoneFromPkid();
+
+  try {
+    dynamic phone = jsonDecode(phoneData['data']);
+
+    if (phone['phone'] != null && phone['spi'] != null) {
+      await setPhone(phone['phone'], phone['spi']);
+    }
+
+    if (phone['phone'] != null) {
+      await setPhone(phone['spi'], null);
+    }
+  } catch (e) {
+    print("Error when destructing PKID data: $e");
+    await setPhone('', null);
+  }
 }

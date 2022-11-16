@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/auth/pin/views/auth.view.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/storage/auth/auth.storage.dart';
-import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
-import 'package:threebotlogin/pkid/classes/pkid.classes.dart';
-import 'package:threebotlogin/sockets/classes/socket.classes.dart';
+import 'package:uni_links/uni_links.dart';
 
 class TabsScreen extends StatefulWidget {
   TabsScreen();
@@ -17,6 +15,8 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   _TabsScreenState();
+
+  StreamSubscription? _sub;
 
   bool timeoutExpiredInBackground = true;
   bool pinCheckOpen = false;
@@ -62,27 +62,25 @@ class _TabsScreenState extends State<TabsScreen> with WidgetsBindingObserver, Si
 
   @override
   void initState() {
-    Globals().globalBuildContext = context;
-
     super.initState();
 
     Globals().tabController = TabController(initialIndex: 0, length: Globals().router.routes.length, vsync: this);
     Globals().tabController.addListener(_handleTabSelection);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => initializeClients());
-
+    _handleIncomingUniLinks();
     WidgetsBinding.instance.addObserver(this);
   }
 
-  Future<void> initializeClients() async {
-    String username = (await getUsername())!;
-    String phrase = (await getPhrase())!;
-    await PkidClient(username, phrase).initializePkidClient();
-    await SocketConnection(username).initializeSocketClient();
+  void _handleIncomingUniLinks() {
+    _sub = uriLinkStream.listen((Uri? uri) {
+      if (!mounted) return;
+      print('got uri: $uri');
+    });
   }
 
   @override
   void dispose() {
+    _sub?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -92,6 +90,8 @@ class _TabsScreenState extends State<TabsScreen> with WidgetsBindingObserver, Si
 
   @override
   Widget build(BuildContext context) {
+    Globals().globalBuildContext = context;
+
     return Scaffold(
       appBar: PreferredSize(
         child: new AppBar(

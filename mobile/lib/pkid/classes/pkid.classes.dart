@@ -15,13 +15,15 @@ class PkidClient {
 
   PkidClient(this.username, this.phrase);
 
-  Future<void> initializePkidClient() async {
+  Future<void> initializePkidClient(bool migrate) async {
     String pKidUrl = AppConfig().pKidUrl();
 
     KeyPair keyPair = generateKeyPairFromMnemonic(phrase);
     Globals().pkidClient = FlutterPkid(pKidUrl, keyPair);
 
-    await _addMigrationIfNeeded();
+    if (migrate == true) {
+      await _addMigrationIfNeeded();
+    }
     await getEmailFromPkidAndStore();
     await getPhoneFromPkidAndStore();
 
@@ -31,28 +33,6 @@ class PkidClient {
       print('[PKID] Client disconnected');
       disconnectClient();
     });
-  }
-
-  Future<void> getEmailFromPkidAndStore() async {
-    Map<String, dynamic> emailData = await getEmailFromPKid();
-
-    if (emailData['email'] == null) return;
-
-    Map<String, String?> email = emailData['email'];
-    if (email['email'] != null) {
-      await setEmail((email['email'])!, email['sei']);
-    }
-  }
-
-  Future<void> getPhoneFromPkidAndStore() async {
-    Map<String, dynamic> phoneData = await getPhoneFromPkid();
-
-    if (phoneData['phone'] == null) return;
-
-    Map<String, String?> phone = phoneData['phone'];
-    if (phone['phone'] != null) {
-      await setPhone((phone['phone'])!, phone['spi']);
-    }
   }
 
   Future<void> _addMigrationIfNeeded() async {

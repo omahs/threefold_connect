@@ -14,13 +14,13 @@ export const findUserByPublicKeyQuery = (publicKey: string) => {
     };
 };
 
-export const updateEmailOfUserQuery = (username: string, email: string) => {
+export const updateEmailOfUserQuery = (userId: string, email: string) => {
     return {
         data: {
             email: email,
         },
         where: {
-            username: username,
+            userId: userId,
         },
     };
 };

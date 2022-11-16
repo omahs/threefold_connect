@@ -31,7 +31,7 @@ Future<bool> updateEmailAddressOfUser() async {
   Response res = await http.put(url, headers: loginRequestHeaders, body: encodedBody);
   print("updateEmailAddressOfUser with code ${res.statusCode}");
 
-  if (res.statusCode == 201) return true;
+  if (res.statusCode == 200) return true;
   return false;
 }
 

@@ -13,6 +13,7 @@ import 'package:threebotlogin/core/crypto/services/crypto.service.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
+import 'package:threebotlogin/pkid/helpers/pkid.helpers.dart';
 import 'package:threebotlogin/views/identity/helpers/identity.helpers.dart';
 import 'package:threebotlogin/views/register/classes/register.classes.dart';
 import 'package:threebotlogin/views/register/helpers/register.helpers.dart';
@@ -187,6 +188,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setEmail(_registrationData.email, null);
     setUsername(_registrationData.username);
     setPhrase(_registrationData.phrase);
+
+    await saveEmailToPKid();
 
     sendVerificationEmail(_registrationData.username, _registrationData.email, base64.encode(_registrationData.kp.pk));
 
