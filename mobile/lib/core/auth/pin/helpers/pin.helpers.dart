@@ -5,7 +5,6 @@ import 'package:threebotlogin/core/storage/globals.storage.dart';
 
 Future<bool?> authenticateYourself() async {
   String? pin = await getPin();
-  print( Globals().globalBuildContext);
   bool? authenticated = await Navigator.push(
       Globals().globalBuildContext,
       MaterialPageRoute(

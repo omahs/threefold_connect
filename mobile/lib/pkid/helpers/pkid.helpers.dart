@@ -27,9 +27,6 @@ Future<void> savePhoneToPKidForMigration() async {
   Map<String, String?> phone = await getPhone();
   var phonePKidResult = await Globals().pkidClient?.getPKidDoc('phone');
 
-  print('hi');
-  print(phonePKidResult);
-
   // Phone is not in PKID yet
   if (!phonePKidResult.containsKey('success') && phone['phone'] != null) {
     if (phone['spi'] != null) {

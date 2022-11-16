@@ -22,8 +22,6 @@ Future<bool> authenticateWithBiometrics() async {
 Future<String> getBiometricDeviceName() async {
   List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
 
-  print(availableBiometrics);
-
   if (availableBiometrics.contains(BiometricType.strong) || availableBiometrics.contains(BiometricType.weak)) {
     return "Face / Fingerprint";
   }

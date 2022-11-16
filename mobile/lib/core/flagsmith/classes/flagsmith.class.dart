@@ -57,11 +57,11 @@ class Flags {
     String? username = await getUsername();
 
     if (username == null) {
-      return (await client.hasFeatureFlag(name));
+      return (await client.isFeatureFlagEnabled(name));
     }
 
     Identity user = Identity(identifier: username);
-    return (await client.hasFeatureFlag(name, user: user));
+    return (await client.isFeatureFlagEnabled(name, user: user));
   }
 
   Future<String?> getFlagValueByFeatureName(String name) async {
