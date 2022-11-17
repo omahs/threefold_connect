@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/api/3bot/services/connection.3botservice.dart';
+import 'package:threebotlogin/api/3bot/services/connection.service.dart';
 import 'package:threebotlogin/app_config.dart';
 import 'package:threebotlogin/core/components/tabs/tabs.view.dart';
 import 'package:threebotlogin/core/config/helpers/config.helpers.dart';

@@ -93,7 +93,7 @@ Future<void> getEmailFromPkidAndStore() async {
       await setEmail(email['email'], null);
     }
   } catch (e) {
-    print("Error when destructing PKID data: $e");
+    print("Error when destructing PKID data for email: $e");
     await setEmail('', null);
     await saveEmailToPKid();
   }
@@ -113,7 +113,7 @@ Future<void> getPhoneFromPkidAndStore() async {
       await setPhone(phone['spi'], null);
     }
   } catch (e) {
-    print("Error when destructing PKID data: $e");
+    print("Error when destructing PKID data for phone: $e");
     await setPhone('', null);
     await savePhoneToPKid();
   }

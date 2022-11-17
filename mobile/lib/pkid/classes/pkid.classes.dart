@@ -24,8 +24,9 @@ class PkidClient {
     if (migrate == true) {
       await _addMigrationIfNeeded();
     }
-    await getEmailFromPkidAndStore();
-    await getPhoneFromPkidAndStore();
+
+    if (Globals().canVerifyEmail) await getEmailFromPkidAndStore();
+    if (Globals().canVerifyPhone) await getPhoneFromPkidAndStore();
 
     print('[PKID] Client established for user $username');
 

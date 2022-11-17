@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/core/auth/pin/views/auth.view.dart';
+import 'package:threebotlogin/core/enums/core.enum.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/storage/auth/auth.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
+import 'package:threebotlogin/login/helpers/login.helpers.dart';
 import 'package:uni_links/uni_links.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -71,10 +73,22 @@ class _TabsScreenState extends State<TabsScreen> with WidgetsBindingObserver, Si
     WidgetsBinding.instance.addObserver(this);
   }
 
-  void _handleIncomingUniLinks() {
-    _sub = uriLinkStream.listen((Uri? uri) {
+  void _handleIncomingUniLinks() async {
+    _sub = uriLinkStream.listen((Uri? url) async {
       if (!mounted) return;
-      print('got uri: $uri');
+      if (url == null) return;
+
+      print('Received URI: $url');
+      print(url.host);
+
+      if (url.host == UniLinkTypes.login) {
+        await openLoginMobile(url);
+      }
+
+      if (url.host == UniLinkTypes.sign) {
+        // return await handleSignUniLink(link, context);
+      }
+
     });
   }
 

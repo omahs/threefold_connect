@@ -126,3 +126,67 @@ Future<void> setIsMigratedInPkid() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool('migratedInPkid', true);
 }
+
+Future<void> setLocationId(String locationId) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  List<dynamic> locationIdList = await getLocationIdList();
+
+  locationIdList.add(locationId);
+
+  String locationIdListAsJson = jsonEncode(locationIdList);
+
+  prefs.remove('locationIdList');
+  prefs.setString('locationIdList', locationIdListAsJson);
+}
+
+Future<List<dynamic>> getLocationIdList() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  String? locationIdListAsJson = prefs.getString('locationIdList');
+
+  List<dynamic> locationIdList = [];
+
+  if(locationIdListAsJson != null) {
+    locationIdList = jsonDecode(locationIdListAsJson);
+  }
+  else {
+    locationIdList = [];
+  }
+
+  return locationIdList;
+}
+
+Future<void> setScopePermissions(String scopePermissions) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.remove('scopePermissions');
+  prefs.setString('scopePermissions', scopePermissions);
+}
+
+Future<String?> getScopePermissions() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('scopePermissions');
+}
+
+Future<void> setPreviousScopePermissions(String appId, String? scopePermissions) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('$appId-scopePreviousPermissions');
+  await prefs.setString('$appId-scopePreviousPermissions', scopePermissions!);
+}
+
+Future<String?> getPreviousScopePermissions(String appId) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('$appId-scopePreviousPermissions');
+}
+
+Future<bool> setPreviousState(String state) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return await prefs.setString("previousState", state);
+}
+
+Future<String?> getPreviousState() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString("previousState");
+}
+
+

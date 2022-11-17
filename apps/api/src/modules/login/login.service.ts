@@ -35,8 +35,7 @@ export class LoginService {
             room = username.toLowerCase();
         }
 
-        console.log(room);
-
+        console.log('Sending login attempt to room: ', room);
         await this.userGateway.emitSignedLoginAttempt(room, loginAttempt);
     }
 }

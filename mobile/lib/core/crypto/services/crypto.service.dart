@@ -19,6 +19,23 @@ Future<String> signData(String data, Uint8List sk) async {
   return base64.encode(signed);
 }
 
+Future<String?> decrypt(String encodedCipherText, Uint8List pk, Uint8List sk) async {
+  Uint8List cipherText = base64.decode(encodedCipherText);
+  Uint8List publicKey = Sodium.cryptoSignEd25519PkToCurve25519(pk);
+  Uint8List secretKey = Sodium.cryptoSignEd25519SkToCurve25519(sk);
+
+  try {
+    Uint8List decryptedData = Sodium.cryptoBoxSealOpen(cipherText, publicKey, secretKey);
+    return new String.fromCharCodes(decryptedData);
+  } catch (e) {
+    return null;
+  }
+}
+
+Future<KeyPair> generateKeyPairFromEntropy(Uint8List entropy) async {
+  return Sodium.cryptoSignSeedKeypair(entropy);
+}
+
 Future<Uint8List> generateDerivedSeed(String appId) async {
   Uint8List privateKey = await getPrivateKey();
   String encodedPrivateKey = base64.encode(privateKey);
@@ -27,4 +44,13 @@ Future<Uint8List> generateDerivedSeed(String appId) async {
   List<int> hashKey = generator.generateKey(encodedPrivateKey, appId, 1000, 32);
 
   return new Uint8List.fromList(hashKey);
+}
+
+Future<Map<String, String>> encrypt(String data, Uint8List pk, Uint8List sk) async {
+  Uint8List nonce = CryptoBox.randomNonce();
+  Uint8List private = Sodium.cryptoSignEd25519SkToCurve25519(sk);
+  Uint8List message = Uint8List.fromList(data.codeUnits);
+  Uint8List encryptedData = Sodium.cryptoBoxEasy(message, nonce, pk, private);
+
+  return {'nonce': base64.encode(nonce), 'ciphertext': base64.encode(encryptedData)};
 }

@@ -7,6 +7,7 @@ import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/flagsmith/classes/flagsmith.class.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 import 'package:threebotlogin/pkid/classes/pkid.classes.dart';
 import 'package:threebotlogin/pkid/helpers/pkid.helpers.dart';
@@ -81,8 +82,8 @@ class _RecoverScreenState extends State<RecoverScreen> {
 
     await PkidClient(validationMnemonic['username'], mnemonic).initializePkidClient(false);
 
-    await getEmailFromPkidAndStore();
-    await getPhoneFromPkidAndStore();
+    if (Globals().canVerifyEmail) await getEmailFromPkidAndStore();
+    if (Globals().canVerifyPhone) await getPhoneFromPkidAndStore();
 
     await Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePinScreen(hideBackButton: true)));
 

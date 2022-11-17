@@ -53,6 +53,7 @@ export const initializeSockets = () => {
 
     state.socket.on(SocketTypes.LOGIN_CALLBACK, async (loginResult: ISocketLoginResult) => {
         console.log('[SOCKET:RECEIVE]: LOGIN_CALLBACK');
+        console.log(loginResult);
         await socketCallbackLogin(loginResult);
     });
 

@@ -17,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     Globals().globalBuildContext = context;
+
     return LayoutDrawer(
       titleText: 'Home',
       content: Container(

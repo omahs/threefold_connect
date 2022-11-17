@@ -48,6 +48,7 @@ export const loginUserWeb = async () => {
     const roomToJoinRandom: ISocketJoin = { room: name };
     emitJoin(roomToJoinRandom);
 
+    console.log('this is the login attempt');
     const loginAttempt: ISocketLogin = { username: name, encryptedLoginAttempt: encryptedAttempt };
     emitLogin(loginAttempt);
 };
@@ -57,7 +58,7 @@ export const loginUserMobile = async () => {
     const roomToJoin: ISocketJoin = { room: randomRoom };
     emitJoin(roomToJoin);
 
-    const uniLinkUrl = `${Config.APP_DEEPLINK}login/?state=${state.value}&scope=${scope.value}&appId=${appId.value}&randomRoom=${randomRoom}&appPublicKey=${appPublicKey.value}&redirectUrl=${redirectUrl.value}`;
+    const uniLinkUrl = `${Config.APP_DEEPLINK}login/?state=${state.value}&scope=${scope.value}&appId=${appId.value}&room=${randomRoom}&appPublicKey=${appPublicKey.value}&redirectUrl=${redirectUrl.value}`;
 
     window.open(uniLinkUrl);
 };

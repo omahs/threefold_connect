@@ -4,7 +4,7 @@ import 'package:bip39/bip39.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sodium/flutter_sodium.dart';
-import 'package:threebotlogin/api/3bot/services/user.3botservice.dart';
+import 'package:threebotlogin/api/3bot/services/user.service.dart';
 import 'package:threebotlogin/api/kyc/services/kyc.service.dart';
 import 'package:threebotlogin/core/auth/pin/views/change.pin.view.dart';
 import 'package:threebotlogin/core/components/dialogs/loading.dialog.dart';

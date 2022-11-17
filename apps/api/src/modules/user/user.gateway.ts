@@ -120,6 +120,8 @@ export class UserGateway {
     }
 
     async emitSignedLoginAttempt(room: string, data: LoginAttemptDto): Promise<void> {
+        console.log('emitted data');
+        console.log(data);
         this.server.to(room).emit(SocketTypes.LOGIN_CALLBACK, data);
     }
 

@@ -1,3 +1,18 @@
+import 'package:threebotlogin/login/classes/login.classes.dart';
+
+class NewLoginEvent {
+  Login? loginData;
+
+  NewLoginEvent({this.loginData});
+}
+
+
+class PopAllLoginEvent {
+  String emitCode;
+
+  PopAllLoginEvent(this.emitCode);
+}
+
 class CloseAllLoginEvent {
   CloseAllLoginEvent();
 }
@@ -36,12 +51,6 @@ class GoSupportEvent {
 
 class GoWalletEvent {
   GoWalletEvent();
-}
-
-class UniLinkEvent {
-  Uri link;
-
-  UniLinkEvent(this.link);
 }
 
 class PhoneVerifiedEvent {

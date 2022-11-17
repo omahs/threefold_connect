@@ -2,7 +2,9 @@ import 'package:threebotlogin/app_config.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
+import 'package:threebotlogin/login/classes/login.classes.dart';
 import 'package:threebotlogin/sockets/enums/socket.enums.dart';
+import 'package:threebotlogin/sockets/helpers/socket.helpers.dart';
 
 class SocketConnection {
   late IO.Socket socket;
@@ -48,11 +50,13 @@ class SocketConnection {
     socket.on(SocketListenerTypes.login, (data) async {
       print('[SOCKET:RECEIVE]: LOGIN');
 
-      // bool valid = checkIfLoginAttemptIsValid(data);
-      // if (!valid) return;
-      //
-      // Login loginData = await Login.createAndDecryptLoginObject(data);
-      // Events().emit(NewLoginEvent(loginData: loginData));
+      bool valid = checkIfLoginAttemptIsValid(data);
+      if (!valid) return;
+
+      Login? loginData = await Login.createAndDecryptLoginObject(data);
+      if (loginData == null) return;
+
+      Events().emit(NewLoginEvent(loginData: loginData));
     });
 
     Events().onEvent(CloseSocketEvent().runtimeType, closeSocketConnection);

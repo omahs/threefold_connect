@@ -1,4 +1,4 @@
-import 'package:threebotlogin/api/3bot/services/user.3botservice.dart';
+import 'package:threebotlogin/api/3bot/services/user.service.dart';
 
 bool isValidUsername(String value) {
   Pattern pattern = r'^[a-zA-Z0-9]+$';

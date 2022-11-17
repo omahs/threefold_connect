@@ -25,7 +25,7 @@ export class LoginAttemptDto {
     @MaxLength(55)
     @IsString()
     @IsNotEmpty()
-    username: string;
+    doubleName: string;
 
     @IsNotEmpty()
     signedAttempt: SignedLoginAttemptDto;

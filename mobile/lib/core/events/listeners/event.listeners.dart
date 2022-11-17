@@ -3,6 +3,7 @@ import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/yggdrasil/classes/yggdrasil.classes.dart';
+import 'package:threebotlogin/login/helpers/login.helpers.dart';
 import 'package:threebotlogin/phone/verification/phone.verification.dart';
 import 'package:threebotlogin/views/home/views/home.view.dart';
 import 'package:threebotlogin/views/recover/dialogs/recover.dialogs.dart';
@@ -30,5 +31,10 @@ Future<void> initializeEventListeners() async {
 
   Events().onEvent(PhoneVerifiedEvent().runtimeType, (PhoneVerifiedEvent event) {
     phoneVerification();
+  });
+
+  Events().onEvent(NewLoginEvent().runtimeType, (NewLoginEvent event) async {
+    if (event.loginData == null) return;
+    await openLogin(event.loginData!);
   });
 }

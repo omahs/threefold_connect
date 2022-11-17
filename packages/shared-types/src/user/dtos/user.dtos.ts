@@ -29,6 +29,15 @@ export class UsernameDto {
     username: string;
 }
 
+export class DoubleNameDto {
+    @Validate(EndsWith3Bot)
+    @MinLength(6)
+    @MaxLength(55)
+    @IsString()
+    @IsNotEmpty()
+    doubleName: string;
+}
+
 export class PublicKeyDto {
     @IsBase64()
     @IsString()

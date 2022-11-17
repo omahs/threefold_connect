@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:flutter_sodium/flutter_sodium.dart';
-import 'package:threebotlogin/api/3bot/services/recover.3botservice.dart';
+import 'package:threebotlogin/api/3bot/services/recover.service.dart';
 import 'package:threebotlogin/core/crypto/services/crypto.service.dart';
 import 'transform.utils.dart';
 
