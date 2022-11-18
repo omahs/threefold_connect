@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -189,8 +188,6 @@ Future<Map<String, String>> encryptLoginData(String publicKey, Map<String, dynam
 }
 
 Future<void> addDigitalTwinToBackend(Uint8List derivedSeed, String appId) async {
-  String username = (await getUsername())!;
-
   KeyPair dtKeyPair = await generateKeyPairFromEntropy(derivedSeed);
   String dtEncodedPublicKey = base64.encode(dtKeyPair.pk);
 

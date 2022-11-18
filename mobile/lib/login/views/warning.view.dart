@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/core/events/classes/event.classes.dart';
-import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/styles/color.styles.dart';
 
 class WarningScreen extends StatefulWidget {

@@ -1,12 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
-import 'package:threebotlogin/core/storage/kyc/kyc.storage.dart';
 import 'package:threebotlogin/core/storage/wallet/wallet.storage.dart';
 import 'package:threebotlogin/login/classes/scope.classes.dart';
-import 'package:threebotlogin/login/enums/scope.enums.dart';
 import 'package:threebotlogin/login/helpers/login.helpers.dart';
 import 'package:threebotlogin/views/wallet/classes/wallet.classes.dart';
 import 'package:threebotlogin/views/wallet/configs/wallet.config.dart';
@@ -239,7 +236,6 @@ class _PreferenceDialogState extends State<PreferenceDialog> {
                               ),
                             );
                           });
-                      break;
                   }
                   return Container();
                 },
