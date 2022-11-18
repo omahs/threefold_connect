@@ -34,7 +34,7 @@ class Sign {
         dataUrl = json['dataUrl'],
         friendlyName = json['friendlyName'],
         appId = json['appId'],
-        isJson = json['isJson'] as bool?,
+        isJson = (json['isJson']) == 'true',
         type = json['type'],
         randomRoom = json['randomRoom'],
         redirectUrl = json['redirectUrl'],

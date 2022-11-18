@@ -58,6 +58,8 @@ class _SignScreenState extends State<SignScreen> with BlockAndRunMixin {
     }
 
     try {
+      newHash = await hashDataFromUrl(widget.signData.dataUrl!);
+
       Uri url = Uri.parse(widget.signData.dataUrl!);
       Response r = await http.get(url);
 
@@ -166,10 +168,7 @@ class _SignScreenState extends State<SignScreen> with BlockAndRunMixin {
       updateMessage = 'Verifying hash.. ';
       setState(() {});
 
-      newHash = hashData(widget.signData.dataUrl!);
-
       if (newHash != widget.signData.hashedDataUrl!) {
-        // updateMessage = 'Could not verify hash ';
         isBusy = false;
         setState(() {});
         errorMessage = 'Cant verify hash';
@@ -372,7 +371,6 @@ class _SignScreenState extends State<SignScreen> with BlockAndRunMixin {
 
   Widget jsonDataView() {
     return RawScrollbar(
-      isAlwaysShown: true,
       thumbColor: Theme.of(context).primaryColor,
       thickness: 3,
       child: Container(

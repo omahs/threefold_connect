@@ -29,19 +29,19 @@ export const signUserMobile = () => {
 };
 
 export const signUserWeb = async () => {
-    const doubleName = username.value + '.3bot';
+    const name = username.value + '.3bot';
 
-    const roomToJoinUser: ISocketJoin = { room: doubleName };
+    const roomToJoinUser: ISocketJoin = { room: name };
     emitJoin(roomToJoinUser);
 
-    const pk = await getPublicKeyOfUsername(doubleName);
+    const pk = await getPublicKeyOfUsername(name);
 
     if (pk.length === 1) return;
 
     const randomRoom = nanoid();
 
     const objectToEncrypt = JSON.stringify({
-        doubleName: doubleName,
+        username: name,
         state: state.value,
         isJson: isJson.value,
         appId: appId.value,
@@ -54,12 +54,12 @@ export const signUserWeb = async () => {
 
     const encryptedAttempt = encrypt(objectToEncrypt, pk);
 
-    const roomToLeaveUser: ISocketLeave = { room: doubleName };
+    const roomToLeaveUser: ISocketLeave = { room: name };
     emitLeave(roomToLeaveUser);
 
     const roomToJoinRandom: ISocketJoin = { room: randomRoom };
     emitJoin(roomToJoinRandom);
 
-    const signAttempt: ISocketSign = { doubleName: doubleName, encryptedSignAttempt: encryptedAttempt };
+    const signAttempt: ISocketSign = { username: name, encryptedSignAttempt: encryptedAttempt };
     emitSign(signAttempt);
 };

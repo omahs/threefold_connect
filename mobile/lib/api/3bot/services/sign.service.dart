@@ -21,7 +21,7 @@ Future<Response> cancelSign() async {
 
 Future<Response> sendSignedData(
     String state, String socketRoom, String signedDataIdentifier, String appId, String dataHash) async {
-  Uri url = Uri.parse('$threeBotApiUrl/signedSignDataAttempt');
+  Uri url = Uri.parse('$threeBotApiUrl/sign/signed-attempt');
   print('Sending call: ${url.toString()}');
 
   String timestamp = new DateTime.now().millisecondsSinceEpoch.toString();

@@ -9,6 +9,9 @@ import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:pbkdf2ns/pbkdf2ns.dart';
 import 'package:crypto/crypto.dart';
 
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+
 KeyPair generateKeyPairFromMnemonic(String mnemonic) {
   String entropy = bip39.mnemonicToEntropy(mnemonic);
   return Sodium.cryptoSignSeedKeypair(toHex(entropy));
@@ -60,4 +63,10 @@ String hashData(String data) {
   final Uint8List unit8List = Uint8List.fromList(codeUnits);
 
   return base64.encode(Sodium.cryptoHash(unit8List));
+}
+
+Future<String> hashDataFromUrl(String url) async {
+  Uri uri = Uri.parse(url);
+  Response r = await http.get(uri);
+  return hashData((json.encode(json.decode(r.body))));
 }

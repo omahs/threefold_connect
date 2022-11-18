@@ -24,9 +24,6 @@ export class UserService {
     }
 
     async findByUsername(username: string, withException: boolean = false): Promise<UserDto> {
-        console.log('joehoeee');
-        console.log(username);
-
         const user = await this._prisma.user.findUnique(findUserByUsernameQuery(username));
         if (!user && !withException) {
             console.error(`Username ${username} not found`);

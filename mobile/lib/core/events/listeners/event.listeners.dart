@@ -5,6 +5,7 @@ import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/yggdrasil/classes/yggdrasil.classes.dart';
 import 'package:threebotlogin/login/helpers/login.helpers.dart';
 import 'package:threebotlogin/phone/verification/phone.verification.dart';
+import 'package:threebotlogin/sign/helpers/sign.helpers.dart';
 import 'package:threebotlogin/views/home/views/home.view.dart';
 import 'package:threebotlogin/views/recover/dialogs/recover.dialogs.dart';
 
