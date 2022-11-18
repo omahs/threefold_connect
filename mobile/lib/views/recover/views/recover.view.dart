@@ -89,6 +89,15 @@ class _RecoverScreenState extends State<RecoverScreen> {
 
     Events().emit(RecoveredEvent());
     Navigator.of(context).popUntil((route) => route.isFirst);
+
+    Events().onEvent(PopAllLoginEvent("").runtimeType, close);
+
     await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabsScreen()));
+  }
+
+  close(PopAllLoginEvent e) {
+    if (mounted) {
+      Navigator.pop(context, false);
+    }
   }
 }
