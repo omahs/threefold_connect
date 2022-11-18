@@ -1,4 +1,5 @@
 import 'package:threebotlogin/login/classes/login.classes.dart';
+import 'package:threebotlogin/sign/classes/sign.classes.dart';
 
 class NewLoginEvent {
   Login? loginData;
@@ -6,12 +7,24 @@ class NewLoginEvent {
   NewLoginEvent({this.loginData});
 }
 
+class NewSignEvent {
+  Sign? signData;
+
+  NewSignEvent({this.signData});
+}
 
 class PopAllLoginEvent {
   String emitCode;
 
   PopAllLoginEvent(this.emitCode);
 }
+
+class PopAllSignEvent {
+  String emitCode;
+
+  PopAllSignEvent(this.emitCode);
+}
+
 
 class CloseAllLoginEvent {
   CloseAllLoginEvent();

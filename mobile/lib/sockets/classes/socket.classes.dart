@@ -3,6 +3,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/login/classes/login.classes.dart';
+import 'package:threebotlogin/sign/classes/sign.classes.dart';
 import 'package:threebotlogin/sockets/enums/socket.enums.dart';
 import 'package:threebotlogin/sockets/helpers/socket.helpers.dart';
 
@@ -45,6 +46,12 @@ class SocketConnection {
 
     socket.on(SocketListenerTypes.sign, (data) async {
       print('[SOCKET:RECEIVE]: SIGN');
+
+      Sign? signData = await Sign.createAndDecryptSignObject(data);
+      if (signData == null) return;
+
+      Events().emit(NewSignEvent(signData: signData));
+
     });
 
     socket.on(SocketListenerTypes.login, (data) async {

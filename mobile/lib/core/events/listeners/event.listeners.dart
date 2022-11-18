@@ -37,4 +37,9 @@ Future<void> initializeEventListeners() async {
     if (event.loginData == null) return;
     await openLogin(event.loginData!);
   });
+
+  Events().onEvent(NewSignEvent().runtimeType, (NewSignEvent event) async {
+    if (event.signData == null) return;
+    await openSign(event.signData!);
+  });
 }

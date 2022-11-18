@@ -54,3 +54,10 @@ Future<Map<String, String>> encrypt(String data, Uint8List pk, Uint8List sk) asy
 
   return {'nonce': base64.encode(nonce), 'ciphertext': base64.encode(encryptedData)};
 }
+
+String hashData(String data) {
+  final List<int> codeUnits = data.codeUnits;
+  final Uint8List unit8List = Uint8List.fromList(codeUnits);
+
+  return base64.encode(Sodium.cryptoHash(unit8List));
+}
