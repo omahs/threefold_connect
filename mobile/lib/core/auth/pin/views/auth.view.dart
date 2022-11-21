@@ -15,10 +15,10 @@ import 'package:threebotlogin/core/styles/color.styles.dart';
 class AuthenticationScreen extends StatefulWidget {
   final int pinLength = 4;
   final String correctPin;
-  final String userMessage;
+  final String? userMessage;
 
   @override
-  AuthenticationScreen({required this.correctPin, required this.userMessage});
+  AuthenticationScreen({required this.correctPin, this.userMessage});
 
   @override
   AuthenticationScreenState createState() => AuthenticationScreenState();
@@ -136,7 +136,7 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  child: Text("Please authenticate to " + widget.userMessage),
+                  child: Text(widget.userMessage != null ? widget.userMessage! : "Please enter your PIN"),
                   padding: const EdgeInsets.only(bottom: 50),
                 ),
                 Container(
