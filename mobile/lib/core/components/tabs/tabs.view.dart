@@ -88,7 +88,6 @@ class _TabsScreenState extends State<TabsScreen> with WidgetsBindingObserver, Si
       if (url.host == UniLinkTypes.sign) {
         // return await handleSignUniLink(link, context);
       }
-
     });
   }
 
@@ -116,31 +115,20 @@ class _TabsScreenState extends State<TabsScreen> with WidgetsBindingObserver, Si
       ),
       body: DefaultTabController(
         length: Globals().router.routes.length,
-        child: WillPopScope(
-          child: Scaffold(
-            body: Stack(
-              children: <Widget>[
-                SafeArea(
-                    child: TabBarView(
-                  controller: Globals().tabController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: Globals().router.getContent(),
-                )),
-              ],
-            ),
+        child: Scaffold(
+          body: Stack(
+            children: <Widget>[
+              SafeArea(
+                  child: TabBarView(
+                controller: Globals().tabController,
+                physics: NeverScrollableScrollPhysics(),
+                children: Globals().router.getContent(),
+              )),
+            ],
           ),
-          onWillPop: onWillPop,
         ),
       ),
       resizeToAvoidBottomInset: false,
     );
-  }
-
-  Future<bool> onWillPop() {
-    if (Globals().tabController.index == 0) {
-      return Future(() => true); // if home screen exit
-    }
-
-    return Future(() => false);
   }
 }

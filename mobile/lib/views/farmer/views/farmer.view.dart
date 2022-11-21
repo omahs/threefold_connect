@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
-import 'package:threebotlogin/core/events/classes/event.classes.dart';
-import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
@@ -52,8 +50,8 @@ class _FarmerScreenState extends State<FarmerScreen> with AutomaticKeepAliveClie
   _back() async {
     Uri? url = await webView.getUrl();
 
-    if (url.toString() == Globals().farmerUrl) {
-      Events().emit(GoHomeEvent());
+    if (url.toString() == Globals().farmerUrl + 'farmer') {
+      Globals().tabController.animateTo(0);
       return Future.value(true);
     }
 

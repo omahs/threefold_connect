@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:threebotlogin/core/crypto/utils/crypto.utils.dart';
-import 'package:threebotlogin/core/events/classes/event.classes.dart';
-import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
@@ -50,7 +48,7 @@ class _WalletScreenState extends State<WalletScreen> with AutomaticKeepAliveClie
     Uri? url = await webView.getUrl();
 
     if (url.toString() == Globals().newWalletUrl) {
-      Events().emit(GoHomeEvent());
+      Globals().tabController.animateTo(0);
       return Future.value(true);
     }
 

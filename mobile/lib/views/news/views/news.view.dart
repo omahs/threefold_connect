@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:threebotlogin/core/events/classes/event.classes.dart';
-import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/router/tabs/views/tabs.views.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/utils/clipboard.utils.dart';
 import 'package:threebotlogin/views/news/options/news.options.dart';
 
@@ -33,7 +32,7 @@ class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMi
     Uri? url = await webView.getUrl();
 
     if (url.toString().endsWith(cacheBuster)) {
-      Events().emit(GoHomeEvent());
+      Globals().tabController.animateTo(0);
       return Future.value(true);
     }
 
