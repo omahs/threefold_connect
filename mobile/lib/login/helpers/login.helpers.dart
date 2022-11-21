@@ -40,6 +40,7 @@ Future<void> openLogin(Login loginData) async {
 
   bool? authenticated = await authenticateYourself();
   if (authenticated == null || !authenticated) {
+    await cancelLogin();
     return;
   }
 
@@ -80,6 +81,7 @@ Future<void> openLoginMobile(Uri url) async {
 
   bool? authenticated = await authenticateYourself();
   if (authenticated == null || !authenticated) {
+    await cancelLogin();
     return;
   }
 

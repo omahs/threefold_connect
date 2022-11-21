@@ -79,7 +79,14 @@ export class UserGateway {
 
         // User joined + we are sure he can get notifications inside the app
         if (data.app) {
+            if (Object.values(this._socketRoom).includes(room)) {
+                const key = Object.keys(this._socketRoom).find(key => this._socketRoom[key] === room);
+                client.leave(room);
+                delete this._socketRoom[key];
+            }
+
             this._socketRoom[socketId] = room;
+            console.log(this._socketRoom);
         }
 
         if (Object.keys(this._messageQueue).includes(room) && Object.values(this._socketRoom).includes(room)) {
@@ -89,11 +96,26 @@ export class UserGateway {
 
     @SubscribeMessage(SocketTypes.LEAVE)
     async handleLeaveRoom(client: Socket, data: ISocketLeave) {
+        console.log('Leave');
         if (client.id == null) return;
         if (data.room == null) return;
 
         const socketId = client.id;
 
+        if (Object.keys(this._socketRoom).includes(socketId)) {
+            const room = this._socketRoom[socketId];
+            this._socketRoom[socketId] = null;
+
+            console.log('User ', room, ' left the room');
+            client.leave(room);
+        }
+    }
+
+    @SubscribeMessage(SocketTypes.DISCONNECT)
+    async handleDisconnect(client: Socket) {
+        if (client.id == null) return;
+
+        const socketId = client.id;
         if (Object.keys(this._socketRoom).includes(socketId)) {
             const room = this._socketRoom[socketId];
             this._socketRoom[socketId] = null;
