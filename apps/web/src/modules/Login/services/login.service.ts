@@ -48,7 +48,6 @@ export const loginUserWeb = async () => {
     const roomToJoinRandom: ISocketJoin = { room: name };
     emitJoin(roomToJoinRandom);
 
-    console.log('this is the login attempt');
     const loginAttempt: ISocketLogin = { username: name, encryptedLoginAttempt: encryptedAttempt };
     emitLogin(loginAttempt);
 };
