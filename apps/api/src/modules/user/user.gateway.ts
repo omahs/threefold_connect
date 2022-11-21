@@ -7,9 +7,9 @@ import {
     ISocketLeave,
     ISocketLogin,
     ISocketSign,
+    LoginAttemptDto,
     SocketEvents,
     SocketTypes,
-    LoginAttemptDto,
 } from 'shared-types';
 import { UserService } from './user.service';
 import { SignedSignAttemptDto } from '../sign/dtos/sign.dto';
@@ -31,6 +31,7 @@ export class UserGateway {
 
     @SubscribeMessage(SocketTypes.CHECK_NAME)
     async checkName(@MessageBody() data: ISocketCheckName) {
+        console.log('[SOCKET RECEIVE]: CHECK NAME: ', data.username);
         const exist = await this._userService.doesUserExist(data.username);
         return this.server.emit(exist ? SocketTypes.NAME_KNOWN : SocketTypes.NAME_UNKNOWN);
     }
@@ -38,6 +39,7 @@ export class UserGateway {
     @SubscribeMessage(SocketTypes.LOGIN)
     async handleLogin(@MessageBody() data: ISocketLogin) {
         if (!data.encryptedLoginAttempt) return;
+        console.log('[SOCKET RECEIVE]: LOGIN: ', data.username);
 
         data.type = SocketEvents.LOGIN;
         data.created = new Date().getTime();
@@ -53,6 +55,7 @@ export class UserGateway {
     @SubscribeMessage(SocketTypes.SIGN)
     async handleSign(@MessageBody() data: ISocketSign) {
         if (!data.encryptedSignAttempt) return;
+        console.log('[SOCKET RECEIVE]: LOGIN: ', data.username);
 
         data.type = SocketEvents.SIGN;
         data.created = new Date().getTime();
@@ -69,6 +72,8 @@ export class UserGateway {
     async handleJoinRoom(client: Socket, data: ISocketJoin) {
         if (client.id == null) return;
         if (data.room == null) return;
+
+        console.log('[SOCKET RECEIVE]: JOIN: ', data.room.toLowerCase());
 
         const socketId = client.id;
 
@@ -96,9 +101,10 @@ export class UserGateway {
 
     @SubscribeMessage(SocketTypes.LEAVE)
     async handleLeaveRoom(client: Socket, data: ISocketLeave) {
-        console.log('Leave');
         if (client.id == null) return;
         if (data.room == null) return;
+
+        console.log('[SOCKET RECEIVED]: LEAVE: ', data.room);
 
         const socketId = client.id;
 
@@ -115,6 +121,8 @@ export class UserGateway {
     async handleDisconnect(client: Socket) {
         if (client.id == null) return;
 
+        console.log('[SOCKET RECEIVED]: DISCONNECT: ', client.id);
+
         const socketId = client.id;
         if (Object.keys(this._socketRoom).includes(socketId)) {
             const room = this._socketRoom[socketId];
@@ -126,26 +134,32 @@ export class UserGateway {
     }
 
     async emitCancelLoginAttempt(username: string): Promise<void> {
+        console.log('[SOCKET EMIT]: CANCEL LOGIN: ', username);
         this.server.to(username).emit(SocketTypes.LOGIN_CANCEL, { scanned: true });
     }
 
     async emitCancelSignAttempt(username: string): Promise<void> {
+        console.log('[SOCKET EMIT]: CANCEL SIGN: ', username);
         this.server.to(username).emit(SocketTypes.SIGN_CANCEL, { scanned: true });
     }
 
     async emitEmailVerified(username: string): Promise<void> {
+        console.log('[SOCKET EMIT]: EMAIL VERIFIED: ', username);
         this.server.to(username).emit(SocketTypes.EMAIL_VERIFIED, '');
     }
 
     async emitSmsVerified(username: string): Promise<void> {
+        console.log('[SOCKET EMIT]: PHONE VERIFIED: ', username);
         this.server.to(username).emit(SocketTypes.PHONE_VERIFIED, '');
     }
 
     async emitSignedLoginAttempt(room: string, data: LoginAttemptDto): Promise<void> {
+        console.log('[SOCKET EMIT]: SIGNED LOGIN ATTEMPT: ', data.doubleName);
         this.server.to(room).emit(SocketTypes.LOGIN_CALLBACK, data);
     }
 
     async emitSignedSignAttempt(room: string, data: SignedSignAttemptDto): Promise<void> {
+        console.log('[SOCKET EMIT]: SIGNED SIGN ATTEMPT: ', data.doubleName);
         this.server.to(room).emit(SocketTypes.SIGN_CALLBACK, data);
     }
 

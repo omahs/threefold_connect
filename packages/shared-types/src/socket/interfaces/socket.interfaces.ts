@@ -26,12 +26,12 @@ export interface ISocketCheckName {
 }
 
 export interface ISocketLoginResult {
-    username: string;
+    doubleName: string;
     signedAttempt: string;
 }
 
 export interface ISocketSignResult {
-    username: string;
+    doubleName: string;
     signedAttempt: string;
 }
 
