@@ -1,5 +1,6 @@
 import 'package:threebotlogin/app_config_local.dart';
 import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
+import 'package:threebotlogin/core/storage/globals.storage.dart';
 
 class AppConfig extends EnvConfig {
   late AppConfigImpl appConfig;
@@ -9,8 +10,6 @@ class AppConfig extends EnvConfig {
       appConfig = AppConfigStaging();
     } else if (environment == Environment.Production) {
       appConfig = AppConfigProduction();
-    } else if (environment == Environment.Testing) {
-      appConfig = AppConfigTesting();
     } else if (environment == Environment.Local) {
       appConfig = AppConfigLocal();
     }
@@ -26,10 +25,6 @@ class AppConfig extends EnvConfig {
 
   String threeBotApiUrl() {
     return appConfig.threeBotApiUrl();
-  }
-
-  String threeBotFrontEndUrl() {
-    return appConfig.threeBotFrontEndUrl();
   }
 
   String threeBotSocketUrl() {
@@ -56,8 +51,6 @@ abstract class AppConfigImpl {
 
   String threeBotApiUrl();
 
-  String threeBotFrontEndUrl();
-
   String threeBotSocketUrl();
 
   String wizardUrl();
@@ -69,31 +62,27 @@ abstract class AppConfigImpl {
 
 class AppConfigProduction extends AppConfigImpl {
   String baseUrl() {
-    return "login.threefold.me";
+    return Globals().baseUrl;
   }
 
   String openKycApiUrl() {
-    return "https://openkyc.live";
+    return Globals().kycUrl;
   }
 
   String threeBotApiUrl() {
-    return "https://login.threefold.me/api";
-  }
-
-  String threeBotFrontEndUrl() {
-    return "https://login.threefold.me/";
+    return Globals().apiUrl;
   }
 
   String threeBotSocketUrl() {
-    return "wss://login.threefold.me";
+    return Globals().socketUrl;
   }
 
   String wizardUrl() {
-    return 'https://wizard.jimber.org/';
+    return Globals().wizardUrl;
   }
 
   String pKidUrl() {
-    return 'https://pkid.jimber.org/v1';
+    return Globals().pkidUrl;
   }
 
   Map<String, String> flagSmithConfig() {
@@ -103,72 +92,30 @@ class AppConfigProduction extends AppConfigImpl {
 
 class AppConfigStaging extends AppConfigImpl {
   String baseUrl() {
-    return "loginv2.staging.jimber.io";
+    return Globals().baseUrl;
   }
 
   String openKycApiUrl() {
-    return 'https://openkyc.staging.jimber.io';
+    return Globals().kycUrl;
   }
 
   String threeBotApiUrl() {
-    return "https://loginv2.staging.jimber.io/api";
-  }
-
-  String threeBotFrontEndUrl() {
-    return "https://loginv2.staging.jimber.io/";
+    return Globals().apiUrl;
   }
 
   String threeBotSocketUrl() {
-    return "wss://loginv2.staging.jimber.io";
+    return Globals().socketUrl;
   }
 
   String wizardUrl() {
-    return 'https://wizard.staging.jimber.io/';
+    return Globals().wizardUrl;
   }
 
   String pKidUrl() {
-    return 'https://pkid.staging.jimber.io/v1';
+    return Globals().pkidUrl;
   }
 
   Map<String, String> flagSmithConfig() {
     return {'url': 'https://flagsmith.jimber.io/api/v1/', 'apiKey': 'n6YyxDdrePqwAF49KCYx7S'};
   }
-}
-
-class AppConfigTesting extends AppConfigImpl {
-  String baseUrl() {
-    return "login.testing.jimber.org";
-  }
-
-  String openKycApiUrl() {
-    return "https://openkyc.testing.jimber.org";
-  }
-
-  String threeBotApiUrl() {
-    return "https://login.testing.jimber.org/api";
-  }
-
-  String threeBotFrontEndUrl() {
-    return "https://login.testing.jimber.org/";
-  }
-
-  String threeBotSocketUrl() {
-    return "wss://login.testing.jimber.org";
-  }
-
-  String wizardUrl() {
-    return 'https://wizard.staging.jimber.org/';
-  }
-
-  String pKidUrl() {
-    return 'https://pkid.staging.jimber.io/v1';
-  }
-
-  Map<String, String> flagSmithConfig() {
-    return {'url': 'https://flagsmith.jimber.io/api/v1/', 'apiKey': 'VtTsMwJwiF69QWFWHGEMKM'};
-  }
-}
-
-void setFallbackConfigs() {
-  print("Can't connect to FlagSmith, setting default configs... ");
 }

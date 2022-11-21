@@ -26,7 +26,6 @@ class Flags {
       await setDeviceTrait(user);
       await client.getFeatureFlags(user: user, reload: true);
     } catch (e) {
-      setFallbackConfigs();
       throw Exception('Error in in FlagSmith, please try again. If this issue persist, please contact support');
     }
   }
@@ -53,6 +52,12 @@ class Flags {
     Globals().farmerUrl = (await Flags().getFlagValueByFeatureName('farmer-url'))!;
     Globals().supportUrl = (await Flags().getFlagValueByFeatureName('chatbot-url'))!;
     Globals().termsAndConditionsUrl = (await Flags().getFlagValueByFeatureName('terms-and-conditions-url'))!;
+
+    Globals().baseUrl = (await Flags().getFlagValueByFeatureName('base-url'))!;
+    Globals().apiUrl = (await Flags().getFlagValueByFeatureName('api-url'))!;
+    Globals().pkidUrl = (await Flags().getFlagValueByFeatureName('pkid-url'))!;
+    Globals().kycUrl = (await Flags().getFlagValueByFeatureName('openkyc-url'))!;
+
   }
 
   Future<bool> hasFlagValueByFeatureName(String name) async {

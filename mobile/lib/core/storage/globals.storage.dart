@@ -40,6 +40,11 @@ class Globals {
 
   String termsAndConditionsUrl = 'https://library.threefold.me/info/legal/#/';
 
+  String baseUrl = 'login.threefold.me';
+  String socketUrl = 'wss://login.threefold.me';
+  String apiUrl = 'https://login.threefold.me/api';
+  String pkidUrl = 'https://pkid.jimber.org/v1';
+  String kycUrl = 'https://openkyc.live';
 
   int incorrectPinAttempts = 0;
   int lockedUntil = 0;
