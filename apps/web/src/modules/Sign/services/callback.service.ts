@@ -1,4 +1,4 @@
-import { ISocketSignResult } from 'types/src';
+import { ISocketSignResult } from 'shared-types/src';
 import { getPublicKeyOfUsername } from '@/modules/Login/services/external.service';
 import { encodeBase64 } from 'tweetnacl-util';
 import { verifySignature } from '@/modules/Core/utils/crypto.util';

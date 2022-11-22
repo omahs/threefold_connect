@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/app_config.dart';
 import 'package:threebotlogin/core/components/dialogs/custom.dialog.core.dart';
+import 'package:threebotlogin/core/config/classes/config.classes.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/core/utils/core.utils.dart';
 import 'package:threebotlogin/views/settings/helpers/settings.helpers.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter_sodium/flutter_sodium.dart';
-import 'package:threebotlogin/app_config.dart';
+import 'package:threebotlogin/core/config/classes/config.classes.dart';
 import 'package:threebotlogin/core/crypto/services/crypto.service.dart';
 import 'package:flutter_pkid/flutter_pkid.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';

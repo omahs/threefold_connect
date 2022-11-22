@@ -54,7 +54,7 @@
     import { emitCheckName } from '@/modules/Core/services/socket.service';
     import { useRouter } from 'vue-router';
     import { signUserWeb } from '@/modules/InitialSign/services/sign.service';
-    import { ISocketCheckName } from 'shared-types';
+    import { ISocketCheckName } from 'shared-types/src';
     import { validateName } from '@/modules/Core/validators/name.validate';
 
     const router = useRouter();

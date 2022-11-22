@@ -1,4 +1,5 @@
-import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
+import 'package:threebotlogin/core/config/config.dart';
+import 'package:threebotlogin/core/config/enums/config.enums.dart';
 
 class WalletConfig extends EnvConfig {
   late WalletConfigImpls impl;

@@ -1,5 +1,5 @@
 import 'package:flagsmith/flagsmith.dart';
-import 'package:threebotlogin/app_config.dart';
+import 'package:threebotlogin/core/config/classes/config.classes.dart';
 import 'package:threebotlogin/core/flagsmith/services/flagsmith.service.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';

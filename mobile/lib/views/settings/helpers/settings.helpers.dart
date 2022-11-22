@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:threebotlogin/app_config.dart';
 import 'package:threebotlogin/core/auth/pin/helpers/pin.helpers.dart';
 import 'package:threebotlogin/core/auth/pin/views/change.pin.view.dart';
-import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
+import 'package:threebotlogin/core/config/classes/config.classes.dart';
+import 'package:threebotlogin/core/config/enums/config.enums.dart';
 import 'package:threebotlogin/core/events/classes/event.classes.dart';
 import 'package:threebotlogin/core/events/services/events.service.dart';
 import 'package:threebotlogin/core/storage/auth/auth.storage.dart';

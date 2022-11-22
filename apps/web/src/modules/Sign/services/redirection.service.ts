@@ -1,4 +1,4 @@
-import { ISocketSignResult } from 'types/src';
+import { ISocketSignResult } from 'shared-types/src';
 import { redirectUrl } from '@/modules/Initial/data';
 import { createSafetyUrl } from '@/modules/Login/services/redirection.service';
 

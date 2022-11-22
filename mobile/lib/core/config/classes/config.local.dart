@@ -1,25 +1,20 @@
-import 'package:threebotlogin/app_config.dart';
+import 'package:threebotlogin/core/config/classes/config.classes.dart';
 
 class AppConfigLocal extends AppConfigImpl {
-
   String baseUrl() {
-    return "192.168.0.0:5000";
+    return "192.168.68.114:3001";
   }
 
   String openKycApiUrl() {
-    return "http://192.168.0.0:5005";
+    return 'https://openkyc.staging.jimber.io';
   }
 
   String threeBotApiUrl() {
-    return "http://192.168.0.0:5000/api";
-  }
-
-  String threeBotFrontEndUrl() {
-    return "http://192.168.0.0:8080/";
+    return "http://192.168.68.114:3001/api";
   }
 
   String threeBotSocketUrl() {
-    return "ws://192.168.0.0:5000";
+    return "http://192.168.68.114:3001";
   }
 
   String wizardUrl() {
@@ -27,13 +22,13 @@ class AppConfigLocal extends AppConfigImpl {
   }
 
   String pKidUrl() {
-      return 'http://192.168.2.174:8080/v1';
+    return 'https://pkid.staging.jimber.io/v1';
   }
 
   Map<String, String> flagSmithConfig() {
       return {
         'url': 'https://flagsmith.jimber.io/api/v1/',
-        'apiKey': 'm3L3gTcQYcFwCzSGxFJJWd'
+        'apiKey': 'T3vCeteoyrXNw82VGErnEL'
       };
   }
 }

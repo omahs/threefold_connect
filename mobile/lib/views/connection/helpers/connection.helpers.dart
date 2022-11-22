@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:threebotlogin/api/3bot/services/connection.service.dart';
-import 'package:threebotlogin/app_config.dart';
 import 'package:threebotlogin/core/components/tabs/tabs.view.dart';
-import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
+import 'package:threebotlogin/core/config/classes/config.classes.dart';
+import 'package:threebotlogin/core/config/enums/config.enums.dart';
 import 'package:threebotlogin/core/storage/core.storage.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 import 'package:threebotlogin/pkid/classes/pkid.classes.dart';

@@ -1,5 +1,6 @@
-import 'package:threebotlogin/app_config_local.dart';
-import 'package:threebotlogin/core/config/helpers/config.helpers.dart';
+import 'package:threebotlogin/core/config/classes/config.local.dart';
+import 'package:threebotlogin/core/config/config.dart';
+import 'package:threebotlogin/core/config/enums/config.enums.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 
 class AppConfig extends EnvConfig {

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:package_info/package_info.dart';
-import 'package:threebotlogin/app_config.dart';
+import 'package:threebotlogin/core/config/classes/config.classes.dart';
 import 'package:threebotlogin/core/storage/globals.storage.dart';
 
 String threeBotApiUrl = AppConfig().threeBotApiUrl();
