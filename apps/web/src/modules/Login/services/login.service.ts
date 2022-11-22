@@ -11,7 +11,7 @@ import {
     state,
     username,
 } from '@/modules/Initial/data';
-import { ISocketJoin, ISocketLeave, ISocketLogin } from 'shared-types';
+import { ISocketJoin, ISocketLeave, ISocketLogin } from 'shared-types/src';
 import { encrypt } from '@/modules/Core/utils/crypto.util';
 import { Config } from '@/modules/Core/configs/config';
 

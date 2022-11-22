@@ -5,7 +5,7 @@ import FailedPage from '@/modules/Core/views/FailedPage.vue';
 import { hasRequiredParameters } from '@/modules/Initial/services/query.service';
 import { setLocalStorageDataForLogin, setLocalStorageDataForSigning } from '@/modules/Core/services/storage.service';
 import { appId } from '@/modules/Initial/data';
-import { RequiredParameterRoutes } from 'shared-types';
+import { RequiredParameterRoutes } from 'shared-types/src';
 const coreRoutes = [
     {
         path: '/404',

@@ -12,7 +12,7 @@ import {
     ISocketSign,
     ISocketSignResult,
     SocketTypes,
-} from 'shared-types';
+} from 'shared-types/src';
 
 import { redirectWithCancelForSigning, socketCallbackSign } from '@/modules/Sign/services/callback.service';
 

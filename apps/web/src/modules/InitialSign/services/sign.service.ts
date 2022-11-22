@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { ISocketJoin, ISocketLeave, ISocketSign } from 'shared-types';
+import { ISocketJoin, ISocketLeave, ISocketSign } from 'shared-types/src';
 import { emitJoin, emitLeave, emitSign } from '@/modules/Core/services/socket.service';
 import { appId, redirectUrl, state, username } from '@/modules/Initial/data';
 import { dataHash, dataUrl, friendlyName, isJson } from '@/modules/InitialSign/data';

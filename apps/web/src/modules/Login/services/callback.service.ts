@@ -3,7 +3,7 @@ import { selectedImageId } from '@/modules/Initial/data';
 import { redirectToOriginalLocation, redirectWithCancel } from '@/modules/Login/services/redirection.service';
 import { encodeBase64 } from 'tweetnacl-util';
 import { isMobile } from '@/modules/Core/utils/mobile.util';
-import { ISocketLoginResult, ISocketSignedAttempt } from 'shared-types';
+import { ISocketLoginResult, ISocketSignedAttempt } from 'shared-types/src';
 import { verifySignature } from '@/modules/Core/utils/crypto.util';
 
 export const socketCallbackLogin = async (data: ISocketLoginResult) => {
